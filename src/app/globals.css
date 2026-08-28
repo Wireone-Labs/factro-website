@@ -1,26 +1,154 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Brand — #044AFE, the blue from the "o" mark in the Factro logo */
+  --color-brand-50: #eef3ff;
+  --color-brand-100: #dce7ff;
+  --color-brand-200: #b8cdff;
+  --color-brand-300: #8aacff;
+  --color-brand-400: #4a79ff;
+  --color-brand-500: #044afe;
+  --color-brand-600: #0339d6;
+  --color-brand-700: #032bae;
+  --color-brand-800: #042085;
+  --color-brand-900: #081c63;
+  --color-brand: #044afe;
+  --color-brand-soft: #4a79ff;
+  --color-brand-deep: #0339d6;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Ink — near-black neutral scale for text + dark surfaces */
+  --color-ink-950: #08070d;
+  --color-ink-900: #0f0e17;
+  --color-ink-800: #171522;
+  --color-ink-700: #211f30;
+  --color-ink-600: #383644;
+  --color-ink-500: #4a4957;
+  --color-ink-400: #6b6976;
+  --color-ink-300: #99969f;
+  --color-ink-200: #c6c4cb;
+  --color-ink-100: #e5e4e8;
+  --color-ink-50: #f4f4f6;
+
+  --color-mist: #f8f9fe;
+  --color-mist-2: #f0f1fb;
+  --color-line: #e6e5ec;
+
+  --color-success: #0ea472;
+  --color-warning: #e5a112;
+  --color-info: #0f8fe0;
+
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-blink: blink 1s step-end infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  @keyframes blink {
+    0%,
+    45% {
+      opacity: 1;
+    }
+    50%,
+    95% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+:root {
+  --background: #ffffff;
+  --foreground: var(--color-ink-900);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-brand) 24%, transparent);
+    color: var(--color-ink-900);
+  }
+
+  /* Scrolling stays fully functional — the scrollbar itself is just hidden. */
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+}
+
+@layer utilities {
+  .bg-grid {
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in srgb, var(--color-ink-900) 4%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--color-ink-900) 4%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 44px 44px;
+  }
+
+  .bg-dot-grid {
+    background-image: radial-gradient(
+      color-mix(in srgb, var(--color-ink-900) 12%, transparent) 1px,
+      transparent 1px
+    );
+    background-size: 20px 20px;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .mask-fade-x {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+  }
 }
