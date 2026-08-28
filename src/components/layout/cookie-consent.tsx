@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { Cookie } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -57,12 +58,12 @@ export function CookieConsent() {
                 <p className="mt-1.5 text-sm leading-relaxed text-ink-500">
                   Just enough to remember your preferences and understand how
                   the site is used — nothing sold, nothing shared. See our{" "}
-                  <a
+                  <Link
                     href="/privacy"
                     className="font-medium text-brand-600 underline underline-offset-2 hover:text-brand-700"
                   >
                     Privacy Policy
-                  </a>{" "}
+                  </Link>{" "}
                   for details.
                 </p>
               </div>

@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/container";
 import { RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { Reveal } from "@/components/ui/reveal";
 import { PLATFORM_STATS } from "@/data/stats";
+import { withBasePath } from "@/lib/utils";
 
 export function Proof() {
   return (
@@ -31,7 +32,7 @@ export function Proof() {
           </p>
           <div className="mt-6 flex items-center justify-center gap-3">
             <Image
-              src="/brand/logo-mark.png"
+              src={withBasePath("/brand/logo-mark.png")}
               alt=""
               width={28}
               height={28}

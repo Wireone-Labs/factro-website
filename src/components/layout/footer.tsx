@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Mail } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SIGN_IN_URL, BOOK_DEMO_HREF, SALES_MAILTO, SALES_EMAIL } from "@/data/nav";
+import { withBasePath } from "@/lib/utils";
 
 const FOOTER_COLUMNS = [
   {
@@ -44,7 +45,7 @@ export function Footer() {
           <div className="col-span-2 flex flex-col gap-4">
             <Link href="/" className="flex items-center" aria-label="Factro home">
               <Image
-                src="/brand/logo-wordmark-cropped.png"
+                src={withBasePath("/brand/logo-wordmark-cropped.png")}
                 alt="Factro"
                 width={883}
                 height={243}
@@ -70,16 +71,23 @@ export function Footer() {
                 {col.heading}
               </h3>
               <ul className="flex flex-col gap-2.5">
-                {col.links.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="text-sm text-ink-500 transition-colors hover:text-ink-900"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
+                {col.links.map((link) => {
+                  const className =
+                    "text-sm text-ink-500 transition-colors hover:text-ink-900";
+                  return (
+                    <li key={link.label}>
+                      {link.href.startsWith("/") ? (
+                        <Link href={link.href} className={className}>
+                          {link.label}
+                        </Link>
+                      ) : (
+                        <a href={link.href} className={className}>
+                          {link.label}
+                        </a>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}

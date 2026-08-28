@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { ScrollProgress } from "@/components/layout/scroll-progress";
 import { CookieConsent } from "@/components/layout/cookie-consent";
+import { withBasePath } from "@/lib/utils";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -51,8 +52,8 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
   },
   icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    icon: withBasePath("/favicon.ico"),
+    apple: withBasePath("/apple-touch-icon.png"),
   },
 };
 
