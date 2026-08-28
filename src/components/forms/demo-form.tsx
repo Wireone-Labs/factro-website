@@ -2,17 +2,27 @@
 
 import { useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
+import {
+  ArrowRight,
+  Building2,
+  CheckCircle2,
+  ChevronDown,
+  Clock,
+  Loader2,
+  Mail,
+  User,
+  Users,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const INTERESTS = [
-  "Production",
-  "Quality & Compliance",
-  "Inventory",
-  "Sales & Procurement",
-  "Reports & Analytics",
-  "Something else",
+  { label: "Production", minutes: 20 },
+  { label: "Quality & Compliance", minutes: 20 },
+  { label: "Inventory", minutes: 15 },
+  { label: "Sales & Procurement", minutes: 15 },
+  { label: "Reports & Analytics", minutes: 15 },
+  { label: "Something else", minutes: 5 },
 ];
 
 const COMPANY_SIZES = [
@@ -22,16 +32,8 @@ const COMPANY_SIZES = [
   "500+ employees",
 ];
 
-const ROLES = [
-  "Plant Manager / Operations",
-  "Quality / Compliance",
-  "IT / Systems",
-  "Founder / Leadership",
-  "Other",
-];
-
 const fieldClasses =
-  "w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-ink-900 placeholder:text-ink-300 transition-colors focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100";
+  "w-full rounded-xl border border-line bg-ink-50/60 px-3.5 py-2.5 text-sm text-ink-900 placeholder:text-ink-300 transition-colors focus:border-brand-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-100";
 
 export function DemoForm() {
   const [interests, setInterests] = useState<string[]>([]);
@@ -46,6 +48,11 @@ export function DemoForm() {
         : [...prev, interest],
     );
   };
+
+  const estimatedMinutes = interests.reduce((total, interest) => {
+    const match = INTERESTS.find((i) => i.label === interest);
+    return total + (match?.minutes ?? 0);
+  }, 0);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -82,11 +89,20 @@ export function DemoForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-3xl border border-line bg-white p-5 shadow-[0_30px_80px_-28px_rgba(15,14,23,0.22)] sm:p-7"
+      className="relative rounded-3xl border border-line bg-white p-5 shadow-[0_30px_80px_-28px_rgba(15,14,23,0.22)] sm:p-7"
     >
-      <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+      <p className="text-sm font-semibold text-ink-900">Get your walkthrough</p>
+      <p className="mt-1 text-xs leading-relaxed text-ink-400">
+        Fill this in and we&apos;ll reach out within one business day.
+      </p>
+
+      <div className="mt-5 grid grid-cols-1 gap-3.5 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className="mb-1 block text-xs font-medium text-ink-700">
+          <label
+            htmlFor="name"
+            className="mb-1.5 flex items-center gap-1.5 text-xs font-medium text-ink-700"
+          >
+            <User className="h-3.5 w-3.5 text-ink-400" />
             Full name
           </label>
           <input
@@ -99,7 +115,11 @@ export function DemoForm() {
           />
         </div>
         <div>
-          <label htmlFor="email" className="mb-1 block text-xs font-medium text-ink-700">
+          <label
+            htmlFor="email"
+            className="mb-1.5 flex items-center gap-1.5 text-xs font-medium text-ink-700"
+          >
+            <Mail className="h-3.5 w-3.5 text-ink-400" />
             Work email
           </label>
           <input
@@ -112,7 +132,11 @@ export function DemoForm() {
           />
         </div>
         <div>
-          <label htmlFor="company" className="mb-1 block text-xs font-medium text-ink-700">
+          <label
+            htmlFor="company"
+            className="mb-1.5 flex items-center gap-1.5 text-xs font-medium text-ink-700"
+          >
+            <Building2 className="h-3.5 w-3.5 text-ink-400" />
             Company
           </label>
           <input
@@ -125,49 +149,58 @@ export function DemoForm() {
           />
         </div>
         <div>
-          <label htmlFor="role" className="mb-1 block text-xs font-medium text-ink-700">
-            Role
-          </label>
-          <select id="role" name="role" required defaultValue="" className={fieldClasses}>
-            <option value="" disabled>
-              Select your role
-            </option>
-            {ROLES.map((role) => (
-              <option key={role} value={role}>
-                {role}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="sm:col-span-2">
-          <label htmlFor="size" className="mb-1 block text-xs font-medium text-ink-700">
+          <label
+            htmlFor="size"
+            className="mb-1.5 flex items-center gap-1.5 text-xs font-medium text-ink-700"
+          >
+            <Users className="h-3.5 w-3.5 text-ink-400" />
             Company size
           </label>
-          <select id="size" name="size" required defaultValue="" className={fieldClasses}>
-            <option value="" disabled>
-              Select company size
-            </option>
-            {COMPANY_SIZES.map((size) => (
-              <option key={size} value={size}>
-                {size}
+
+          <div className="relative">
+            <select
+              id="size"
+              name="size"
+              required
+              defaultValue=""
+              className={cn(
+                fieldClasses,
+                "appearance-none pr-10",
+                "[&:invalid]:text-ink-400",
+                "[&:valid]:text-ink-900",
+              )}
+            >
+              <option value="" disabled>
+                Select company size
               </option>
-            ))}
-          </select>
+
+              {COMPANY_SIZES.map((size) => (
+                <option key={size} value={size} className="text-ink-900">
+                  {size}
+                </option>
+              ))}
+            </select>
+
+            <ChevronDown
+              aria-hidden="true"
+              className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400"
+            />
+          </div>
         </div>
       </div>
 
-      <div className="mt-4">
+      <div className="mt-5">
         <p className="mb-2 text-xs font-medium text-ink-700">
           What are you interested in?
         </p>
         <div className="flex flex-wrap gap-1.5">
-          {INTERESTS.map((interest) => {
-            const active = interests.includes(interest);
+          {INTERESTS.map(({ label }) => {
+            const active = interests.includes(label);
             return (
               <button
-                key={interest}
+                key={label}
                 type="button"
-                onClick={() => toggleInterest(interest)}
+                onClick={() => toggleInterest(label)}
                 aria-pressed={active}
                 className={cn(
                   "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
@@ -176,23 +209,44 @@ export function DemoForm() {
                     : "border-line bg-white text-ink-500 hover:border-ink-300 hover:text-ink-900",
                 )}
               >
-                {interest}
+                {label}
               </button>
             );
           })}
         </div>
+
+        <AnimatePresence>
+          {estimatedMinutes > 0 && (
+            <motion.div
+              initial={{ opacity: 0, height: 0, marginTop: 0 }}
+              animate={{ opacity: 1, height: "auto", marginTop: 10 }}
+              exit={{ opacity: 0, height: 0, marginTop: 0 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden"
+            >
+              <div className="flex items-center gap-2 rounded-xl border border-brand-100 bg-brand-50/70 px-3 py-2 text-xs font-medium text-brand-700">
+                <Clock className="h-3.5 w-3.5" />
+                Est. walkthrough time: ~{estimatedMinutes} minutes
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       <div className="mt-4">
-        <label htmlFor="message" className="mb-1 block text-xs font-medium text-ink-700">
-          Anything else? <span className="font-normal text-ink-400">(optional)</span>
+        <label
+          htmlFor="message"
+          className="mb-1.5 block text-xs font-medium text-ink-700"
+        >
+          Anything else?{" "}
+          <span className="font-normal text-ink-400">(optional)</span>
         </label>
         <textarea
           id="message"
           name="message"
           rows={2}
           placeholder="Tell us a bit about your facility or what you're looking to solve"
-          className={cn(fieldClasses, "resize-none")}
+          className={cn(fieldClasses, "resize-none min-h-28")}
         />
       </div>
 
@@ -222,7 +276,7 @@ export function DemoForm() {
               exit={{ opacity: 0 }}
               className="flex items-center gap-2"
             >
-              Book my demo
+              Submit
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </motion.span>
           )}

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Mail } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SIGN_IN_URL, BOOK_DEMO_HREF, SALES_MAILTO, SALES_EMAIL } from "@/data/nav";
-import { withBasePath } from "@/lib/utils";
 
 const FOOTER_COLUMNS = [
   {
@@ -45,7 +44,7 @@ export function Footer() {
           <div className="col-span-2 flex flex-col gap-4">
             <Link href="/" className="flex items-center" aria-label="Factro home">
               <Image
-                src={withBasePath("/brand/logo-wordmark-cropped.png")}
+                src="/brand/logo-wordmark-cropped.png"
                 alt="Factro"
                 width={883}
                 height={243}

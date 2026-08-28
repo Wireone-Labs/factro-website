@@ -158,6 +158,6 @@ export const NAV_ITEMS: NavItem[] = [
 ];
 
 export const SIGN_IN_URL = "https://app.factro.io/login";
-export const BOOK_DEMO_HREF = "/book-demo";
+export const BOOK_DEMO_HREF = "/demo";
 export const SALES_EMAIL = "sales@factro.io";
 export const SALES_MAILTO = `mailto:${SALES_EMAIL}`;

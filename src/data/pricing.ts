@@ -20,7 +20,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     annual: 399,
     unit: "/ facility / month",
     ctaLabel: "Start with Essential",
-    ctaHref: "/book-demo",
+    ctaHref: "/demo",
     features: [
       "Production planning & batch execution",
       "Inventory & warehouse management",
@@ -39,7 +39,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     unit: "/ facility / month",
     recommended: true,
     ctaLabel: "Start with Professional",
-    ctaHref: "/book-demo",
+    ctaHref: "/demo",
     features: [
       "Everything in Essential",
       "Full CAPA & quality management suite",
@@ -58,7 +58,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     annual: null,
     unit: "Custom pricing",
     ctaLabel: "Contact sales",
-    ctaHref: "/book-demo",
+    ctaHref: "/demo",
     features: [
       "Everything in Professional",
       "Multi-unit facility modeling",

@@ -43,7 +43,7 @@ export default function PlatformPage() {
                   today, and we&apos;ll walk through how it fits together.
                 </p>
               </div>
-              <Button href="/book-demo" variant="secondary" size="lg" className="group">
+              <Button href="/demo" variant="secondary" size="lg" className="group">
                 Talk to us about your stack
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Button>

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { cn, withBasePath } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 export function Logo({
   className,
@@ -16,7 +16,7 @@ export function Logo({
       aria-label="Factro home"
     >
       <Image
-        src={withBasePath("/brand/logo-wordmark-cropped.png")}
+        src="/brand/logo-wordmark-cropped.png"
         alt="Factro"
         width={883}
         height={243}
