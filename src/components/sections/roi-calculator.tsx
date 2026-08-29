@@ -7,7 +7,7 @@ import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
-import { ROI_CATEGORIES, MINUTES_PER_ITEM } from "@/data/roi-checklist";
+import { ROI_CATEGORIES } from "@/data/roi-checklist";
 import { BOOK_DEMO_HREF } from "@/data/nav";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
@@ -20,6 +20,12 @@ function formatHours(minutes: number) {
   if (mins === 0) return `${hours} hr${hours > 1 ? "s" : ""}`;
   return `${hours} hr${hours > 1 ? "s" : ""} ${mins} min`;
 }
+
+const MINUTES_BY_ID = new Map(
+  ROI_CATEGORIES.flatMap((category) =>
+    category.items.map((item) => [`${category.id}:${item.text}`, item.minutes]),
+  ),
+);
 
 export function RoiCalculator() {
   const [checked, setChecked] = useState<Set<string>>(new Set());
@@ -37,7 +43,10 @@ export function RoiCalculator() {
     });
   };
 
-  const minutes = checked.size * MINUTES_PER_ITEM;
+  const minutes = Array.from(checked).reduce(
+    (total, id) => total + (MINUTES_BY_ID.get(id) ?? 0),
+    0,
+  );
 
   return (
     <section className="py-16 sm:py-20">
@@ -57,7 +66,7 @@ export function RoiCalculator() {
                 </h3>
                 <div className="mt-4 flex flex-col gap-2">
                   {category.items.map((item) => {
-                    const id = `${category.id}:${item}`;
+                    const id = `${category.id}:${item.text}`;
                     const active = checked.has(id);
                     return (
                       <button
@@ -82,7 +91,7 @@ export function RoiCalculator() {
                         >
                           {active && <Check className="h-3 w-3" strokeWidth={3} />}
                         </span>
-                        {item}
+                        {item.text}
                       </button>
                     );
                   })}
