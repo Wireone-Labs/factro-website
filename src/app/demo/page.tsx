@@ -15,7 +15,10 @@ export const metadata: Metadata = {
 
 const TIMELINE = [
   { label: "Week 1", description: "Process-led demo & discovery, no slides." },
-  { label: "Week 2", description: "Fit assessment & scoping — you leave with a go-live date." },
+  {
+    label: "Week 2",
+    description: "Fit assessment & scoping — you leave with a go-live date.",
+  },
   { label: "Weeks 3–4", description: "Configuration, migration & training." },
   { label: "Day 30", description: "Go-live. Every module connected." },
 ];
@@ -70,7 +73,7 @@ export default function DemoPage() {
               <div className="mt-4 flex flex-col gap-3.5 border-l-2 border-line pl-5">
                 {TIMELINE.map((step) => (
                   <div key={step.label} className="relative">
-                    <span className="absolute -left-[1.42rem] top-1 h-2 w-2 rounded-full bg-brand-400" />
+                    <span className="absolute -left-[1.52rem] top-1 h-2 w-2 rounded-full bg-brand-400" />
                     <p className="text-sm leading-relaxed text-ink-600">
                       <span className="font-semibold text-ink-900">
                         {step.label}
@@ -87,8 +90,8 @@ export default function DemoPage() {
                 <span className="font-semibold text-brand-700">
                   Two months free if we&apos;re late.
                 </span>{" "}
-                Full go-live within thirty days of your complete dataset, or
-                two more months on us — no questions asked.
+                Full go-live within thirty days of your complete dataset, or two
+                more months on us — no questions asked.
               </p>
             </div>
 
