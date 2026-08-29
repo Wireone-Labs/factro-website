@@ -118,10 +118,22 @@ export function MobileNav({
             </div>
 
             <div className="flex flex-col gap-2 border-t border-line px-5 py-5">
-              <Button href={SIGN_IN_URL} variant="secondary" className="w-full">
+              <Button
+                href={SIGN_IN_URL}
+                variant="secondary"
+                className="w-full"
+                event="sign_in_click"
+                eventParams={{ location: "mobile_nav" }}
+              >
                 Sign in
               </Button>
-              <Button href={BOOK_DEMO_HREF} className="w-full" onClick={onClose}>
+              <Button
+                href={BOOK_DEMO_HREF}
+                className="w-full"
+                onClick={onClose}
+                event="book_demo_click"
+                eventParams={{ location: "mobile_nav" }}
+              >
                 Book a demo
               </Button>
             </div>

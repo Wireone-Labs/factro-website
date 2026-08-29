@@ -5,6 +5,9 @@ export interface PricingPlan {
   monthly: number | null;
   annual: number | null;
   unit: string;
+  minUsers?: string;
+  note?: string;
+  featuresIntro?: string;
   recommended?: boolean;
   ctaLabel: string;
   ctaHref: string;
@@ -13,206 +16,62 @@ export interface PricingPlan {
 
 export const PRICING_PLANS: PricingPlan[] = [
   {
-    id: "essential",
-    name: "Essential",
-    tagline: "For a single facility getting started with digital records",
-    monthly: 499,
-    annual: 399,
-    unit: "/ facility / month",
-    ctaLabel: "Start with Essential",
-    ctaHref: "/demo",
-    features: [
-      "Production planning & batch execution",
-      "Inventory & warehouse management",
-      "Basic in-process quality checks",
-      "Reports & dashboard",
-      "Up to 3 work centers",
-      "Email support",
-    ],
-  },
-  {
-    id: "professional",
-    name: "Professional",
-    tagline: "For regulated operations that need full quality control",
-    monthly: 999,
-    annual: 799,
-    unit: "/ facility / month",
+    id: "standard",
+    name: "Standard",
+    tagline: "Multi-tenant",
+    monthly: 3849,
+    annual: 3499,
+    unit: "/ user / month",
+    minUsers: "Minimum 8 users · no upfront fees, no AMC charges",
+    note: "Choose Standard if you're a single site or small group supplying domestic or WHO-GMP markets. Nothing about compliance, security or audit readiness is weaker here, the controls are identical.",
     recommended: true,
-    ctaLabel: "Start with Professional",
+    ctaLabel: "Start with Standard",
     ctaHref: "/demo",
     features: [
-      "Everything in Essential",
-      "Full CAPA & quality management suite",
-      "GMP Mode with strict validation",
-      "Training & compliance sign-off",
-      "Product & process library (BOM, MFR)",
-      "Unlimited work centers",
-      "Priority support",
+      "All 10 modules",
+      "Per-tenant encryption key, fully isolated",
+      "AWS Mumbai or Hyderabad, data stays in India",
+      "Multi-tenant, capped tenants per group",
+      "Two-tier backups with point-in-time recovery",
+      "Round-the-clock monitoring, 99% uptime target",
     ],
   },
   {
-    id: "enterprise",
-    name: "Enterprise",
-    tagline: "For multi-unit operations with custom compliance needs",
+    id: "dedicated",
+    name: "Dedicated",
+    tagline: "Private and reserved",
     monthly: null,
     annual: null,
-    unit: "Custom pricing",
+    unit: "per instance",
+    minUsers: "Unlimited users · annual term",
+    note: "Choose Dedicated if you export to US or EU markets and your customers audit your suppliers, or a contract names dedicated infrastructure. On-premises isolation, none of the burden.",
     ctaLabel: "Contact sales",
     ctaHref: "/demo",
+    featuresIntro: "Everything in Standard, plus",
     features: [
-      "Everything in Professional",
-      "Multi-unit facility modeling",
-      "Custom approval workflows",
-      "Dedicated onboarding",
-      "SLA-backed support",
-      "Custom data retention & exports",
-    ],
-  },
-];
-
-export interface ComparisonFeature {
-  label: string;
-  essential: string | boolean;
-  professional: string | boolean;
-  enterprise: string | boolean;
-}
-
-export interface ComparisonCategory {
-  category: string;
-  features: ComparisonFeature[];
-}
-
-export const COMPARISON_TABLE: ComparisonCategory[] = [
-  {
-    category: "Production & Inventory",
-    features: [
-      {
-        label: "Production planning & batch execution",
-        essential: true,
-        professional: true,
-        enterprise: true,
-      },
-      {
-        label: "Inventory & warehouse management",
-        essential: true,
-        professional: true,
-        enterprise: true,
-      },
-      {
-        label: "Work centers",
-        essential: "Up to 3",
-        professional: "Unlimited",
-        enterprise: "Unlimited",
-      },
-      {
-        label: "Multi-unit facility modeling",
-        essential: false,
-        professional: false,
-        enterprise: true,
-      },
-    ],
-  },
-  {
-    category: "Quality & Compliance",
-    features: [
-      {
-        label: "In-process quality checks (IPQC)",
-        essential: true,
-        professional: true,
-        enterprise: true,
-      },
-      {
-        label: "CAPA suite (deviations, change control, complaints)",
-        essential: false,
-        professional: true,
-        enterprise: true,
-      },
-      {
-        label: "GMP Mode (strict validation)",
-        essential: false,
-        professional: true,
-        enterprise: true,
-      },
-      {
-        label: "Training & compliance sign-off",
-        essential: false,
-        professional: true,
-        enterprise: true,
-      },
-    ],
-  },
-  {
-    category: "Platform",
-    features: [
-      {
-        label: "Reports & role-aware dashboard",
-        essential: true,
-        professional: true,
-        enterprise: true,
-      },
-      {
-        label: "Product & process library (BOM, MFR)",
-        essential: true,
-        professional: true,
-        enterprise: true,
-      },
-      {
-        label: "Custom fields & CoA templates",
-        essential: false,
-        professional: true,
-        enterprise: true,
-      },
-      {
-        label: "Custom approval workflows",
-        essential: false,
-        professional: false,
-        enterprise: true,
-      },
-    ],
-  },
-  {
-    category: "Support",
-    features: [
-      {
-        label: "Support",
-        essential: "Email",
-        professional: "Priority",
-        enterprise: "Dedicated + SLA",
-      },
-      {
-        label: "Onboarding",
-        essential: "Self-serve",
-        professional: "Guided",
-        enterprise: "Dedicated",
-      },
+      "Dedicated end to end: database, app, VPC, storage",
+      "Isolated as on-premise, managed as cloud",
+      "Any AWS region you choose",
+      "Three-tier backups on your retention schedule",
+      "Customer-managed encryption keys on request",
+      "Validation pack included at go-live",
     ],
   },
 ];
 
 export const PRICING_FAQS = [
   {
-    question: "Is pricing per facility or per user?",
-    answer:
-      "Per facility. Every plan includes unlimited users within reason, so you're not paying more to add operators, reviewers, or approvers as your team grows.",
+    question: "Is there a setup fee?",
+    answer: "No. No upfront fees and no AMC charges on Standard.",
   },
   {
-    question: "Can we switch plans later?",
+    question: "What happens if we outgrow Standard?",
     answer:
-      "Yes. You can move from Essential to Professional (or up to Enterprise) as your compliance and facility needs grow — your data and configuration carry over.",
+      "Moving to Dedicated does not mean re-buying the platform. Same modules, same data model, more infrastructure around it.",
   },
   {
-    question: "Is there a setup or onboarding fee?",
+    question: "Do validation packs come with Standard?",
     answer:
-      "Essential and Professional include guided setup as part of the plan. Enterprise includes dedicated onboarding scoped to your facility structure and workflows.",
-  },
-  {
-    question: "Do you offer a discount for annual billing?",
-    answer:
-      "Yes — billing annually brings the effective monthly rate down on every plan, shown in the toggle above.",
-  },
-  {
-    question: "What happens after we book a demo?",
-    answer:
-      "We'll walk through your production and quality workflows, map them to the right plan, and get you set up with a facility structure that matches how you actually operate.",
+      "No, validation packs (URS, IQ, OQ, PQ, RTM, GAMP 5) are Dedicated-only. Talk to us if a Standard deployment needs one.",
   },
 ];

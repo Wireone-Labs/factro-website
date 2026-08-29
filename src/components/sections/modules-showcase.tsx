@@ -14,12 +14,12 @@ const FLAT_MODULE_IDS = PLATFORM_SECTIONS.flatMap((section) =>
 
 export function ModulesShowcase() {
   return (
-    <section id="modules" className="py-24 sm:py-32">
+    <section id="modules" className="py-16 sm:py-20">
       <Container>
         <SectionHeading
-          eyebrow="Core modules"
+          eyebrow="The ten modules"
           title="Everything a regulated plant runs on"
-          description="Nine connected modules cover the full path from raw material to released batch — each one built around how process manufacturers actually work."
+          description="Ten connected modules cover the full path from raw material to released batch — each one built around how process manufacturers actually work."
         />
 
         <ScrollRail className="mt-20 flex flex-col gap-20 sm:mt-24 sm:gap-28 lg:pl-2">

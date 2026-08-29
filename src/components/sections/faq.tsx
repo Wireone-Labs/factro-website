@@ -8,6 +8,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { FAQS, type FaqItem } from "@/data/faq";
 import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
 
 export function Faq({
   id = "faq",
@@ -24,8 +25,14 @@ export function Faq({
 }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
+  const toggleFaq = (index: number, question: string) => {
+    const opening = openIndex !== index;
+    setOpenIndex(opening ? index : null);
+    if (opening) trackEvent("faq_expand", { question });
+  };
+
   return (
-    <section id={id} className="py-24 sm:py-32">
+    <section id={id} className="py-16 sm:py-20">
       <Container className="max-w-3xl">
         <SectionHeading eyebrow={eyebrow} title={title} description={description} />
 
@@ -37,7 +44,7 @@ export function Faq({
                 <div>
                   <button
                     type="button"
-                    onClick={() => setOpenIndex(isOpen ? null : i)}
+                    onClick={() => toggleFaq(i, faq.question)}
                     className="flex w-full items-center justify-between gap-4 py-5 text-left"
                     aria-expanded={isOpen}
                   >

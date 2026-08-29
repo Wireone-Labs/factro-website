@@ -1,6 +1,6 @@
 export const PLATFORM_STATS = [
-  { value: "6", label: "Connected modules on one platform" },
-  { value: "GMP", label: "Mode locks records after approval" },
-  { value: "PWA", label: "Installs like a native shop-floor app" },
-  { value: "E2E", label: "Traceability from raw material to release" },
+  { value: "10", label: "Connected modules on one database" },
+  { value: "96", label: "Control points validated in pilot" },
+  { value: "30 days", label: "Guaranteed go-live, or 2 months free" },
+  { value: "21 CFR Part 11", label: "+ EU Annex 11, Schedule M validation-ready" },
 ];

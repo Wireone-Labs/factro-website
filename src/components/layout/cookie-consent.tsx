@@ -75,6 +75,8 @@ export function CookieConsent() {
                 size="md"
                 className="h-9 px-4 text-sm"
                 onClick={() => respond("declined")}
+                event="cookie_consent"
+                eventParams={{ choice: "declined" }}
               >
                 Decline
               </Button>
@@ -83,6 +85,8 @@ export function CookieConsent() {
                 size="md"
                 className="h-9 px-4 text-sm"
                 onClick={() => respond("accepted")}
+                event="cookie_consent"
+                eventParams={{ choice: "accepted" }}
               >
                 Accept all
               </Button>

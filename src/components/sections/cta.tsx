@@ -22,7 +22,7 @@ export function Cta({
   secondaryHref?: string;
 }) {
   return (
-    <section id={id} className="pb-24 sm:pb-32">
+    <section id={id} className="pb-16 sm:pb-20">
       <Container>
         <Reveal>
           <div className="relative overflow-hidden rounded-3xl bg-ink-950 px-8 py-16 text-center sm:px-16 sm:py-20">
@@ -37,7 +37,18 @@ export function Cta({
                 {description}
               </p>
               <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <Button href={primaryHref} variant="dark" size="lg" className="group">
+                <Button
+                  href={primaryHref}
+                  variant="dark"
+                  size="lg"
+                  className="group"
+                  event={
+                    primaryHref === BOOK_DEMO_HREF
+                      ? "book_demo_click"
+                      : "cta_primary_click"
+                  }
+                  eventParams={{ location: id }}
+                >
                   {primaryLabel}
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </Button>
@@ -46,6 +57,12 @@ export function Cta({
                   variant="ghost"
                   size="lg"
                   className="text-white hover:bg-white/10 hover:text-white"
+                  event={
+                    secondaryHref.startsWith("mailto:")
+                      ? "contact_click"
+                      : "cta_secondary_click"
+                  }
+                  eventParams={{ location: id }}
                 >
                   <Mail className="h-4 w-4" />
                   {secondaryLabel}

@@ -1,35 +1,17 @@
-import type { LucideIcon } from "lucide-react";
-import { Factory, ShieldCheck, Layers, Sparkles } from "lucide-react";
-
-export interface CompanyValue {
-  icon: LucideIcon;
-  title: string;
+export interface TimelineEntry {
+  year: string;
   description: string;
 }
 
-export const COMPANY_VALUES: CompanyValue[] = [
+export const COMPANY_TIMELINE: TimelineEntry[] = [
+  { year: "1935", description: "Cipla was one chemist and a rented building in Bombay." },
   {
-    icon: Factory,
-    title: "Built for the floor, not just the office",
-    description:
-      "Software that only works for admins isn't finished. We design for the operator on the shop floor as much as the plant manager reviewing reports.",
+    year: "1983",
+    description: "Sun Pharma was five psychiatry products and borrowed money in a small town in Gujarat.",
   },
   {
-    icon: ShieldCheck,
-    title: "Compliance by design",
+    year: "1995",
     description:
-      "Audit trails, approvals, and sign-offs aren't a layer we add later — they're part of how every workflow in Factro is structured from the start.",
-  },
-  {
-    icon: Layers,
-    title: "One source of truth",
-    description:
-      "Production, quality, and inventory shouldn't be three different systems that occasionally agree. In Factro, they share the same record.",
-  },
-  {
-    icon: Sparkles,
-    title: "Practical over flashy",
-    description:
-      "We'd rather ship a workflow that fits how your plant actually runs than a feature that looks good in a demo and nowhere else.",
+      "Mankind was a few people who believed the medicine should reach the towns nobody bothered selling to.",
   },
 ];

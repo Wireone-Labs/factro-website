@@ -1,6 +1,7 @@
 import { Info } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
+import { TrackedLink } from "@/components/analytics/tracked-link";
 import type { LegalSection } from "@/data/legal";
 import { SALES_EMAIL, SALES_MAILTO } from "@/data/nav";
 
@@ -12,7 +13,7 @@ export function LegalDocument({
   lastUpdated: string;
 }) {
   return (
-    <section className="pb-24 sm:pb-32">
+    <section className="pb-16 sm:pb-20">
       <Container>
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[220px_1fr] lg:gap-16">
           <div className="hidden lg:block">
@@ -82,12 +83,14 @@ export function LegalDocument({
                       </ul>
                     )}
                     {s.id === "contact" && (
-                      <a
+                      <TrackedLink
                         href={SALES_MAILTO}
+                        event="contact_click"
+                        eventParams={{ location: "legal_page" }}
                         className="mt-3 inline-block text-sm font-medium text-brand-600 hover:text-brand-700"
                       >
                         {SALES_EMAIL}
-                      </a>
+                      </TrackedLink>
                     )}
                   </div>
                 </Reveal>

@@ -112,13 +112,21 @@ export function Navbar() {
             </div>
 
             <div className="hidden items-center gap-1 xl:flex">
-              <Button href={SIGN_IN_URL} variant="ghost" size="md">
+              <Button
+                href={SIGN_IN_URL}
+                variant="ghost"
+                size="md"
+                event="sign_in_click"
+                eventParams={{ location: "navbar" }}
+              >
                 Sign in
               </Button>
               <Button
                 href={BOOK_DEMO_HREF}
                 size="md"
                 className="group shadow-[0_0_0_2px_#ffffff,0_0_0_4px_var(--color-brand-400)]"
+                event="book_demo_click"
+                eventParams={{ location: "navbar" }}
               >
                 Book a demo
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />

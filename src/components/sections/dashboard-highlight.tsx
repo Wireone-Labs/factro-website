@@ -11,7 +11,7 @@ const POINTS = [
 
 export function DashboardHighlight() {
   return (
-    <section id="dashboard" className="scroll-mt-28 py-24 sm:py-32">
+    <section id="dashboard" className="scroll-mt-28 py-16 sm:py-20">
       <Container>
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <Reveal>

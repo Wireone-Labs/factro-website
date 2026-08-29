@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
 
 const INTERESTS = [
   { label: "Production", minutes: 20 },
@@ -37,9 +38,16 @@ const fieldClasses =
 
 export function DemoForm() {
   const [interests, setInterests] = useState<string[]>([]);
-  const [status, setStatus] = useState<"idle" | "submitting" | "submitted">(
-    "idle",
-  );
+  const [status, setStatus] = useState<
+    "idle" | "submitting" | "submitted" | "error"
+  >("idle");
+  const hasStarted = useRef(false);
+
+  const handleFormFocus = () => {
+    if (hasStarted.current) return;
+    hasStarted.current = true;
+    trackEvent("demo_form_start");
+  };
 
   const toggleInterest = (interest: string) => {
     setInterests((prev) =>
@@ -54,11 +62,39 @@ export function DemoForm() {
     return total + (match?.minutes ?? 0);
   }, 0);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("submitting");
-    // Mock submission — no backend wired up yet.
-    setTimeout(() => setStatus("submitted"), 900);
+
+    const formData = new FormData(e.currentTarget);
+    const payload = {
+      name: String(formData.get("name") ?? ""),
+      email: String(formData.get("email") ?? ""),
+      company: String(formData.get("company") ?? ""),
+      size: String(formData.get("size") ?? ""),
+      interests,
+      message: String(formData.get("message") ?? ""),
+    };
+
+    try {
+      const response = await fetch("/api/demo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+
+      setStatus("submitted");
+      trackEvent("generate_lead", {
+        company_size: payload.size,
+        interest_count: interests.length,
+      });
+    } catch {
+      setStatus("error");
+    }
   };
 
   if (status === "submitted") {
@@ -89,6 +125,7 @@ export function DemoForm() {
   return (
     <form
       onSubmit={handleSubmit}
+      onFocusCapture={handleFormFocus}
       className="relative rounded-3xl border border-line bg-white p-5 shadow-[0_30px_80px_-28px_rgba(15,14,23,0.22)] sm:p-7"
     >
       <p className="text-sm font-semibold text-ink-900">Get your walkthrough</p>
@@ -249,6 +286,21 @@ export function DemoForm() {
           className={cn(fieldClasses, "resize-none min-h-28")}
         />
       </div>
+
+      <AnimatePresence>
+        {status === "error" && (
+          <motion.p
+            initial={{ opacity: 0, height: 0, marginTop: 0 }}
+            animate={{ opacity: 1, height: "auto", marginTop: 16 }}
+            exit={{ opacity: 0, height: 0, marginTop: 0 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden text-xs font-medium text-red-600"
+          >
+            Something went wrong sending your request. Please try again, or
+            email us directly.
+          </motion.p>
+        )}
+      </AnimatePresence>
 
       <Button
         type="submit"

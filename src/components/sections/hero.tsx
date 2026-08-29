@@ -5,12 +5,11 @@ import { ArrowRight, PlayCircle } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { HeroMockup } from "@/components/sections/hero-mockup";
-import { RotatingWord } from "@/components/sections/rotating-word";
 import { BOOK_DEMO_HREF } from "@/data/nav";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pt-36 pb-20 sm:pt-44 sm:pb-28">
+    <section className="relative overflow-hidden pt-32 pb-12 sm:pt-40 sm:pb-16">
       {/* Background decoration */}
       <div className="bg-dot-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black,transparent)]" />
       <motion.div
@@ -48,7 +47,7 @@ export function Hero() {
             transition={{ duration: 0.5 }}
             className="inline-flex items-center rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand-600"
           >
-            Advanced Manufacturing System
+            AI-first. Compliance-native. Process-driven.
           </motion.span>
 
           <motion.h1
@@ -57,10 +56,8 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
             className="text-balance mt-6 text-4xl font-semibold tracking-tight text-ink-900 sm:text-5xl lg:text-6xl lg:leading-[1.08]"
           >
-            <span className="block">The operating system for</span>
-            <span className="block">
-              <RotatingWord />
-            </span>
+            <span className="block">Pharma manufacturing runs on evidence.</span>
+            <span className="block text-ink-400">Most of it is still on paper.</span>
           </motion.h1>
 
           <motion.p
@@ -69,9 +66,9 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
             className="text-balance mt-6 max-w-2xl text-base leading-relaxed text-ink-500 sm:text-lg"
           >
-            Factro connects production, quality, and compliance into one
-            platform — from the batch record to the shop floor — built for
-            teams that can&apos;t afford to get it wrong.
+            Factro puts supply chain, batch execution and quality on one
+            record, with compliance built into the architecture rather than
+            configured on top.
           </motion.p>
 
           <motion.div
@@ -80,13 +77,25 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
             className="mt-9 flex flex-col items-center gap-3 sm:flex-row"
           >
-            <Button href={BOOK_DEMO_HREF} size="lg" className="group">
+            <Button
+              href={BOOK_DEMO_HREF}
+              size="lg"
+              className="group"
+              event="book_demo_click"
+              eventParams={{ location: "hero" }}
+            >
               Book a demo
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Button>
-            <Button href="/platform" variant="secondary" size="lg">
+            <Button
+              href="#how-it-works"
+              variant="secondary"
+              size="lg"
+              event="how_it_works_click"
+              eventParams={{ location: "hero" }}
+            >
               <PlayCircle className="h-4 w-4" />
-              Explore the platform
+              See how it works
             </Button>
           </motion.div>
 
@@ -96,7 +105,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.32 }}
             className="mt-6 text-xs font-medium text-ink-400"
           >
-            Built for pharma, chemical &amp; process manufacturing operations
+            In pilot with pharmaceutical manufacturers in India
           </motion.p>
         </div>
 

@@ -1,25 +1,36 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { Mail } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { Container } from "@/components/ui/container";
-import { SIGN_IN_URL, BOOK_DEMO_HREF, SALES_MAILTO, SALES_EMAIL } from "@/data/nav";
+import {
+  SIGN_IN_URL,
+  BOOK_DEMO_HREF,
+  SALES_MAILTO,
+  SALES_EMAIL,
+  SALES_PHONE,
+  SALES_PHONE_HREF,
+} from "@/data/nav";
+import { trackEvent } from "@/lib/analytics";
 
 const FOOTER_COLUMNS = [
   {
-    heading: "Platform",
+    heading: "Modules",
     links: [
-      { label: "Platform overview", href: "/platform" },
-      { label: "Production", href: "/platform#production" },
-      { label: "Quality", href: "/platform#quality" },
-      { label: "Inventory", href: "/platform#inventory" },
-      { label: "Reports & analytics", href: "/platform#reports" },
+      { label: "All modules", href: "/modules" },
+      { label: "Production", href: "/modules#production" },
+      { label: "Quality", href: "/modules#quality" },
+      { label: "Inventory", href: "/modules#inventory" },
+      { label: "CAPA", href: "/modules#capa" },
     ],
   },
   {
     heading: "Company",
     links: [
       { label: "Pricing", href: "/pricing" },
-      { label: "Compliance", href: "/compliance" },
+      { label: "Compliances", href: "/compliances" },
+      { label: "Infrastructure & Security", href: "/infrastructure-security" },
       { label: "About us", href: "/about" },
       { label: "Book a demo", href: BOOK_DEMO_HREF },
       { label: "Sign in", href: SIGN_IN_URL },
@@ -30,7 +41,7 @@ const FOOTER_COLUMNS = [
     links: [
       { label: "Privacy policy", href: "/privacy" },
       { label: "Terms of service", href: "/terms" },
-      { label: "Security & compliance", href: "/compliance" },
+      { label: "Security & compliance", href: "/compliances" },
       { label: "Contact sales", href: SALES_MAILTO },
     ],
   },
@@ -52,16 +63,27 @@ export function Footer() {
               />
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-ink-500">
-              The operating system for regulated manufacturing — production,
-              quality, and compliance, unified in one connected platform.
+              AI-first. Compliance-native. Process-driven. Supply chain, batch
+              execution and quality, on one record.
             </p>
-            <a
-              href={SALES_MAILTO}
-              className="inline-flex w-fit items-center gap-2 text-sm font-medium text-ink-700 transition-colors hover:text-brand-600"
-            >
-              <Mail className="h-4 w-4" />
-              {SALES_EMAIL}
-            </a>
+            <div className="flex flex-col gap-2">
+              <a
+                href={SALES_MAILTO}
+                onClick={() => trackEvent("contact_click", { location: "footer" })}
+                className="inline-flex w-fit items-center gap-2 text-sm font-medium text-ink-700 transition-colors hover:text-brand-600"
+              >
+                <Mail className="h-4 w-4" />
+                {SALES_EMAIL}
+              </a>
+              <a
+                href={SALES_PHONE_HREF}
+                onClick={() => trackEvent("phone_click", { location: "footer" })}
+                className="inline-flex w-fit items-center gap-2 text-sm font-medium text-ink-700 transition-colors hover:text-brand-600"
+              >
+                <Phone className="h-4 w-4" />
+                {SALES_PHONE}
+              </a>
+            </div>
           </div>
 
           {FOOTER_COLUMNS.map((col) => (
@@ -73,14 +95,21 @@ export function Footer() {
                 {col.links.map((link) => {
                   const className =
                     "text-sm text-ink-500 transition-colors hover:text-ink-900";
+                  const onClick = link.href.startsWith("mailto:")
+                    ? () => trackEvent("contact_click", { location: "footer" })
+                    : link.href === SIGN_IN_URL
+                      ? () => trackEvent("sign_in_click", { location: "footer" })
+                      : link.href === BOOK_DEMO_HREF
+                        ? () => trackEvent("book_demo_click", { location: "footer" })
+                        : undefined;
                   return (
                     <li key={link.label}>
                       {link.href.startsWith("/") ? (
-                        <Link href={link.href} className={className}>
+                        <Link href={link.href} className={className} onClick={onClick}>
                           {link.label}
                         </Link>
                       ) : (
-                        <a href={link.href} className={className}>
+                        <a href={link.href} className={className} onClick={onClick}>
                           {link.label}
                         </a>
                       )}

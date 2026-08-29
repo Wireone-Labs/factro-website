@@ -1,42 +1,43 @@
 import type { Metadata } from "next";
-import { CheckCircle2, ShieldCheck, Sparkles, Star } from "lucide-react";
+import { Phone, ShieldCheck, Sparkles } from "lucide-react";
 import { Container } from "@/components/ui/container";
-import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
+import { Reveal } from "@/components/ui/reveal";
 import { DemoForm } from "@/components/forms/demo-form";
 import { DemoBackground } from "@/components/sections/demo-background";
-import { PLATFORM_STATS } from "@/data/stats";
+import { TrackedLink } from "@/components/analytics/tracked-link";
+import { SALES_PHONE, SALES_PHONE_HREF } from "@/data/nav";
 
 export const metadata: Metadata = {
   title: "Book a Demo",
   description:
-    "See Factro on your own production data. Book a walkthrough with our team.",
+    "Bring a real batch and a real deviation. Thirty minutes, no slides — we run it in Factro on your own data.",
 };
 
-const EXPECTATIONS = [
-  "A 30-minute walkthrough mapped to your production and quality workflows",
-  "A look at the exact modules that fit how your plant runs today",
-  "Straight answers on pricing, rollout, and what onboarding looks like",
-  "No pressure — just a clear picture of whether Factro is a fit",
+const TIMELINE = [
+  { label: "Week 1", description: "Process-led demo & discovery, no slides." },
+  { label: "Week 2", description: "Fit assessment & scoping — you leave with a go-live date." },
+  { label: "Weeks 3–4", description: "Configuration, migration & training." },
+  { label: "Day 30", description: "Go-live. Every module connected." },
 ];
 
 export default function DemoPage() {
   return (
-    <section className="relative overflow-hidden pt-32 pb-24 sm:pt-40 sm:pb-32">
+    <section className="relative overflow-hidden pt-28 pb-16 sm:pt-36 sm:pb-20">
       <DemoBackground />
 
       <Container className="relative">
-        <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-2 lg:gap-16">
+        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand-600">
               <Sparkles className="h-3.5 w-3.5" />
               Book a demo
             </span>
 
-            <h1 className="text-balance mt-6 text-4xl font-semibold tracking-tight text-ink-900 sm:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
-              See Factro run on{" "}
+            <h1 className="text-balance mt-5 text-4xl font-semibold tracking-tight text-ink-900 sm:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
+              Bring a{" "}
               <span className="relative inline-block whitespace-nowrap">
                 <span className="relative z-10 bg-gradient-to-r from-brand-600 to-brand-400 bg-clip-text text-transparent">
-                  your own
+                  real batch
                 </span>
                 <svg
                   aria-hidden
@@ -53,66 +54,66 @@ export default function DemoPage() {
                   />
                 </svg>
               </span>{" "}
-              production data
+              and a real deviation
             </h1>
 
-            <p className="mt-6 max-w-md text-base leading-relaxed text-ink-500">
-              Tell us a bit about your operation and we&apos;ll set up a
-              walkthrough with our team — no generic sales deck, just your
-              modules and your workflows.
+            <p className="mt-5 max-w-md text-base leading-relaxed text-ink-500">
+              Thirty minutes. No slides, no scripted scenarios. You pick the
+              workflow, we run it in Factro — at your facility, on your data,
+              with the engineers who built the system.
             </p>
 
-            <RevealGroup className="mt-10 flex flex-col gap-4" stagger={0.06}>
-              {EXPECTATIONS.map((item) => (
-                <RevealItem key={item} className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-600">
-                    <CheckCircle2 className="h-3.5 w-3.5" />
-                  </span>
-                  <span className="text-sm leading-relaxed text-ink-600">
-                    {item}
-                  </span>
-                </RevealItem>
-              ))}
-            </RevealGroup>
-
-            <Reveal delay={0.15} className="mt-11 grid grid-cols-2 gap-6 border-t border-line pt-8 sm:grid-cols-4">
-              {PLATFORM_STATS.map((stat) => (
-                <div key={stat.label}>
-                  <p className="text-2xl font-semibold tracking-tight text-ink-900">
-                    {stat.value}
-                  </p>
-                  <p className="mt-1 text-xs leading-snug text-ink-500">
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
-            </Reveal>
-
-            <Reveal
-              delay={0.2}
-              className="relative mt-11 max-w-md overflow-hidden rounded-2xl border border-line bg-white/70 p-5 backdrop-blur-sm"
-            >
-              <div className="flex gap-0.5 text-amber-400">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-3.5 w-3.5 fill-current" />
+            <div className="mt-8 max-w-md">
+              <p className="text-xs font-semibold uppercase tracking-wide text-ink-400">
+                What the next 30 days look like
+              </p>
+              <div className="mt-4 flex flex-col gap-3.5 border-l-2 border-line pl-5">
+                {TIMELINE.map((step) => (
+                  <div key={step.label} className="relative">
+                    <span className="absolute -left-[1.42rem] top-1 h-2 w-2 rounded-full bg-brand-400" />
+                    <p className="text-sm leading-relaxed text-ink-600">
+                      <span className="font-semibold text-ink-900">
+                        {step.label}
+                      </span>
+                      , {step.description}
+                    </p>
+                  </div>
                 ))}
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-ink-700">
-                &ldquo;We replaced four spreadsheets and a paper batch log
-                with one connected system in under a month.&rdquo;
+            </div>
+
+            <div className="mt-5 max-w-md rounded-2xl border border-brand-100 bg-brand-50/60 px-5 py-4">
+              <p className="text-sm leading-relaxed text-ink-700">
+                <span className="font-semibold text-brand-700">
+                  Two months free if we&apos;re late.
+                </span>{" "}
+                Full go-live within thirty days of your complete dataset, or
+                two more months on us — no questions asked.
               </p>
-              <div className="mt-4 flex items-center gap-2 text-xs font-medium text-ink-400">
+            </div>
+
+            <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-ink-500">
+              <span className="flex items-center gap-2">
                 <ShieldCheck className="h-3.5 w-3.5 text-brand-500" />
-                GMP-ready manufacturing team, on Factro
-              </div>
-            </Reveal>
+                Currently in pilot in India
+              </span>
+              <TrackedLink
+                href={SALES_PHONE_HREF}
+                event="phone_click"
+                eventParams={{ location: "demo_page" }}
+                className="flex items-center gap-2 font-medium text-ink-700 hover:text-brand-600"
+              >
+                <Phone className="h-3.5 w-3.5" />
+                {SALES_PHONE}
+              </TrackedLink>
+            </div>
           </Reveal>
 
           <Reveal delay={0.1} className="lg:sticky lg:top-24">
             <div className="relative">
               <div
                 aria-hidden
-                className="pointer-events-none absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-brand-200/50 via-transparent to-brand-100/40 opacity-70 blur-2xl"
+                className="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-brand-200/50 via-transparent to-brand-100/40 opacity-70 blur-2xl"
               />
               <DemoForm />
             </div>

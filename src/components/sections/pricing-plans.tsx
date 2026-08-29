@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { PRICING_PLANS } from "@/data/pricing";
 import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
 
 function BillingToggle({
   annual,
@@ -48,7 +49,7 @@ function BillingToggle({
           annual ? "text-ink-900" : "text-ink-400",
         )}
       >
-        Annual <span className="text-brand-500">· save ~20%</span>
+        Annual <span className="text-brand-500">· save ~10%</span>
       </span>
     </div>
   );
@@ -57,14 +58,19 @@ function BillingToggle({
 export function PricingPlans() {
   const [annual, setAnnual] = useState(true);
 
+  const handleBillingChange = (value: boolean) => {
+    setAnnual(value);
+    trackEvent("pricing_toggle", { billing: value ? "annual" : "monthly" });
+  };
+
   return (
-    <section className="pb-24 sm:pb-32">
+    <section className="pb-16 sm:pb-20">
       <Container>
         <div className="flex justify-center">
-          <BillingToggle annual={annual} onChange={setAnnual} />
+          <BillingToggle annual={annual} onChange={handleBillingChange} />
         </div>
 
-        <RevealGroup className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <RevealGroup className="mx-auto mt-10 grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-2">
           {PRICING_PLANS.map((plan) => (
             <RevealItem key={plan.id}>
               <div
@@ -98,7 +104,7 @@ export function PricingPlans() {
                           transition={{ duration: 0.18 }}
                           className="text-4xl font-semibold tracking-tight text-ink-900"
                         >
-                          ${annual ? plan.annual : plan.monthly}
+                          ₹{annual ? plan.annual : plan.monthly}
                         </motion.span>
                       </AnimatePresence>
                       <span className="text-sm text-ink-400">{plan.unit}</span>
@@ -108,10 +114,15 @@ export function PricingPlans() {
                       Custom
                     </span>
                   )}
-                  {plan.monthly !== null && (
-                    <p className="mt-1 text-xs text-ink-400">
-                      {annual ? "Billed annually" : "Billed monthly"}
-                    </p>
+                  <p className="mt-1 text-xs text-ink-400">
+                    {plan.monthly !== null
+                      ? annual
+                        ? "Billed annually"
+                        : "Billed monthly"
+                      : plan.unit}
+                  </p>
+                  {plan.minUsers && (
+                    <p className="mt-1 text-xs text-ink-400">{plan.minUsers}</p>
                   )}
                 </div>
 
@@ -119,11 +130,21 @@ export function PricingPlans() {
                   href={plan.ctaHref}
                   variant={plan.recommended ? "primary" : "secondary"}
                   className="mt-6 w-full"
+                  event="pricing_cta_click"
+                  eventParams={{
+                    plan: plan.id,
+                    billing: annual ? "annual" : "monthly",
+                  }}
                 >
                   {plan.ctaLabel}
                 </Button>
 
                 <ul className="mt-8 flex flex-col gap-3">
+                  {plan.featuresIntro && (
+                    <li className="text-sm font-semibold text-ink-900">
+                      {plan.featuresIntro}
+                    </li>
+                  )}
                   {plan.features.map((feature) => (
                     <li
                       key={feature}
@@ -134,6 +155,12 @@ export function PricingPlans() {
                     </li>
                   ))}
                 </ul>
+
+                {plan.note && (
+                  <p className="mt-6 border-t border-line pt-5 text-xs leading-relaxed text-ink-500">
+                    {plan.note}
+                  </p>
+                )}
               </div>
             </RevealItem>
           ))}

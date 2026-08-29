@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "dark";
 type ButtonSize = "md" | "lg";
@@ -27,6 +30,10 @@ interface ButtonProps
   size?: ButtonSize;
   href?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>;
+  /** Analytics event name to fire on click, e.g. "book_demo_click". */
+  event?: string;
+  /** Extra params attached to the analytics event. */
+  eventParams?: Record<string, string | number | boolean>;
 }
 
 export function Button({
@@ -36,9 +43,18 @@ export function Button({
   href,
   children,
   onClick,
+  event,
+  eventParams,
   ...props
 }: ButtonProps) {
   const classes = cn(base, variants[variant], sizes[size], className);
+
+  const handleClick: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement> = (
+    e,
+  ) => {
+    if (event) trackEvent(event, eventParams);
+    onClick?.(e);
+  };
 
   if (href) {
     const isExternal = /^https?:\/\//.test(href);
@@ -46,7 +62,7 @@ export function Button({
 
     if (isMailto) {
       return (
-        <a href={href} className={classes} onClick={onClick}>
+        <a href={href} className={classes} onClick={handleClick}>
           {children}
         </a>
       );
@@ -59,7 +75,7 @@ export function Button({
           target="_blank"
           rel="noopener noreferrer"
           className={classes}
-          onClick={onClick}
+          onClick={handleClick}
         >
           {children}
         </a>
@@ -67,18 +83,14 @@ export function Button({
     }
 
     return (
-      <Link
-        href={href}
-        className={classes}
-        onClick={onClick}
-      >
+      <Link href={href} className={classes} onClick={handleClick}>
         {children}
       </Link>
     );
   }
 
   return (
-    <button className={classes} onClick={onClick} {...props}>
+    <button className={classes} onClick={handleClick} {...props}>
       {children}
     </button>
   );

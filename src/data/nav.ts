@@ -1,18 +1,17 @@
 import type { LucideIcon } from "lucide-react";
 import {
-  LayoutDashboard,
-  Gauge,
-  Building2,
-  Factory,
-  Package,
-  ShieldCheck,
   TrendingUp,
   ShoppingCart,
-  BarChart3,
-  Layers,
+  Package,
+  Building2,
+  Factory,
+  ShieldCheck,
+  FileWarning,
+  FileText,
   GraduationCap,
-  Plug,
-  Lock,
+  Layers,
+  Workflow,
+  Brain,
 } from "lucide-react";
 
 export interface MegaMenuItem {
@@ -40,23 +39,23 @@ export interface NavItem {
   menu?: MegaMenu;
 }
 
-export const PLATFORM_MENU: MegaMenu = {
-  description: "Everything your operation needs, in one connected platform.",
+export const MODULES_MENU: MegaMenu = {
+  description: "All ten workspaces, running on one database that already talks to itself.",
   columns: [
     {
-      heading: "Core Platform",
+      heading: "Commercial",
       items: [
         {
-          label: "Platform Overview",
-          description: "How it connects",
-          href: "/platform",
-          icon: LayoutDashboard,
+          label: "Sales",
+          description: "Enquiry to dispatch",
+          href: "/modules#sales",
+          icon: TrendingUp,
         },
         {
-          label: "Dashboard",
-          description: "Role-aware view",
-          href: "/platform#dashboard",
-          icon: Gauge,
+          label: "Purchase",
+          description: "Nothing enters unapproved",
+          href: "/modules#purchase",
+          icon: ShoppingCart,
         },
       ],
     },
@@ -64,100 +63,92 @@ export const PLATFORM_MENU: MegaMenu = {
       heading: "Operations",
       items: [
         {
-          label: "Production",
-          description: "Plan & execute batches",
-          href: "/platform#production",
-          icon: Factory,
-        },
-        {
-          label: "Shop Floor",
-          description: "Sites & work centers",
-          href: "/platform#shop-floor",
-          icon: Building2,
-        },
-        {
           label: "Inventory",
-          description: "Stock & transfers",
-          href: "/platform#inventory",
+          description: "Nothing reaches the floor unchecked",
+          href: "/modules#inventory",
           icon: Package,
         },
         {
+          label: "Facility",
+          description: "Your plant, modelled once",
+          href: "/modules#facility",
+          icon: Building2,
+        },
+        {
+          label: "Production",
+          description: "The record writes itself",
+          href: "/modules#production",
+          icon: Factory,
+        },
+        {
           label: "Quality",
-          description: "QA, QC & CAPA",
-          href: "/platform#quality",
+          description: "The gate, not the review",
+          href: "/modules#quality",
           icon: ShieldCheck,
         },
       ],
     },
     {
-      heading: "Business",
+      heading: "Compliance & Docs",
       items: [
         {
-          label: "Sales & Customers",
-          description: "Enquiry to invoice",
-          href: "/platform#sales",
-          icon: TrendingUp,
+          label: "CAPA",
+          description: "Close the loop with proof",
+          href: "/modules#capa",
+          icon: FileWarning,
         },
         {
-          label: "Procurement",
-          description: "Vendors & POs",
-          href: "/platform#procurement",
-          icon: ShoppingCart,
-        },
-      ],
-    },
-    {
-      heading: "Intelligence",
-      items: [
-        {
-          label: "Reports & Analytics",
-          description: "Pre-built report library",
-          href: "/platform#reports",
-          icon: BarChart3,
-        },
-        {
-          label: "Process Library",
-          description: "BOMs & formulas",
-          href: "/platform#library",
-          icon: Layers,
+          label: "Documents",
+          description: "One version, everywhere",
+          href: "/modules#documents",
+          icon: FileText,
         },
         {
           label: "Training",
-          description: "Built-in training",
-          href: "/platform#training",
+          description: "Proof, not attendance",
+          href: "/modules#training",
           icon: GraduationCap,
         },
       ],
     },
     {
-      heading: "Connectivity",
+      heading: "Underneath every module",
       items: [
         {
-          label: "Integrations",
-          description: "Fits your stack",
-          href: "/platform#integrations",
-          icon: Plug,
+          label: "Library",
+          description: "Every master in one place",
+          href: "/modules#library",
+          icon: Layers,
         },
         {
-          label: "Security",
-          description: "Access & data control",
-          href: "/compliance",
-          icon: Lock,
+          label: "Process & Ticketing",
+          description: "Handovers with owners and clocks",
+          href: "/modules#process",
+          icon: Workflow,
+        },
+        {
+          label: "Intelligence",
+          description: "AI Assistant · Beta Q4 2026",
+          href: "/modules#intelligence",
+          icon: Brain,
         },
       ],
     },
   ],
-  footerLabel: "See the full platform",
-  footerHref: "/platform",
+  footerLabel: "See what's in every module",
+  footerHref: "/modules",
 };
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: "Platform", href: "/platform", menu: PLATFORM_MENU },
+  { label: "Modules", href: "/modules", menu: MODULES_MENU },
+  { label: "Compliances", href: "/compliances" },
+  { label: "Security", href: "/infrastructure-security" },
   { label: "Pricing", href: "/pricing" },
-  { label: "Compliance", href: "/compliance" },
 ];
 
 export const SIGN_IN_URL = "https://app.factro.io/login";
 export const BOOK_DEMO_HREF = "/demo";
-export const SALES_EMAIL = "sales@factro.io";
+export const SALES_EMAIL = "hello@factro.io";
 export const SALES_MAILTO = `mailto:${SALES_EMAIL}`;
+export const SALES_PHONE = "+91 81225 76712";
+export const SALES_PHONE_HREF = "tel:+918122576712";

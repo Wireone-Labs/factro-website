@@ -7,7 +7,7 @@ import { PLATFORM_STATS } from "@/data/stats";
 
 export function Proof() {
   return (
-    <section className="py-24 sm:py-32">
+    <section className="py-16 sm:py-20">
       <Container>
         <RevealGroup className="grid grid-cols-2 gap-8 border-b border-line pb-16 sm:grid-cols-4">
           {PLATFORM_STATS.map((stat) => (
@@ -25,9 +25,9 @@ export function Proof() {
         <Reveal className="mx-auto mt-16 max-w-3xl text-center">
           <Quote className="mx-auto h-8 w-8 text-brand-300" />
           <p className="text-balance mt-6 text-xl font-medium leading-relaxed text-ink-900 sm:text-2xl">
-            &ldquo;We built Factro because spreadsheets and disconnected
-            systems aren&apos;t good enough for teams whose product safety
-            depends on getting every batch record right.&rdquo;
+            &ldquo;Most plants do not have a compliance problem. They have an
+            observability problem. Factro closes that gap in the
+            architecture, not with another checklist.&rdquo;
           </p>
           <div className="mt-6 flex items-center justify-center gap-3">
             <Image

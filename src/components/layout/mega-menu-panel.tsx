@@ -5,27 +5,32 @@ import type { MegaMenu } from "@/data/nav";
 import { cn } from "@/lib/utils";
 
 export function MegaMenuPanel({ menu }: { menu: MegaMenu }) {
-  const wide = menu.columns.length >= 5;
+  const colCount = menu.columns.length;
+  const panelWidth =
+    colCount >= 5
+      ? "w-[min(96vw,1180px)]"
+      : colCount === 4
+        ? "w-[min(94vw,960px)]"
+        : "w-[min(90vw,680px)]";
+  const gridCols =
+    colCount >= 5
+      ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5"
+      : colCount === 4
+        ? "grid-cols-2 sm:grid-cols-4"
+        : "grid-cols-1 sm:grid-cols-3";
 
   return (
     <div
       className={cn(
         "overflow-hidden rounded-2xl border border-line bg-white/95 shadow-[0_24px_60px_-20px_rgba(15,14,23,0.25)] backdrop-blur-xl",
-        wide ? "w-[min(96vw,1180px)]" : "w-[min(90vw,680px)]",
+        panelWidth,
       )}
     >
       <div className="border-b border-line px-6 py-4">
         <p className="text-sm text-ink-500">{menu.description}</p>
       </div>
 
-      <div
-        className={cn(
-          "grid gap-x-6 gap-y-8 p-6",
-          wide
-            ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5"
-            : "grid-cols-1 sm:grid-cols-3",
-        )}
-      >
+      <div className={cn("grid gap-x-6 gap-y-8 p-6", gridCols)}>
         {menu.columns.map((col) => (
           <div key={col.heading}>
             <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-ink-400">
@@ -44,10 +49,10 @@ export function MegaMenuPanel({ menu }: { menu: MegaMenu }) {
                       className="mt-0.5 transition-colors duration-200 group-hover:border-brand-200 group-hover:bg-brand-100"
                     />
                     <span className="min-w-0">
-                      <span className="block text-sm font-medium whitespace-nowrap text-ink-900">
+                      <span className="block text-sm font-medium text-ink-900">
                         {item.label}
                       </span>
-                      <span className="block text-xs whitespace-nowrap text-ink-400">
+                      <span className="block text-xs text-ink-400">
                         {item.description}
                       </span>
                     </span>
