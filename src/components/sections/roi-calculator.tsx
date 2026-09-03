@@ -49,22 +49,25 @@ export function RoiCalculator() {
   );
 
   return (
-    <section className="py-16 sm:py-20">
+    <section className="py-12 sm:py-16">
       <Container>
         <SectionHeading
           eyebrow="The problem"
           title="Most plants do not have a compliance problem. They have an observability problem."
-          description="Paper tells you what happened, never what is happening. Consistency depends on memory, and every answer costs someone an afternoon. Tick what you recognise — we'll estimate what it's costing you."
+          description="Paper tells you what happened, never what is happening. Tick what you recognise — we'll estimate what it's costing you."
         />
 
-        <RevealGroup className="mt-14 grid grid-cols-1 gap-5 lg:grid-cols-2" stagger={0.08}>
+        <RevealGroup
+          className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
+          stagger={0.08}
+        >
           {ROI_CATEGORIES.map((category) => (
             <RevealItem key={category.id}>
-              <div className="h-full rounded-3xl border border-line bg-white p-6 sm:p-7">
+              <div className="h-full rounded-2xl border border-line bg-white p-4">
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-ink-400">
                   {category.label}
                 </h3>
-                <div className="mt-4 flex flex-col gap-2">
+                <div className="mt-2.5 flex flex-col gap-1.5">
                   {category.items.map((item) => {
                     const id = `${category.id}:${item.text}`;
                     const active = checked.has(id);
@@ -75,7 +78,7 @@ export function RoiCalculator() {
                         onClick={() => toggle(id)}
                         aria-pressed={active}
                         className={cn(
-                          "flex items-start gap-3 rounded-xl border px-3.5 py-3 text-left text-sm leading-relaxed transition-colors",
+                          "flex items-start gap-2.5 rounded-lg border px-2.5 py-2 text-left text-xs leading-snug transition-colors",
                           active
                             ? "border-brand-300 bg-brand-50/60 text-ink-900"
                             : "border-line bg-white text-ink-600 hover:border-ink-300",
@@ -83,13 +86,13 @@ export function RoiCalculator() {
                       >
                         <span
                           className={cn(
-                            "mt-0.5 flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-md border transition-colors",
+                            "mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-md border transition-colors",
                             active
                               ? "border-brand-500 bg-brand-500 text-white"
                               : "border-ink-200 bg-white",
                           )}
                         >
-                          {active && <Check className="h-3 w-3" strokeWidth={3} />}
+                          {active && <Check className="h-2.5 w-2.5" strokeWidth={3} />}
                         </span>
                         {item.text}
                       </button>
@@ -101,35 +104,36 @@ export function RoiCalculator() {
           ))}
         </RevealGroup>
 
-        <Reveal delay={0.1} className="mt-8">
-          <div className="flex flex-col items-center gap-6 rounded-3xl bg-ink-950 px-8 py-10 text-center sm:px-16">
-            <div className="flex items-center gap-3 text-white">
-              <Clock className="h-5 w-5 text-brand-300" />
-              <span className="text-sm font-medium text-ink-300">
-                Your estimate:
-              </span>
-              <motion.span
-                key={minutes}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.2 }}
-                className="text-2xl font-semibold tracking-tight text-white"
-              >
-                {formatHours(minutes)}
-              </motion.span>
-              <span className="text-sm text-ink-300">/ week, per person</span>
+        <Reveal delay={0.1} className="mt-5">
+          <div className="flex flex-col items-center gap-4 rounded-3xl bg-ink-950 px-6 py-6 text-center sm:flex-row sm:justify-between sm:px-10 sm:text-left">
+            <div className="flex flex-col gap-1 sm:gap-1.5">
+              <div className="flex items-center justify-center gap-3 text-white sm:justify-start">
+                <Clock className="h-5 w-5 text-brand-300" />
+                <span className="text-sm font-medium text-ink-300">
+                  Your estimate:
+                </span>
+                <motion.span
+                  key={minutes}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="text-2xl font-semibold tracking-tight text-white"
+                >
+                  {formatHours(minutes)}
+                </motion.span>
+                <span className="text-sm text-ink-300">/ week, per person</span>
+              </div>
+              <p className="max-w-md text-xs leading-relaxed text-ink-400">
+                Across 30 to 60 people, that&apos;s a person-year every week.
+                An estimate, not a measurement — bring your own numbers to
+                the demo.
+              </p>
             </div>
-            <p className="max-w-lg text-sm leading-relaxed text-ink-400">
-              Across 30 to 60 people in a mid-sized plant, that&apos;s a
-              person-year every week. This is an estimate, not a measurement —
-              bring your own numbers to the demo and we&apos;ll do this sum
-              with them.
-            </p>
             <Button
               href={BOOK_DEMO_HREF}
               variant="dark"
               size="lg"
-              className="group"
+              className="group shrink-0"
               event="book_demo_click"
               eventParams={{ location: "roi_calculator" }}
             >

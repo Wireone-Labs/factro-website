@@ -7,6 +7,8 @@ import { Footer } from "@/components/layout/footer";
 import { ScrollProgress } from "@/components/layout/scroll-progress";
 import { CookieConsent } from "@/components/layout/cookie-consent";
 import { AnalyticsTracker } from "@/components/analytics/analytics-tracker";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, SITE_TAGLINE } from "@/lib/site";
+import { SALES_EMAIL, SALES_PHONE } from "@/data/nav";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,15 +16,34 @@ const inter = Inter({
   display: "swap",
 });
 
-const SITE_URL = "https://factro.in";
-const SITE_NAME = "Factro";
-const SITE_DESCRIPTION =
-  "Factro puts supply chain, batch execution and quality on one record, with compliance built into the architecture rather than configured on top.";
+const ORGANIZATION_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: SITE_NAME,
+  legalName: "Wireone Labs",
+  url: SITE_URL,
+  logo: `${SITE_URL}/brand/logo-mark.png`,
+  description: SITE_DESCRIPTION,
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "sales",
+    telephone: SALES_PHONE,
+    email: SALES_EMAIL,
+    areaServed: "IN",
+  },
+};
+
+const WEBSITE_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE_NAME,
+  url: SITE_URL,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} | Compliance-native manufacturing`,
+    default: `${SITE_NAME} | ${SITE_TAGLINE}`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -39,6 +60,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Wireone Labs" }],
   creator: "Wireone Labs",
   publisher: "Wireone Labs",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -56,6 +80,15 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+    },
+  },
 };
 
 export const viewport = {
@@ -68,6 +101,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-white text-ink-900 font-sans">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_JSON_LD) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_JSON_LD) }}
+        />
         <Suspense fallback={null}>
           <AnalyticsTracker />
         </Suspense>

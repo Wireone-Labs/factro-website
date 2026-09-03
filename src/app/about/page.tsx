@@ -4,11 +4,13 @@ import { Cta } from "@/components/sections/cta";
 import { Container } from "@/components/ui/container";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { COMPANY_TIMELINE } from "@/data/about";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About Us",
   description: "Who we are and why we're building Factro, for India first.",
-};
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

@@ -14,6 +14,13 @@ import {
   Brain,
 } from "lucide-react";
 
+export interface CoreModuleScreenshot {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
 export interface CoreModule {
   id: string;
   icon: LucideIcon;
@@ -21,6 +28,7 @@ export interface CoreModule {
   title: string;
   description: string;
   points: string[];
+  screenshot?: CoreModuleScreenshot;
 }
 
 export const CORE_MODULES: CoreModule[] = [
@@ -53,6 +61,12 @@ export const CORE_MODULES: CoreModule[] = [
       "GRN with 3-way match",
       "Reorder point triggers",
     ],
+    screenshot: {
+      src: "/dashboard/purchase-dashboard.png",
+      alt: "Factro Purchase dashboard showing order book value, supplier deviation rate and vendor OTIF",
+      width: 1920,
+      height: 1490,
+    },
   },
   {
     id: "inventory",
@@ -98,6 +112,12 @@ export const CORE_MODULES: CoreModule[] = [
       "Batch Release with COA",
       "Dispensing with second-person verification",
     ],
+    screenshot: {
+      src: "/dashboard/production-planning.png",
+      alt: "Factro Production Orders dashboard showing schedule adherence, center utilization and the weekly order timeline",
+      width: 1920,
+      height: 1341,
+    },
   },
   {
     id: "quality",

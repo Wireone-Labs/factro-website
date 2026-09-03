@@ -6,12 +6,14 @@ import { DemoForm } from "@/components/forms/demo-form";
 import { DemoBackground } from "@/components/sections/demo-background";
 import { TrackedLink } from "@/components/analytics/tracked-link";
 import { SALES_PHONE, SALES_PHONE_HREF } from "@/data/nav";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Book a Demo",
   description:
     "Bring a real batch and a real deviation. Thirty minutes, no slides — we run it in Factro on your own data.",
-};
+  path: "/demo",
+});
 
 const TIMELINE = [
   { label: "Week 1", description: "Process-led demo & discovery, no slides." },

@@ -7,12 +7,14 @@ import { Container } from "@/components/ui/container";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { MAPPED_STANDARDS, COMPLIANCE_CONTROLS } from "@/data/compliance";
 import { BOOK_DEMO_HREF, SALES_MAILTO } from "@/data/nav";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Compliances",
   description:
     "Ninety-six control points, validated in live pilot runs with pharmaceutical manufacturers. Validation-ready for 21 CFR Part 11, EU Annex 11 and Revised Schedule M.",
-};
+  path: "/compliances",
+});
 
 export default function CompliancesPage() {
   return (

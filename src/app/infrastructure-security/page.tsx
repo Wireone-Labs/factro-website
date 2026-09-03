@@ -9,12 +9,14 @@ import { ScrollRail } from "@/components/ui/scroll-rail";
 import { Reveal } from "@/components/ui/reveal";
 import { INFRASTRUCTURE_SECTIONS } from "@/data/infrastructure";
 import { BOOK_DEMO_HREF, SALES_MAILTO } from "@/data/nav";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Infrastructure & Security",
   description:
     "How the Factro platform itself is built, hosted and protected — encryption, access control, audit trail mechanics and backups.",
-};
+  path: "/infrastructure-security",
+});
 
 const QUICK_FACTS = [
   { icon: Lock, label: "AES-256 everywhere" },

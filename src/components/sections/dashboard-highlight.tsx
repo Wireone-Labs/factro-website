@@ -38,7 +38,12 @@ export function DashboardHighlight() {
 
           <Reveal delay={0.08}>
             <div className="scale-90 lg:scale-100">
-              <HeroMockup />
+              <HeroMockup
+                src="/dashboard/my-work.png"
+                alt="Factro My Work board showing a prioritised task queue across Open, In Progress, Blocked and Done"
+                width={1920}
+                height={1189}
+              />
             </div>
           </Reveal>
         </div>

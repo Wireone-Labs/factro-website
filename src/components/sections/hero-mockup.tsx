@@ -3,7 +3,21 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-export function HeroMockup() {
+interface HeroMockupProps {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  priority?: boolean;
+}
+
+export function HeroMockup({
+  src,
+  alt,
+  width,
+  height,
+  priority,
+}: HeroMockupProps) {
   return (
     <div className="relative mx-auto w-full max-w-5xl">
       <motion.div
@@ -12,23 +26,13 @@ export function HeroMockup() {
         transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
         className="relative overflow-hidden rounded-2xl border border-line bg-white shadow-[0_30px_80px_-20px_rgba(15,14,23,0.25)] sm:rounded-3xl"
       >
-        {/* Window chrome */}
-        <div className="flex items-center gap-2 border-b border-line px-5 py-3.5">
-          <span className="h-2.5 w-2.5 rounded-full bg-ink-100" />
-          <span className="h-2.5 w-2.5 rounded-full bg-ink-100" />
-          <span className="h-2.5 w-2.5 rounded-full bg-ink-100" />
-          <div className="ml-4 hidden h-6 flex-1 items-center rounded-md bg-ink-50 px-3 text-xs text-ink-400 sm:flex">
-            app.factro.in/dashboard
-          </div>
-        </div>
-
         <div className="relative">
           <Image
-            src="/dashboard/hero-dashboard.png"
-            alt="Factro purchase dashboard showing order book value, supplier deviation rate, and vendor compliance"
-            width={2395}
-            height={1609}
-            priority
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
+            priority={priority}
             className="h-auto w-full"
           />
           <div

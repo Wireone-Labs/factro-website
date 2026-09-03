@@ -8,12 +8,14 @@ import { Container } from "@/components/ui/container";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { IconTile } from "@/components/ui/icon-tile";
 import { UNDERNEATH_EVERY_MODULE } from "@/data/modules";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Modules",
   description:
     "Everything your ERP, MES, QMS and LIMS do separately, running on one system that already talks to itself.",
-};
+  path: "/modules",
+});
 
 export default function ModulesPage() {
   return (

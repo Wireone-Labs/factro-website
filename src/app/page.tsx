@@ -1,5 +1,6 @@
 import { Hero } from "@/components/sections/hero";
 import { ThreePillars } from "@/components/sections/three-pillars";
+import { DashboardHighlight } from "@/components/sections/dashboard-highlight";
 import { ModulesTeaser } from "@/components/sections/modules-teaser";
 import { RoiCalculator } from "@/components/sections/roi-calculator";
 import { BusinessOutcomes } from "@/components/sections/business-outcomes";
@@ -14,6 +15,7 @@ export default function Home() {
     <>
       <Hero />
       <ThreePillars />
+      <DashboardHighlight />
       <ModulesTeaser />
       <RoiCalculator />
       <BusinessOutcomes />

@@ -4,12 +4,14 @@ import { PricingPlans } from "@/components/sections/pricing-plans";
 import { Faq } from "@/components/sections/faq";
 import { Cta } from "@/components/sections/cta";
 import { PRICING_FAQS } from "@/data/pricing";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Pricing",
   description:
     "All 10 modules, the same controls, the same audit trail. The difference is infrastructure, not capability.",
-};
+  path: "/pricing",
+});
 
 export default function PricingPage() {
   return (

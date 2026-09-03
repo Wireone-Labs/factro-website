@@ -12,8 +12,8 @@ export function ModulesTeaser() {
       <Container>
         <SectionHeading
           eyebrow="One database"
-          title="Most plants buy five systems. This is all five, on one."
-          description="An ERP, an MES, a QMS, a LIMS and a document system — then pay every year to make them talk. Factro is all of that, already connected."
+          title="Most plants buy five systems. This is ten modules, already connected."
+          description="An ERP, an MES, a QMS, a LIMS and a document system — then pay every year to make them talk. Factro replaces all five, running as ten modules on one database."
         />
 
         <RevealGroup className="mt-16 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5" stagger={0.04}>

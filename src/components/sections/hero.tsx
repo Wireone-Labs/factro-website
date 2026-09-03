@@ -5,6 +5,7 @@ import { ArrowRight, PlayCircle } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { HeroMockup } from "@/components/sections/hero-mockup";
+import { HeroWave } from "@/components/sections/hero-wave";
 import { BOOK_DEMO_HREF } from "@/data/nav";
 
 export function Hero() {
@@ -12,6 +13,7 @@ export function Hero() {
     <section className="relative overflow-hidden pt-32 pb-12 sm:pt-40 sm:pb-16">
       {/* Background decoration */}
       <div className="bg-dot-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black,transparent)]" />
+      <HeroWave />
       <motion.div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-[-12rem] h-[32rem] w-[64rem] -translate-x-1/2 rounded-full bg-brand-200/40 blur-3xl"
@@ -110,7 +112,13 @@ export function Hero() {
         </div>
 
         <div className="mt-16 sm:mt-20">
-          <HeroMockup />
+          <HeroMockup
+            src="/dashboard/purchase-dashboard.png"
+            alt="Factro Purchase dashboard showing order book value, supplier deviation rate and vendor OTIF"
+            width={1920}
+            height={1490}
+            priority
+          />
         </div>
       </Container>
     </section>
