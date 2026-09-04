@@ -19,17 +19,13 @@ export function ModulesGrid() {
 
   return (
     <Reveal delay={0.05} className="mt-14">
-      <motion.div
-        layout
-        transition={{ duration: 0.4, ease: EASE }}
+      <div
         className={cn(
-          "grid gap-3",
+          "grid gap-3 [overflow-anchor:none]",
           selected && "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:items-start",
         )}
       >
-        <motion.div
-          layout
-          transition={{ duration: 0.4, ease: EASE }}
+        <div
           className={cn(
             "grid grid-cols-2 gap-3 sm:grid-cols-3",
             selected ? "lg:grid-cols-1" : "lg:grid-cols-5",
@@ -41,7 +37,6 @@ export function ModulesGrid() {
               return (
                 <motion.button
                   key={mod.id}
-                  layout
                   initial={{ opacity: 0, scale: 0.88 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.88 }}
@@ -88,12 +83,11 @@ export function ModulesGrid() {
               );
             })}
           </AnimatePresence>
-        </motion.div>
+        </div>
 
         <AnimatePresence mode="popLayout">
           {selected && (
             <motion.div
-              layout
               initial={{ opacity: 0, x: 24, scale: 0.97 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: 24, scale: 0.97 }}
@@ -179,7 +173,7 @@ export function ModulesGrid() {
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.div>
+      </div>
     </Reveal>
   );
 }

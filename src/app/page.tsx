@@ -1,4 +1,5 @@
 import { Hero } from "@/components/sections/hero";
+import { WhoIsItFor } from "@/components/sections/who-is-it-for";
 import { ThreePillars } from "@/components/sections/three-pillars";
 import { WhatItOffers } from "@/components/sections/what-it-offers";
 import { GenealogyHighlight } from "@/components/sections/genealogy-highlight";
@@ -17,6 +18,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <WhoIsItFor />
       <ThreePillars />
       <WhatItOffers />
       <GenealogyHighlight />

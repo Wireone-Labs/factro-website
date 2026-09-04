@@ -63,8 +63,7 @@ export function Footer() {
               />
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-ink-500">
-              AI-first. Compliance-native. Process-driven. Supply chain, batch
-              execution and quality, on one record.
+              AI-first. Compliance-native. Process-driven.
             </p>
             <div className="flex flex-col gap-2">
               <a

@@ -31,11 +31,13 @@ export function MegaMenuPanel({ menu }: { menu: MegaMenu }) {
       </div>
 
       <div className={cn("grid gap-x-6 gap-y-8 p-6", gridCols)}>
-        {menu.columns.map((col) => (
-          <div key={col.heading}>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-ink-400">
-              {col.heading}
-            </p>
+        {menu.columns.map((col, i) => (
+          <div key={col.heading || i}>
+            {col.heading && (
+              <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-ink-400">
+                {col.heading}
+              </p>
+            )}
             <ul className="flex flex-col gap-0.5">
               {col.items.map((item) => (
                 <li key={item.label}>

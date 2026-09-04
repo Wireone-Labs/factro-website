@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Lock, MonitorCheck, ShieldCheck, Timer } from "lucide-react";
+import { Lock, MonitorCheck, ShieldCheck, Timer, Bug } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { Cta } from "@/components/sections/cta";
 import { Container } from "@/components/ui/container";
 import { IconTile } from "@/components/ui/icon-tile";
-import { ScrollRail } from "@/components/ui/scroll-rail";
-import { Reveal } from "@/components/ui/reveal";
+import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { INFRASTRUCTURE_SECTIONS } from "@/data/infrastructure";
 import { BOOK_DEMO_HREF, SALES_MAILTO } from "@/data/nav";
 import { pageMetadata } from "@/lib/site";
@@ -14,7 +13,7 @@ import { pageMetadata } from "@/lib/site";
 export const metadata: Metadata = pageMetadata({
   title: "Infrastructure & Security",
   description:
-    "How the Factro platform itself is built, hosted and protected — encryption, access control, audit trail mechanics and backups.",
+    "Enterprise-grade security, built into the platform — encryption, access control, audit trail mechanics and backups.",
   path: "/infrastructure-security",
 });
 
@@ -23,6 +22,7 @@ const QUICK_FACTS = [
   { icon: ShieldCheck, label: "MFA on every login" },
   { icon: Timer, label: "RFC 3161 timestamping" },
   { icon: MonitorCheck, label: "99% uptime SLA" },
+  { icon: Bug, label: "Independently penetration tested" },
 ];
 
 export default function InfrastructureSecurityPage() {
@@ -30,7 +30,7 @@ export default function InfrastructureSecurityPage() {
     <>
       <PageHero
         eyebrow="Infrastructure & Security"
-        title="How the platform is built, hosted and protected"
+        title="Enterprise-grade security, built in"
         description="Compliances covers the regulatory controls. This page covers how the platform itself is built, hosted and protected underneath them."
       />
 
@@ -51,34 +51,40 @@ export default function InfrastructureSecurityPage() {
       </section>
 
       <section className="py-16 sm:py-20">
-        <Container className="max-w-3xl">
-          <ScrollRail className="flex flex-col gap-10">
-            {INFRASTRUCTURE_SECTIONS.map((section, index) => (
-              <div key={section.id} id={section.id} className="scroll-mt-28">
-                <div className="relative overflow-hidden rounded-3xl border border-line bg-white p-7 sm:p-8">
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute -top-4 -right-2 text-7xl font-black text-mist select-none"
-                  >
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <div className="relative flex items-center gap-3">
-                    <IconTile icon={section.icon} />
-                    <h3 className="text-lg font-semibold text-ink-900">
-                      {section.title}
-                    </h3>
+        <Container>
+          <RevealGroup
+            className="grid grid-cols-1 gap-5 lg:grid-cols-2"
+            stagger={0.04}
+          >
+            {INFRASTRUCTURE_SECTIONS.map((section) => (
+              <RevealItem key={section.id}>
+                <div
+                  id={section.id}
+                  className="scroll-mt-28 flex h-full flex-col gap-4 rounded-2xl border border-line bg-white p-6 sm:p-7"
+                >
+                  <div className="flex items-center gap-3">
+                    <IconTile icon={section.icon} size="md" />
+                    <div>
+                      <h3 className="text-base font-semibold text-ink-900">
+                        {section.title}
+                      </h3>
+                      <p className="text-xs text-ink-400">{section.intro}</p>
+                    </div>
                   </div>
-                  <div className="relative mt-5 flex flex-col gap-3 border-t border-line pt-5">
-                    {section.paragraphs.map((paragraph, i) => (
-                      <p key={i} className="text-sm leading-relaxed text-ink-600">
-                        {paragraph}
-                      </p>
+                  <ul className="flex flex-col gap-2 border-t border-line pt-4">
+                    {section.points.map((point) => (
+                      <li key={point} className="flex items-start gap-2.5">
+                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-brand-400" />
+                        <span className="text-sm leading-relaxed text-ink-600">
+                          {point}
+                        </span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
-              </div>
+              </RevealItem>
             ))}
-          </ScrollRail>
+          </RevealGroup>
 
           <Reveal delay={0.1}>
             <p className="mt-10 text-center text-sm leading-relaxed text-ink-500">

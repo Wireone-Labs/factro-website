@@ -10,8 +10,6 @@ import {
   FileText,
   GraduationCap,
   Layers,
-  Workflow,
-  Brain,
 } from "lucide-react";
 
 export interface MegaMenuItem {
@@ -43,7 +41,7 @@ export const MODULES_MENU: MegaMenu = {
   description: "All ten workspaces, running on one system that already talks to itself.",
   columns: [
     {
-      heading: "Commercial",
+      heading: "",
       items: [
         {
           label: "Sales",
@@ -57,11 +55,6 @@ export const MODULES_MENU: MegaMenu = {
           href: "/modules#purchase",
           icon: ShoppingCart,
         },
-      ],
-    },
-    {
-      heading: "Operations",
-      items: [
         {
           label: "Inventory",
           description: "Nothing reaches the floor unchecked",
@@ -74,6 +67,11 @@ export const MODULES_MENU: MegaMenu = {
           href: "/modules#facility",
           icon: Building2,
         },
+      ],
+    },
+    {
+      heading: "",
+      items: [
         {
           label: "Production",
           description: "The record writes itself",
@@ -86,17 +84,17 @@ export const MODULES_MENU: MegaMenu = {
           href: "/modules#quality",
           icon: ShieldCheck,
         },
-      ],
-    },
-    {
-      heading: "Compliance & Docs",
-      items: [
         {
           label: "CAPA",
           description: "Close the loop with proof",
           href: "/modules#capa",
           icon: FileWarning,
         },
+      ],
+    },
+    {
+      heading: "",
+      items: [
         {
           label: "Documents",
           description: "One version, everywhere",
@@ -109,28 +107,11 @@ export const MODULES_MENU: MegaMenu = {
           href: "/modules#training",
           icon: GraduationCap,
         },
-      ],
-    },
-    {
-      heading: "Underneath every module",
-      items: [
         {
           label: "Library",
           description: "Every master in one place",
           href: "/modules#library",
           icon: Layers,
-        },
-        {
-          label: "Process & Ticketing",
-          description: "Handovers with owners and clocks",
-          href: "/modules#process",
-          icon: Workflow,
-        },
-        {
-          label: "Intelligence",
-          description: "AI Assistant · Beta Q4 2026",
-          href: "/modules#intelligence",
-          icon: Brain,
         },
       ],
     },
@@ -144,6 +125,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "Compliances", href: "/compliances" },
   { label: "Security", href: "/infrastructure-security" },
   { label: "Pricing", href: "/pricing" },
+  { label: "About", href: "/about" },
 ];
 
 export const SIGN_IN_URL = "https://app.factro.io/login";

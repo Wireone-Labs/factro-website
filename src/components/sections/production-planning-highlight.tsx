@@ -14,7 +14,7 @@ export function ProductionPlanningHighlight() {
     <section id="production-planning" className="scroll-mt-28 py-16 sm:py-20">
       <Container>
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <Reveal>
+          <Reveal className="lg:order-2">
             <span className="text-xs font-semibold uppercase tracking-wide text-brand-500">
               Production planning
             </span>
@@ -36,13 +36,13 @@ export function ProductionPlanningHighlight() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.08}>
+          <Reveal delay={0.08} className="lg:order-1">
             <HeroMockup
               src="/dashboard/production-planning.png"
               alt="Factro Production Orders dashboard showing schedule adherence, active batches, center utilization, orders at risk and a weekly production timeline"
               width={1920}
               height={1341}
-              fixedHeight="h-[21rem] sm:h-[36rem] lg:h-[21rem]"
+              cropAspect="aspect-[16/9]"
             />
           </Reveal>
         </div>

@@ -10,9 +10,12 @@ interface HeroMockupProps {
   width: number;
   height: number;
   priority?: boolean;
-  /** Tailwind height classes (e.g. "h-72 sm:h-96"). When set, the image crops
-   *  to a uniform height (object-cover, top-aligned) instead of its natural aspect ratio. */
-  fixedHeight?: string;
+  /** Tailwind aspect-ratio class (e.g. "aspect-[16/9]"). When set, the image
+   *  crops to a uniform aspect ratio (object-cover, top-aligned) instead of
+   *  its natural one. Unlike a fixed pixel height, this stays safe (crops
+   *  top/bottom only, never left/right) at every viewport width, as long as
+   *  the chosen ratio is wider than the widest source image. */
+  cropAspect?: string;
 }
 
 export function HeroMockup({
@@ -21,7 +24,7 @@ export function HeroMockup({
   width,
   height,
   priority,
-  fixedHeight,
+  cropAspect,
 }: HeroMockupProps) {
   return (
     <div className="relative mx-auto w-full max-w-5xl">
@@ -31,8 +34,8 @@ export function HeroMockup({
         transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
         className="relative overflow-hidden rounded-2xl border border-line bg-white shadow-[0_30px_80px_-20px_rgba(15,14,23,0.25)] sm:rounded-3xl"
       >
-        <div className={cn("relative", fixedHeight)}>
-          {fixedHeight ? (
+        <div className={cn("relative", cropAspect)}>
+          {cropAspect ? (
             <Image
               src={src}
               alt={alt}

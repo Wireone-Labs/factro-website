@@ -43,7 +43,7 @@ export function GenealogyHighlight() {
               alt="Factro Batch Genealogy view tracing Batch MS1238A from raw material vendor through goods receipt, sample testing and material issue, to batch release, dispatch and customer delivery"
               width={1920}
               height={1760}
-              fixedHeight="h-[21rem] sm:h-[36rem] lg:h-[21rem]"
+              cropAspect="aspect-[16/9]"
             />
           </Reveal>
         </div>

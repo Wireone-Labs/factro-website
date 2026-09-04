@@ -59,12 +59,12 @@ export function RoiCalculator() {
     : BOOK_DEMO_HREF;
 
   return (
-    <section className="py-12 sm:py-16">
+    <section className="pt-16 pb-8 sm:pt-20 sm:pb-10">
       <Container>
         <SectionHeading
-          eyebrow="The problem"
-          title="Most plants do not have a compliance problem. They have an observability problem."
-          description="Paper tells you what happened, never what is happening. Tick what you recognise — we'll estimate what it's costing you."
+          eyebrow="The force multiplier"
+          title="Every hour this frees up is an hour spent on work only a person can do"
+          description="Factro doesn't replace your team, it removes the busywork underneath them. Tick what already eats your week — we'll show you the hours it's quietly costing, hours your best people could spend on judgment calls instead of paperwork."
         />
 
         <RevealGroup

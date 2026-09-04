@@ -64,8 +64,9 @@ export default function DemoPage() {
 
             <p className="mt-5 max-w-md text-base leading-relaxed text-ink-500">
               Thirty minutes. No slides, no scripted scenarios. You pick the
-              workflow, we run it in Factro — at your facility, on your data,
-              with the engineers who built the system.
+              workflow, we run it in Factro — in person at your facility or
+              over a call, whichever works for you. No commitment to see it,
+              and a free trial with no cost to try it on your own data.
             </p>
 
             <div className="mt-8 max-w-md">
@@ -88,12 +89,12 @@ export default function DemoPage() {
             </div>
 
             <div className="mt-5 max-w-md rounded-2xl border border-brand-100 bg-brand-50/60 px-5 py-4">
-              <p className="text-sm leading-relaxed text-ink-700">
-                <span className="font-semibold text-brand-700">
-                  Two months free if we&apos;re late.
-                </span>{" "}
-                Full go-live within thirty days of your complete dataset, or two
-                more months on us — no questions asked.
+              <p className="text-xl font-bold tracking-tight text-brand-700 sm:text-2xl">
+                Two months free if we&apos;re late.
+              </p>
+              <p className="mt-1.5 text-sm leading-relaxed text-ink-700">
+                Full go-live within thirty days of your complete dataset, or
+                two more months on us — no questions asked.
               </p>
             </div>
 

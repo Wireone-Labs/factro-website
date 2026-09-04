@@ -79,26 +79,19 @@ export function MobileNav({
                             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                             className="overflow-hidden"
                           >
-                            <div className="flex flex-col gap-4 px-3 pb-4">
-                              {item.menu.columns.map((col) => (
-                                <div key={col.heading}>
-                                  <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-ink-400">
-                                    {col.heading}
-                                  </p>
-                                  <div className="flex flex-col">
-                                    {col.items.map((sub) => (
-                                      <Link
-                                        key={sub.label}
-                                        href={sub.href}
-                                        onClick={onClose}
-                                        className="rounded-lg px-2 py-2 text-sm text-ink-600 hover:bg-ink-50 hover:text-ink-900"
-                                      >
-                                        {sub.label}
-                                      </Link>
-                                    ))}
-                                  </div>
-                                </div>
-                              ))}
+                            <div className="flex flex-col px-3 pb-4">
+                              {item.menu.columns
+                                .flatMap((col) => col.items)
+                                .map((sub) => (
+                                  <Link
+                                    key={sub.label}
+                                    href={sub.href}
+                                    onClick={onClose}
+                                    className="rounded-lg px-2 py-2 text-sm text-ink-600 hover:bg-ink-50 hover:text-ink-900"
+                                  >
+                                    {sub.label}
+                                  </Link>
+                                ))}
                             </div>
                           </motion.div>
                         )}

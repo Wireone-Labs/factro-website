@@ -19,12 +19,12 @@ import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
 
 const INTERESTS = [
-  { label: "Production", minutes: 20 },
-  { label: "Quality & Compliance", minutes: 20 },
-  { label: "Inventory", minutes: 15 },
-  { label: "Sales & Procurement", minutes: 15 },
-  { label: "Reports & Analytics", minutes: 15 },
-  { label: "Something else", minutes: 5 },
+  { label: "Production", minutes: 8 },
+  { label: "Quality & Compliance", minutes: 8 },
+  { label: "Inventory", minutes: 6 },
+  { label: "Sales & Procurement", minutes: 5 },
+  { label: "Reports & Analytics", minutes: 4 },
+  { label: "Something else", minutes: 2 },
 ];
 
 const COMPANY_SIZES = [

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, PlayCircle } from "lucide-react";
+import { ArrowRight, PlayCircle, ShieldCheck } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { HeroWave } from "@/components/sections/hero-wave";
@@ -16,34 +16,50 @@ export function Hero() {
 
       <Container className="relative">
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand-600"
-          >
-            AI-first. Compliance-native. Process-driven.
-          </motion.span>
-
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="text-balance mt-6 text-4xl font-semibold tracking-tight text-ink-900 sm:text-5xl lg:text-6xl lg:leading-[1.08]"
+            className="text-balance text-4xl font-semibold tracking-tight text-ink-900 sm:text-5xl lg:text-6xl lg:leading-[1.08]"
           >
-            <span className="block">Pharma manufacturing runs on evidence.</span>
-            <span className="block text-ink-400">Most of it is still on paper.</span>
+            A compliance-native digital manufacturing platform for
+            pharmaceuticals.
           </motion.h1>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.14 }}
+            className="mt-5 flex flex-wrap items-center justify-center gap-2"
+          >
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3 py-1.5 text-xs font-medium text-ink-600">
+              <ShieldCheck className="h-3.5 w-3.5 text-brand-500" />
+              Revised Schedule M — G.S.R. 922(E)
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3 py-1.5 text-xs font-medium text-ink-600">
+              <ShieldCheck className="h-3.5 w-3.5 text-brand-500" />
+              21 CFR Part 11
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3 py-1.5 text-xs font-medium text-ink-600">
+              <ShieldCheck className="h-3.5 w-3.5 text-brand-500" />
+              EU Annex 11
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3 py-1.5 text-xs font-medium text-ink-600">
+              <ShieldCheck className="h-3.5 w-3.5 text-brand-500" />
+              WHO GMP
+            </span>
+          </motion.div>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="text-balance mt-6 max-w-2xl text-base leading-relaxed text-ink-500 sm:text-lg"
           >
-            Factro puts supply chain, batch execution and quality on one
-            record, with compliance built into the architecture rather than
-            configured on top.
+            Every batch record, audit trail and electronic signature is
+            built around the regulation it has to satisfy. Inspection
+            readiness is a byproduct of how the system runs, not a scramble
+            before one.
           </motion.p>
 
           <motion.div

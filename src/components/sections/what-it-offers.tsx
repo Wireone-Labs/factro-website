@@ -53,7 +53,7 @@ export function WhatItOffers() {
               width={1920}
               height={1490}
               priority
-              fixedHeight="h-[21rem] sm:h-[36rem] lg:h-[21rem]"
+              cropAspect="aspect-[16/9]"
             />
           </Reveal>
         </div>

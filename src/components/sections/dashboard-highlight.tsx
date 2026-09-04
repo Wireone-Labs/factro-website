@@ -41,7 +41,7 @@ export function DashboardHighlight() {
               alt="Factro My Work board showing a prioritised task queue across Open, In Progress, Blocked and Done"
               width={1920}
               height={1189}
-              fixedHeight="h-[21rem] sm:h-[36rem] lg:h-[21rem]"
+              cropAspect="aspect-[16/9]"
             />
           </Reveal>
         </div>
