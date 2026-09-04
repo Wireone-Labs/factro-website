@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
@@ -10,6 +10,7 @@ import {
   Clock,
   Loader2,
   Mail,
+  Sparkles,
   User,
   Users,
 } from "lucide-react";
@@ -38,10 +39,24 @@ const fieldClasses =
 
 export function DemoForm() {
   const [interests, setInterests] = useState<string[]>([]);
+  const [preSelected, setPreSelected] = useState<Set<string>>(new Set());
   const [status, setStatus] = useState<
     "idle" | "submitting" | "submitted" | "error"
   >("idle");
   const hasStarted = useRef(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const fromQuery = params.get("interests");
+    if (!fromQuery) return;
+    const matched = fromQuery
+      .split(",")
+      .filter((label) => INTERESTS.some((i) => i.label === label));
+    if (matched.length === 0) return;
+    setInterests(matched);
+    setPreSelected(new Set(matched));
+    trackEvent("demo_form_prefilled", { interest_count: matched.length });
+  }, []);
 
   const handleFormFocus = () => {
     if (hasStarted.current) return;
@@ -230,9 +245,28 @@ export function DemoForm() {
         <p className="mb-2 text-xs font-medium text-ink-700">
           What are you interested in?
         </p>
+
+        <AnimatePresence>
+          {preSelected.size > 0 && (
+            <motion.div
+              initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+              animate={{ opacity: 1, height: "auto", marginBottom: 8 }}
+              exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden"
+            >
+              <div className="flex items-center gap-1.5 rounded-lg bg-brand-50/70 px-2.5 py-1.5 text-[11px] font-medium text-brand-700">
+                <Sparkles className="h-3 w-3 shrink-0" />
+                Pre-selected from what you flagged as costing you time
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <div className="flex flex-wrap gap-1.5">
           {INTERESTS.map(({ label }) => {
             const active = interests.includes(label);
+            const highlighted = preSelected.has(label);
             return (
               <button
                 key={label}
@@ -244,6 +278,9 @@ export function DemoForm() {
                   active
                     ? "border-brand-300 bg-brand-50 text-brand-700"
                     : "border-line bg-white text-ink-500 hover:border-ink-300 hover:text-ink-900",
+                  highlighted &&
+                    active &&
+                    "ring-2 ring-brand-300 ring-offset-1",
                 )}
               >
                 {label}

@@ -28,6 +28,10 @@ export interface CoreModule {
   title: string;
   description: string;
   points: string[];
+  /** Named workspaces/screens within the module. */
+  submodules: string[];
+  /** Capabilities and behaviors, as distinct from named workspaces. */
+  features: string[];
   screenshot?: CoreModuleScreenshot;
 }
 
@@ -46,6 +50,8 @@ export const CORE_MODULES: CoreModule[] = [
       "Invoices & receivables",
       "Customer management with licence tracking",
     ],
+    submodules: ["Enquiries", "Quotations", "Sales Orders", "Invoices & receivables"],
+    features: ["Customer management with licence tracking"],
   },
   {
     id: "purchase",
@@ -57,6 +63,12 @@ export const CORE_MODULES: CoreModule[] = [
     points: [
       "Material Requests",
       "Purchase Orders",
+      "Vendor management with OTIF & licence tracking",
+      "GRN with 3-way match",
+      "Reorder point triggers",
+    ],
+    submodules: ["Material Requests", "Purchase Orders"],
+    features: [
       "Vendor management with OTIF & licence tracking",
       "GRN with 3-way match",
       "Reorder point triggers",
@@ -82,6 +94,8 @@ export const CORE_MODULES: CoreModule[] = [
       "Hold, quarantine, release status control",
       "Expiry & retest alerts",
     ],
+    submodules: ["GRN to stock", "Stock ledger & audit", "FIFO/FEFO"],
+    features: ["Hold, quarantine, release status control", "Expiry & retest alerts"],
   },
   {
     id: "facility",
@@ -97,6 +111,8 @@ export const CORE_MODULES: CoreModule[] = [
       "IQ/OQ/PQ & calibration",
       "Preventive maintenance",
     ],
+    submodules: ["Warehouse, zone & bin mapping", "Equipment & asset master", "IQ/OQ/PQ & calibration"],
+    features: ["Multi-site structure", "Preventive maintenance"],
   },
   {
     id: "production",
@@ -110,6 +126,13 @@ export const CORE_MODULES: CoreModule[] = [
       "Electronic batch records (eBMR, eBPR)",
       "Line clearance per stage",
       "Batch Release with COA",
+      "Dispensing with second-person verification",
+    ],
+    submodules: ["Production Planner", "Electronic batch records (eBMR, eBPR)", "Batch Release"],
+    features: [
+      "Capacity checks on every planned order",
+      "Line clearance per stage",
+      "COA generation on release",
       "Dispensing with second-person verification",
     ],
     screenshot: {
@@ -133,6 +156,13 @@ export const CORE_MODULES: CoreModule[] = [
       "Vendor qualification",
       "Live inspection-readiness score",
     ],
+    submodules: [
+      "QC sampling at GRN, IPQC, FG",
+      "Deviations & OOS/OOT investigation",
+      "Change control & audit management",
+      "Vendor qualification",
+    ],
+    features: ["Live inspection-readiness score"],
   },
   {
     id: "capa",
@@ -148,6 +178,12 @@ export const CORE_MODULES: CoreModule[] = [
       "Cross-department actions with owners",
       "Effectiveness review before closure",
     ],
+    submodules: ["Complaint intake", "Root cause investigation"],
+    features: [
+      "Deviation-triggered CAPA",
+      "Cross-department actions with named owners",
+      "Effectiveness review before closure",
+    ],
   },
   {
     id: "documents",
@@ -159,6 +195,12 @@ export const CORE_MODULES: CoreModule[] = [
     points: [
       "Controlled document register",
       "SOP version history",
+      "Electronic signature on approval",
+      "Review-date tracking",
+      "SOP anchors on the steps they govern",
+    ],
+    submodules: ["Controlled document register", "SOP version history"],
+    features: [
       "Electronic signature on approval",
       "Review-date tracking",
       "SOP anchors on the steps they govern",
@@ -178,6 +220,12 @@ export const CORE_MODULES: CoreModule[] = [
       "Shop-floor training hold",
       "Inspection-ready records",
     ],
+    submodules: ["Competency matrix", "Inspection-ready records"],
+    features: [
+      "Assignment tied to document version",
+      "Automatic reassignment on SOP revision",
+      "Shop-floor training hold",
+    ],
   },
   {
     id: "library",
@@ -193,6 +241,13 @@ export const CORE_MODULES: CoreModule[] = [
       "Pricing & tax codes",
       "Regulatory documents",
     ],
+    submodules: [
+      "Material & product catalogs",
+      "Master Formula, Batch & Packaging Records",
+      "Bill of Materials",
+      "Regulatory documents",
+    ],
+    features: ["Pricing & tax codes"],
   },
 ];
 

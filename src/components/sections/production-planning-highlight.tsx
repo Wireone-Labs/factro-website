@@ -4,26 +4,27 @@ import { Reveal } from "@/components/ui/reveal";
 import { HeroMockup } from "@/components/sections/hero-mockup";
 
 const POINTS = [
-  "Every handover is a tracked ticket, with a named owner and a visible clock",
-  "SLA tracking across departments, so bottlenecks identify themselves",
-  "Kanban board across Open, In Progress, Blocked and Done",
+  "Live schedule adherence and center utilization, updated as batches move",
+  "Orders at risk flagged automatically, with the bottleneck named",
+  "Kanban or timeline view, down to the individual batch",
 ];
 
-export function DashboardHighlight() {
+export function ProductionPlanningHighlight() {
   return (
-    <section id="work-management" className="scroll-mt-28 py-16 sm:py-20">
+    <section id="production-planning" className="scroll-mt-28 py-16 sm:py-20">
       <Container>
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <span className="text-xs font-semibold uppercase tracking-wide text-brand-500">
-              Work management
+              Production planning
             </span>
             <h3 className="text-balance mt-3 text-2xl font-semibold tracking-tight text-ink-900 sm:text-3xl">
-              Every task tracked, assigned and timed against an SLA
+              The schedule that flags risk before it becomes a delay
             </h3>
             <p className="mt-4 text-base leading-relaxed text-ink-500">
-              Built on an agile system that tracks and assigns every task —
-              with an owner, a priority and an SLA clock, not just a status.
+              Every production order, center and batch on one timeline, with
+              adherence and utilization visible the moment something drifts —
+              not discovered at the next production meeting.
             </p>
             <div className="mt-6 flex flex-col gap-3">
               {POINTS.map((point) => (
@@ -37,10 +38,10 @@ export function DashboardHighlight() {
 
           <Reveal delay={0.08}>
             <HeroMockup
-              src="/dashboard/my-work.png"
-              alt="Factro My Work board showing a prioritised task queue across Open, In Progress, Blocked and Done"
+              src="/dashboard/production-planning.png"
+              alt="Factro Production Orders dashboard showing schedule adherence, active batches, center utilization, orders at risk and a weekly production timeline"
               width={1920}
-              height={1189}
+              height={1341}
               fixedHeight="h-[21rem] sm:h-[36rem] lg:h-[21rem]"
             />
           </Reveal>

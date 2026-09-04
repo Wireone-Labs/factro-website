@@ -40,7 +40,7 @@ export interface NavItem {
 }
 
 export const MODULES_MENU: MegaMenu = {
-  description: "All ten workspaces, running on one database that already talks to itself.",
+  description: "All ten workspaces, running on one system that already talks to itself.",
   columns: [
     {
       heading: "Commercial",

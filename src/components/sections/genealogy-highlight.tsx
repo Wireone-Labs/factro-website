@@ -4,26 +4,28 @@ import { Reveal } from "@/components/ui/reveal";
 import { HeroMockup } from "@/components/sections/hero-mockup";
 
 const POINTS = [
-  "Every handover is a tracked ticket, with a named owner and a visible clock",
-  "SLA tracking across departments, so bottlenecks identify themselves",
-  "Kanban board across Open, In Progress, Blocked and Done",
+  "Upstream trace: vendor, goods receipt, sample test and material issue for every input",
+  "Downstream lineage from batch release through to customer delivery",
+  "Recall exposure calculated instantly — units dispatched, in store and retained samples",
 ];
 
-export function DashboardHighlight() {
+export function GenealogyHighlight() {
   return (
-    <section id="work-management" className="scroll-mt-28 py-16 sm:py-20">
+    <section id="genealogy" className="scroll-mt-28 py-16 sm:py-20">
       <Container>
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <Reveal>
+          <Reveal className="lg:order-2">
             <span className="text-xs font-semibold uppercase tracking-wide text-brand-500">
-              Work management
+              Genealogy
             </span>
             <h3 className="text-balance mt-3 text-2xl font-semibold tracking-tight text-ink-900 sm:text-3xl">
-              Every task tracked, assigned and timed against an SLA
+              End-to-end lot traceability, forward and backward, in minutes
             </h3>
             <p className="mt-4 text-base leading-relaxed text-ink-500">
-              Built on an agile system that tracks and assigns every task —
-              with an owner, a priority and an SLA clock, not just a status.
+              Pick a batch and Factro reconstructs its full genealogy — every
+              raw material lot, vendor, sample result and downstream shipment
+              — without a week spent assembling paperwork that already
+              exists.
             </p>
             <div className="mt-6 flex flex-col gap-3">
               {POINTS.map((point) => (
@@ -35,12 +37,12 @@ export function DashboardHighlight() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.08}>
+          <Reveal delay={0.08} className="lg:order-1">
             <HeroMockup
-              src="/dashboard/my-work.png"
-              alt="Factro My Work board showing a prioritised task queue across Open, In Progress, Blocked and Done"
+              src="/dashboard/genealogy.png"
+              alt="Factro Batch Genealogy view tracing Batch MS1238A from raw material vendor through goods receipt, sample testing and material issue, to batch release, dispatch and customer delivery"
               width={1920}
-              height={1189}
+              height={1760}
               fixedHeight="h-[21rem] sm:h-[36rem] lg:h-[21rem]"
             />
           </Reveal>

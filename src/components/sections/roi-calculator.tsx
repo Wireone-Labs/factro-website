@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Check, Clock } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
-import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
+import { RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { ROI_CATEGORIES } from "@/data/roi-checklist";
 import { BOOK_DEMO_HREF } from "@/data/nav";
 import { cn } from "@/lib/utils";
@@ -21,9 +21,12 @@ function formatHours(minutes: number) {
   return `${hours} hr${hours > 1 ? "s" : ""} ${mins} min`;
 }
 
-const MINUTES_BY_ID = new Map(
+const ITEMS_BY_ID = new Map(
   ROI_CATEGORIES.flatMap((category) =>
-    category.items.map((item) => [`${category.id}:${item.text}`, item.minutes]),
+    category.items.map((item) => [
+      `${category.id}:${item.text}`,
+      { minutes: item.minutes, interests: item.interests },
+    ]),
   ),
 );
 
@@ -44,9 +47,16 @@ export function RoiCalculator() {
   };
 
   const minutes = Array.from(checked).reduce(
-    (total, id) => total + (MINUTES_BY_ID.get(id) ?? 0),
+    (total, id) => total + (ITEMS_BY_ID.get(id)?.minutes ?? 0),
     0,
   );
+
+  const interests = Array.from(
+    new Set(Array.from(checked).flatMap((id) => ITEMS_BY_ID.get(id)?.interests ?? [])),
+  );
+  const demoHref = interests.length
+    ? `${BOOK_DEMO_HREF}?interests=${encodeURIComponent(interests.join(","))}`
+    : BOOK_DEMO_HREF;
 
   return (
     <section className="py-12 sm:py-16">
@@ -103,46 +113,51 @@ export function RoiCalculator() {
             </RevealItem>
           ))}
         </RevealGroup>
-
-        <Reveal delay={0.1} className="mt-5">
-          <div className="flex flex-col items-center gap-4 rounded-3xl bg-ink-950 px-6 py-6 text-center sm:flex-row sm:justify-between sm:px-10 sm:text-left">
-            <div className="flex flex-col gap-1 sm:gap-1.5">
-              <div className="flex items-center justify-center gap-3 text-white sm:justify-start">
-                <Clock className="h-5 w-5 text-brand-300" />
-                <span className="text-sm font-medium text-ink-300">
-                  Your estimate:
-                </span>
-                <motion.span
-                  key={minutes}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="text-2xl font-semibold tracking-tight text-white"
-                >
-                  {formatHours(minutes)}
-                </motion.span>
-                <span className="text-sm text-ink-300">/ week, per person</span>
-              </div>
-              <p className="max-w-md text-xs leading-relaxed text-ink-400">
-                Across 30 to 60 people, that&apos;s a person-year every week.
-                An estimate, not a measurement — bring your own numbers to
-                the demo.
-              </p>
-            </div>
-            <Button
-              href={BOOK_DEMO_HREF}
-              variant="dark"
-              size="lg"
-              className="group shrink-0"
-              event="book_demo_click"
-              eventParams={{ location: "roi_calculator" }}
-            >
-              See how we get this back
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </Button>
-          </div>
-        </Reveal>
       </Container>
+
+      <AnimatePresence>
+        {checked.size > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 24 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-x-0 bottom-0 z-40"
+          >
+            <Container className="pb-3 sm:pb-4">
+              <div className="flex flex-col items-center gap-2.5 rounded-2xl bg-ink-950 px-4 py-3 text-center shadow-[0_20px_50px_-16px_rgba(15,14,23,0.45)] sm:flex-row sm:justify-between sm:gap-4 sm:px-5 sm:py-3 sm:text-left">
+                <div className="flex items-center justify-center gap-2.5 text-white sm:justify-start">
+                  <Clock className="h-4 w-4 shrink-0 text-brand-300" />
+                  <span className="text-xs font-medium text-ink-300">
+                    Your estimate:
+                  </span>
+                  <motion.span
+                    key={minutes}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-lg font-semibold tracking-tight text-white"
+                  >
+                    {formatHours(minutes)}
+                  </motion.span>
+                  <span className="text-xs text-ink-300">/ week, per person</span>
+                </div>
+                <Button
+                  href={demoHref}
+                  variant="dark"
+                  size="md"
+                  className="group h-9 shrink-0 px-4 text-sm"
+                  event="book_demo_click"
+                  eventParams={{ location: "roi_calculator" }}
+                >
+                  See how we get this back
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                </Button>
+              </div>
+            </Container>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
