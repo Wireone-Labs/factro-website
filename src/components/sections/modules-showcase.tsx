@@ -16,10 +16,20 @@ export function ModulesShowcase() {
   const active = CORE_MODULES.find((mod) => mod.id === activeId) ?? CORE_MODULES[0];
 
   useEffect(() => {
-    const fromHash = window.location.hash.replace("#", "");
-    if (CORE_MODULES.some((mod) => mod.id === fromHash)) {
-      setActiveId(fromHash);
-    }
+    const syncFromHash = () => {
+      const fromHash = window.location.hash.replace("#", "");
+      if (CORE_MODULES.some((mod) => mod.id === fromHash)) {
+        setActiveId(fromHash);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            document.getElementById("modules")?.scrollIntoView({ block: "start" });
+          });
+        });
+      }
+    };
+    syncFromHash();
+    window.addEventListener("hashchange", syncFromHash);
+    return () => window.removeEventListener("hashchange", syncFromHash);
   }, []);
 
   return (

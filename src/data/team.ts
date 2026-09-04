@@ -26,6 +26,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     role: "Senior Product Manager",
     linkedin: "https://www.linkedin.com/in/rakeshdamodaran/",
     bio: "A Masters in Automobile Engineering from Coventry University, with a background in automotive engineering and mechanical design before moving into product management. Ex-Vogo.",
+    yearsExperience: 6,
     photo: "/team/rakesh.jpg",
   },
   {

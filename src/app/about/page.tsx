@@ -152,7 +152,18 @@ export default function AboutPage() {
       <section className="py-12 sm:py-16">
         <Container className="max-w-3xl">
           <Reveal>
-            <blockquote className="mt-6 rounded-2xl border border-brand-100 bg-brand-50/60 px-6 py-6 text-center text-lg leading-snug font-semibold tracking-tight text-ink-900 sm:text-xl">
+            <div className="relative mx-auto aspect-[21/9] w-full max-w-2xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_18%,black_82%,transparent)]">
+              <Image
+                src="/about/torii-gate.jpg"
+                alt=""
+                fill
+                sizes="(max-width: 768px) 100vw, 42rem"
+                className="object-cover"
+              />
+            </div>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <blockquote className="mt-6 text-center text-lg leading-snug font-semibold tracking-tight text-ink-900 sm:text-xl">
               Back us early and you will not be a customer we support. You
               will be a plant we build around.
             </blockquote>
