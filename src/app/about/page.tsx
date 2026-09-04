@@ -83,12 +83,6 @@ export default function AboutPage() {
               </RevealItem>
             ))}
           </RevealGroup>
-          <Reveal delay={0.12}>
-            <p className="mx-auto mt-6 max-w-3xl text-center text-sm text-ink-400">
-              Our core team is supported by four more developers and support
-              staff.
-            </p>
-          </Reveal>
         </Container>
       </section>
 
