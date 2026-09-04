@@ -5,6 +5,7 @@ import { ArrowRight, PlayCircle, ShieldCheck } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { HeroWave } from "@/components/sections/hero-wave";
+import { HeroMesh } from "@/components/sections/hero-mesh";
 import { BOOK_DEMO_HREF } from "@/data/nav";
 
 export function Hero() {
@@ -12,6 +13,7 @@ export function Hero() {
     <section className="relative overflow-hidden pt-32 pb-24 sm:pt-40 sm:pb-40">
       {/* Background decoration */}
       <div className="bg-dot-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black,transparent)]" />
+      <HeroMesh />
       <HeroWave />
 
       <Container className="relative">

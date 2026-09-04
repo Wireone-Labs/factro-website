@@ -29,7 +29,9 @@ export function ThreePillars() {
                   {pillar.description}
                 </p>
 
-                <div className="mt-6 flex flex-col gap-2.5 border-t border-line pt-6">
+                <div className="flex-1" />
+
+                <div className="mt-8 flex flex-col gap-2.5 border-t border-line pt-6">
                   <p className="text-xs font-semibold uppercase tracking-wide text-ink-400">
                     What you get
                   </p>

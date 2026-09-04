@@ -20,8 +20,12 @@ export function WhoIsItFor() {
         >
           {AUDIENCES.map((audience) => (
             <RevealItem key={audience.id}>
-              <div className="flex h-full flex-col gap-4 rounded-2xl border border-line bg-white p-7">
-                <IconTile icon={audience.icon} />
+              <div className="flex h-full flex-col items-center gap-4 rounded-2xl border border-line bg-white p-7 text-center">
+                <IconTile
+                  icon={audience.icon}
+                  size="lg"
+                  className={audience.colorClass}
+                />
                 <div>
                   <h3 className="text-base font-semibold text-ink-900">
                     {audience.title}

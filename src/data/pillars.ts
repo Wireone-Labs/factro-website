@@ -22,7 +22,7 @@ export const PILLARS: Pillar[] = [
     label: "Pillar 01 · The Compliance Engine",
     title: "The rule is the control itself.",
     description:
-      "A rule engine built from the regulations themselves. It does not remind you of the control, it is the boundary of what can happen on the floor. Configurable, with consequences: change a rule and the system tells you what it affects, records who changed it and why, and enforces the new one from that moment. Nothing here is advisory.",
+      "A rule engine built from the regulations themselves. It does not remind you of the control, it is the boundary of what can happen on the floor, not a passive suggestion. Configurable, with consequences: change a rule and the system tells you what it affects, records who changed it and why, and enforces the new one from that moment. Nothing here is advisory.",
     bullets: [
       { text: "Maker cannot be checker, enforced by the system rather than a policy document" },
       { text: "Every signature re-authenticates and captures a reason in the same transaction" },
