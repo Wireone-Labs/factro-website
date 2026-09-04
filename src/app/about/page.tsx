@@ -95,7 +95,6 @@ export default function AboutPage() {
       <section className="py-12 sm:py-16">
         <Container className="max-w-3xl">
           <SectionHeading
-            align="left"
             eyebrow="How we got here"
             title="Two years, built on real plants"
           />
@@ -149,7 +148,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="py-12 sm:py-16">
+      <section className="pb-12 sm:pb-16">
         <Container className="max-w-3xl">
           <Reveal>
             <div className="relative mx-auto aspect-[21/9] w-full max-w-2xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_18%,black_82%,transparent)]">

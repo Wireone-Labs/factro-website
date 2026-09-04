@@ -73,21 +73,19 @@ export function PricingPlans() {
         <RevealGroup className="mx-auto mt-10 grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-2">
           {PRICING_PLANS.map((plan) => (
             <RevealItem key={plan.id}>
-              <div
-                className={cn(
-                  "relative flex h-full flex-col rounded-3xl border p-8",
-                  plan.recommended
-                    ? "border-brand-300 bg-white shadow-[0_24px_60px_-24px_rgba(4,74,254,0.35)]"
-                    : "border-line bg-white",
-                )}
-              >
-                {plan.recommended && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-500 px-3 py-1 text-xs font-semibold text-white shadow-sm">
-                    Recommended
-                  </span>
-                )}
+              <div className="relative flex h-full flex-col rounded-3xl border border-line bg-white p-8">
+                <span
+                  className={cn(
+                    "inline-flex w-fit items-center rounded-full border px-3 py-1 text-xs font-semibold",
+                    plan.badgeColor === "violet"
+                      ? "border-violet-200 bg-violet-50 text-violet-700"
+                      : "border-brand-200 bg-brand-50 text-brand-700",
+                  )}
+                >
+                  {plan.badgeLabel}
+                </span>
 
-                <h3 className="text-lg font-semibold text-ink-900">{plan.name}</h3>
+                <h3 className="mt-4 text-lg font-semibold text-ink-900">{plan.name}</h3>
                 <p className="mt-1.5 text-sm leading-relaxed text-ink-500">
                   {plan.tagline}
                 </p>
@@ -128,7 +126,7 @@ export function PricingPlans() {
 
                 <Button
                   href={plan.ctaHref}
-                  variant={plan.recommended ? "primary" : "secondary"}
+                  variant={plan.monthly !== null ? "primary" : "secondary"}
                   className="mt-6 w-full"
                   event="pricing_cta_click"
                   eventParams={{

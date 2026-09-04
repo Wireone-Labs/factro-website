@@ -42,7 +42,7 @@ export default function ModulesPage() {
           <SectionHeading
             eyebrow="Built in, not bolted on"
             title="Underneath every module"
-            description="The same four layers run under all ten modules, so they behave like one system instead of ten integrations."
+            description="The same layers run under all ten modules, so they behave like one system instead of ten integrations."
           />
           <RevealGroup className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2" stagger={0.08}>
             {UNDERNEATH_EVERY_MODULE.map((item) => (

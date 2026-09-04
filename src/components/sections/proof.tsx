@@ -26,10 +26,21 @@ const LOOP_STANDARDS = [...MAPPED_STANDARDS, ...MAPPED_STANDARDS];
 export function Proof() {
   return (
     <section className="py-16 sm:py-20">
-      <p className="text-center text-xs font-semibold uppercase tracking-wide text-ink-400">
+      <Container>
+        <Reveal className="mx-auto max-w-3xl text-center">
+          <Quote className="mx-auto h-8 w-8 text-brand-300" />
+          <p className="text-balance mt-6 text-xl font-medium leading-relaxed text-ink-900 sm:text-2xl">
+            &ldquo;Most plants do not have a compliance problem. They have an
+            observability problem. Factro closes that gap in the
+            architecture, not with another checklist.&rdquo;
+          </p>
+        </Reveal>
+      </Container>
+
+      <p className="mt-16 text-center text-xs font-semibold uppercase tracking-wide text-ink-400">
         Compliances supported
       </p>
-      <div className="mask-fade-x mt-6 overflow-hidden border-b border-line pb-16">
+      <div className="mask-fade-x mt-6 overflow-hidden pb-2">
         <div className="animate-marquee flex w-max items-stretch gap-5 [animation-play-state:running] hover:[animation-play-state:paused]">
           {LOOP_STANDARDS.map((standard, i) => {
             const Icon = STANDARD_ICONS[standard.name] ?? ShieldCheck;
@@ -56,17 +67,6 @@ export function Proof() {
           })}
         </div>
       </div>
-
-      <Container>
-        <Reveal className="mx-auto mt-16 max-w-3xl text-center">
-          <Quote className="mx-auto h-8 w-8 text-brand-300" />
-          <p className="text-balance mt-6 text-xl font-medium leading-relaxed text-ink-900 sm:text-2xl">
-            &ldquo;Most plants do not have a compliance problem. They have an
-            observability problem. Factro closes that gap in the
-            architecture, not with another checklist.&rdquo;
-          </p>
-        </Reveal>
-      </Container>
     </section>
   );
 }

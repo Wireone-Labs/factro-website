@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/page-hero";
 import { PricingPlans } from "@/components/sections/pricing-plans";
+import { CompetitorComparison } from "@/components/sections/competitor-comparison";
 import { PricingRoiCalculator } from "@/components/sections/pricing-roi-calculator";
 import { Faq } from "@/components/sections/faq";
 import { Cta } from "@/components/sections/cta";
@@ -24,6 +25,8 @@ export default function PricingPage() {
       />
 
       <PricingPlans />
+
+      <CompetitorComparison />
 
       <PricingRoiCalculator />
 

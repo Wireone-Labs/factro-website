@@ -2,13 +2,14 @@ export interface PricingPlan {
   id: string;
   name: string;
   tagline: string;
+  badgeLabel: string;
+  badgeColor: "brand" | "violet";
   monthly: number | null;
   annual: number | null;
   unit: string;
   minUsers?: string;
   note?: string;
   featuresIntro?: string;
-  recommended?: boolean;
   ctaLabel: string;
   ctaHref: string;
   features: string[];
@@ -19,12 +20,13 @@ export const PRICING_PLANS: PricingPlan[] = [
     id: "standard",
     name: "Standard",
     tagline: "Multi-tenant",
+    badgeLabel: "Small & mid-scale manufacturers",
+    badgeColor: "brand",
     monthly: 3849,
     annual: 3499,
     unit: "/ user / month",
     minUsers: "Minimum 8 users · no upfront fees, no AMC charges",
     note: "Choose Standard if you're a single site or small group supplying domestic or WHO-GMP markets. Nothing about compliance, security or audit readiness is weaker here, the controls are identical.",
-    recommended: true,
     ctaLabel: "Start with Standard",
     ctaHref: "/demo",
     features: [
@@ -40,6 +42,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     id: "dedicated",
     name: "Dedicated",
     tagline: "Private and reserved",
+    badgeLabel: "Big pharma enterprises",
+    badgeColor: "violet",
     monthly: null,
     annual: null,
     unit: "per instance",

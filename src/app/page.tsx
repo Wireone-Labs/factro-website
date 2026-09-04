@@ -8,6 +8,7 @@ import { ProductionPlanningHighlight } from "@/components/sections/production-pl
 import { ModulesTeaser } from "@/components/sections/modules-teaser";
 import { RoiCalculator } from "@/components/sections/roi-calculator";
 import { BusinessOutcomes } from "@/components/sections/business-outcomes";
+import { SupportHighlight } from "@/components/sections/support-highlight";
 import { Proof } from "@/components/sections/proof";
 import { Faq } from "@/components/sections/faq";
 import { Cta } from "@/components/sections/cta";
@@ -27,6 +28,7 @@ export default function Home() {
       <ModulesTeaser />
       <RoiCalculator />
       <BusinessOutcomes />
+      <SupportHighlight />
       <Proof />
 
       <section className="pb-16 sm:pb-20">

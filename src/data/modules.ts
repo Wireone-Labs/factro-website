@@ -11,13 +11,15 @@ import {
   GraduationCap,
   Layers,
   Workflow,
-  Brain,
   BarChart3,
   Users,
   Landmark,
   Sparkles,
   LineChart,
   SearchCheck,
+  Signature,
+  GitBranch,
+  BellRing,
 } from "lucide-react";
 
 export interface ModuleCategory {
@@ -615,19 +617,45 @@ export const UNDERNEATH_EVERY_MODULE: UnderneathItem[] = [
     title: "Compliance core",
     points: [
       "Append-only, hash-chained audit trail on every record",
-      "Electronic signature with re-authentication, meaning and timestamp",
       "Role-based access with segregation of duties",
       "Reason for change required on controlled fields",
     ],
   },
   {
-    id: "process",
-    icon: Workflow,
-    title: "Process and ticketing",
+    id: "digital-signatures",
+    icon: Signature,
+    title: "Digital signatures",
     points: [
-      "Cross-department handovers with named owners",
+      "Electronic signature with re-authentication, meaning and timestamp on every approval",
+      "RFC 3161 timestamp from our own timestamp authority, independently verifiable by any PDF reader",
+    ],
+  },
+  {
+    id: "work-management",
+    icon: Workflow,
+    title: "Work management",
+    points: [
+      "Cross-department handovers ticketed with named owners",
       "SLA clocks with automatic escalation",
       "Threaded conversation attached to the record",
+    ],
+  },
+  {
+    id: "genealogy",
+    icon: GitBranch,
+    title: "Genealogy",
+    points: [
+      "Forward and backward trace from raw material lot to dispatched pack",
+      "Repack and code-to-code conversions carry the parent control number forward, so lineage survives the conversion",
+    ],
+  },
+  {
+    id: "monitoring",
+    icon: BellRing,
+    title: "Real-time monitoring and alerts",
+    points: [
+      "Reorder point, expiry and SLA breaches surface the moment they trigger, not at shift end",
+      "Deviations and OOS events raise immediately and hold the batch",
     ],
   },
   {
@@ -635,17 +663,8 @@ export const UNDERNEATH_EVERY_MODULE: UnderneathItem[] = [
     icon: BarChart3,
     title: "Reports",
     points: [
-      "Module dashboards computed continuously, not batched overnight",
+      "Module dashboards computed continuously — nothing to manually compile",
       "Regulatory exports in a form an inspector can read",
-    ],
-  },
-  {
-    id: "intelligence",
-    icon: Brain,
-    title: "Intelligence",
-    points: [
-      "AI Assistant, Deviation Intelligence and Compliance Checker",
-      "Governed and citation-linked, nothing leaves your tenant (Beta, Q4 2026)",
     ],
   },
 ];
