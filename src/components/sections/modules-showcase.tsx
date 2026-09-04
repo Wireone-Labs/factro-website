@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 import { Container } from "@/components/ui/container";
@@ -11,26 +12,38 @@ import { cn } from "@/lib/utils";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+function resolveRequestedTab(searchParamsTab: string | null): string | null {
+  if (searchParamsTab && CORE_MODULES.some((mod) => mod.id === searchParamsTab)) {
+    return searchParamsTab;
+  }
+  // Fall back to the old #hash links (footer, external, cached pages).
+  if (typeof window !== "undefined") {
+    const fromHash = window.location.hash.replace("#", "");
+    if (CORE_MODULES.some((mod) => mod.id === fromHash)) {
+      return fromHash;
+    }
+  }
+  return null;
+}
+
 export function ModulesShowcase() {
+  const searchParams = useSearchParams();
+  const requestedTab = searchParams.get("tab");
   const [activeId, setActiveId] = useState(CORE_MODULES[0].id);
   const active = CORE_MODULES.find((mod) => mod.id === activeId) ?? CORE_MODULES[0];
+  const lastAppliedTab = useRef<string | null>(null);
 
   useEffect(() => {
-    const syncFromHash = () => {
-      const fromHash = window.location.hash.replace("#", "");
-      if (CORE_MODULES.some((mod) => mod.id === fromHash)) {
-        setActiveId(fromHash);
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            document.getElementById("modules")?.scrollIntoView({ block: "start" });
-          });
-        });
-      }
-    };
-    syncFromHash();
-    window.addEventListener("hashchange", syncFromHash);
-    return () => window.removeEventListener("hashchange", syncFromHash);
-  }, []);
+    const resolved = resolveRequestedTab(requestedTab);
+    if (!resolved || resolved === lastAppliedTab.current) return;
+    lastAppliedTab.current = resolved;
+    setActiveId(resolved);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.getElementById("modules")?.scrollIntoView({ block: "start" });
+      });
+    });
+  }, [requestedTab]);
 
   return (
     <section id="modules" className="scroll-mt-28 py-16 sm:py-20">

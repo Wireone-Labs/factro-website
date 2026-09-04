@@ -19,10 +19,10 @@ const FOOTER_COLUMNS = [
     heading: "Modules",
     links: [
       { label: "All modules", href: "/modules" },
-      { label: "Production", href: "/modules#production" },
-      { label: "Quality", href: "/modules#quality" },
-      { label: "Inventory", href: "/modules#inventory" },
-      { label: "CAPA", href: "/modules#capa" },
+      { label: "Production", href: "/modules?tab=production" },
+      { label: "Quality", href: "/modules?tab=quality" },
+      { label: "Inventory", href: "/modules?tab=inventory" },
+      { label: "CAPA", href: "/modules?tab=capa" },
     ],
   },
   {

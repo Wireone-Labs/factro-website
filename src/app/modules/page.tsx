@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Check } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { ModulesShowcase } from "@/components/sections/modules-showcase";
@@ -32,7 +33,9 @@ export default function ModulesPage() {
         </p>
       </PageHero>
 
-      <ModulesShowcase />
+      <Suspense fallback={null}>
+        <ModulesShowcase />
+      </Suspense>
 
       <section className="py-16 sm:py-20">
         <Container>
