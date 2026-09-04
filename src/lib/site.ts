@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 export const SITE_URL = "https://factro.io";
 export const SITE_NAME = "Factro";
 export const SITE_DESCRIPTION =
-  "Factro puts supply chain, batch execution and quality on one record, with compliance built into the architecture rather than configured on top.";
-export const SITE_TAGLINE = "Compliance-native manufacturing";
+  "Factro is a compliance-native ERP for pharmaceutical, nutraceutical and food & beverage manufacturers — supply chain, batch execution and quality on one record, with compliance built into the architecture rather than configured on top.";
+export const SITE_TAGLINE = "Compliance-Native ERP for Pharma Manufacturing";
 
 export interface SiteRoute {
   path: string;

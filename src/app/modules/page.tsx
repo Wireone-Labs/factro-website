@@ -12,7 +12,7 @@ import { UNDERNEATH_EVERY_MODULE, ROADMAP_ITEMS } from "@/data/modules";
 import { pageMetadata } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Modules",
+  title: "ERP, MES & QMS Modules for Pharma Manufacturing",
   description:
     "Everything your ERP, MES, QMS and LIMS do separately, running on one system that already talks to itself.",
   path: "/modules",

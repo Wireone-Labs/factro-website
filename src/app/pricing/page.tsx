@@ -9,9 +9,9 @@ import { PRICING_FAQS } from "@/data/pricing";
 import { pageMetadata } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Pricing",
+  title: "Pricing — Factro vs SAP, QT9 & Oracle NetSuite",
   description:
-    "All 10 modules, the same controls, the same audit trail. The difference is infrastructure, not capability.",
+    "All 10 modules, the same controls, the same audit trail. The difference is infrastructure, not capability. See how Factro compares to SAP, QT9, Oracle NetSuite and MasterControl for pharma manufacturing.",
   path: "/pricing",
 });
 

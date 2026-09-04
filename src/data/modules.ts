@@ -20,6 +20,8 @@ import {
   Signature,
   GitBranch,
   BellRing,
+  Search,
+  FileClock,
 } from "lucide-react";
 
 export interface ModuleCategory {
@@ -619,6 +621,7 @@ export const UNDERNEATH_EVERY_MODULE: UnderneathItem[] = [
       "Append-only, hash-chained audit trail on every record",
       "Role-based access with segregation of duties",
       "Reason for change required on controlled fields",
+      "The trail cannot be turned off, edited or backdated — not even by an administrator",
     ],
   },
   {
@@ -628,6 +631,7 @@ export const UNDERNEATH_EVERY_MODULE: UnderneathItem[] = [
     points: [
       "Electronic signature with re-authentication, meaning and timestamp on every approval",
       "RFC 3161 timestamp from our own timestamp authority, independently verifiable by any PDF reader",
+      "Signature meaning is chosen at the moment of signing — performed, reviewed, approved — never inferred from role after the fact",
     ],
   },
   {
@@ -638,6 +642,7 @@ export const UNDERNEATH_EVERY_MODULE: UnderneathItem[] = [
       "Cross-department handovers ticketed with named owners",
       "SLA clocks with automatic escalation",
       "Threaded conversation attached to the record",
+      "A ticket crossing a shift change carries its full history forward, not a verbal note at the gate",
     ],
   },
   {
@@ -647,6 +652,7 @@ export const UNDERNEATH_EVERY_MODULE: UnderneathItem[] = [
     points: [
       "Forward and backward trace from raw material lot to dispatched pack",
       "Repack and code-to-code conversions carry the parent control number forward, so lineage survives the conversion",
+      "One query resolves every batch and pack touched by a contaminated lot — forward to the customer, backward to the vendor",
     ],
   },
   {
@@ -656,6 +662,7 @@ export const UNDERNEATH_EVERY_MODULE: UnderneathItem[] = [
     points: [
       "Reorder point, expiry and SLA breaches surface the moment they trigger, not at shift end",
       "Deviations and OOS events raise immediately and hold the batch",
+      "Alerts route to the person who owns the queue, not a shared inbox nobody checks",
     ],
   },
   {
@@ -665,6 +672,27 @@ export const UNDERNEATH_EVERY_MODULE: UnderneathItem[] = [
     points: [
       "Module dashboards computed continuously — nothing to manually compile",
       "Regulatory exports in a form an inspector can read",
+      "Any number on a dashboard opens to the record behind it — no drill-down request, no waiting on IT",
+    ],
+  },
+  {
+    id: "search",
+    icon: Search,
+    title: "Search",
+    points: [
+      "Universal search across every module and record, not one workspace at a time",
+      "Fully indexed, so results return instantly instead of scanning tables on demand",
+      "Resolves a partial batch number, lot code or scanned barcode straight to the record, not a list of maybe-matches",
+    ],
+  },
+  {
+    id: "electronic-records",
+    icon: FileClock,
+    title: "Electronic records",
+    points: [
+      "Answer an auditor's question in seconds, not a week of file pulls",
+      "Every field-level change carries who, when and why, recorded before the change was allowed to happen",
+      "No deletions past draft, and no signature without re-entering a password",
     ],
   },
 ];

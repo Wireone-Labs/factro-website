@@ -1,0 +1,23 @@
+# Factro
+
+> Factro is a compliance-native ERP for pharmaceutical, nutraceutical and food & beverage manufacturers. Supply chain, batch execution and quality live on one record, with GMP compliance, audit trails and electronic signatures built into the architecture rather than configured on top of it.
+
+Factro is built around three pillars: a Compliance Engine that enforces regulatory rules as system constraints rather than guidance documents, an Orchestrator that routes work and handovers as tracked tickets with owners and clocks instead of email and verbal handoffs, and an Agentic RAG layer that surfaces genealogy, deviations and forecasts from the plant's own historical data instead of leaving it unread.
+
+## Product
+
+- [Modules](https://factro.io/modules): Sales, Purchase, Inventory, Facility, Production, Quality, CAPA, Documents, Training and Library — ten modules on one data model, replacing what separate ERP, MES, QMS and LIMS systems do apart.
+- [Compliances](https://factro.io/compliances): Built for 21 CFR Part 11, EU Annex 11, WHO GMP and India's Revised Schedule M (G.S.R. 922(E)), with 96 control points validated in live pilot runs with pharmaceutical manufacturers.
+- [Infrastructure & Security](https://factro.io/infrastructure-security): AWS-hosted in India (Mumbai/Hyderabad), per-tenant encryption, independently penetration tested, 99% uptime target, continuous DevOps monitoring.
+- [Pricing](https://factro.io/pricing): Standard plan (multi-tenant) starts at ₹3,849/user/month, ₹3,499/user/month billed annually, minimum 8 users, no upfront fees or AMC charges — for single-site or small-group manufacturers. Dedicated plan (private, single-tenant infrastructure) is custom-quoted for enterprises exporting to US/EU markets. Includes a comparison against SAP, QT9, Oracle NetSuite and MasterControl pricing for pharma manufacturing.
+
+## Company
+
+- [About](https://factro.io/about): Factro is built by Wireone Labs. Founding and engineering team background spans fintech, agritech, automotive and edtech product engineering at Series B/C startups.
+- Contact: hello@factro.io, +91 81225 76712
+- [Book a demo](https://factro.io/demo)
+
+## Optional
+
+- [Terms](https://factro.io/terms)
+- [Privacy](https://factro.io/privacy)

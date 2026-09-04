@@ -41,6 +41,27 @@ const WEBSITE_JSON_LD = {
   url: SITE_URL,
 };
 
+const SOFTWARE_APPLICATION_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: SITE_NAME,
+  applicationCategory: "BusinessApplication",
+  applicationSubCategory: "Manufacturing ERP",
+  operatingSystem: "Web",
+  description: SITE_DESCRIPTION,
+  url: SITE_URL,
+  offers: {
+    "@type": "Offer",
+    availability: "https://schema.org/InStock",
+    priceCurrency: "INR",
+  },
+  audience: {
+    "@type": "Audience",
+    audienceType:
+      "Pharmaceutical, nutraceutical and food & beverage manufacturers",
+  },
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -50,6 +71,9 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   keywords: [
     "pharma manufacturing software",
+    "pharmaceutical ERP",
+    "pharma manufacturing ERP",
+    "ERP for pharmaceuticals",
     "GMP compliance software",
     "21 CFR Part 11",
     "EU Annex 11",
@@ -57,6 +81,17 @@ export const metadata: Metadata = {
     "batch record software",
     "quality management system",
     "CAPA software",
+    "nutraceutical manufacturing software",
+    "food & beverage manufacturing ERP",
+    "ERP vs SAP",
+    "Oracle NetSuite alternative for manufacturing",
+    "MES software",
+    "electronic batch record software",
+    "QMS software",
+    "GRN software",
+    "life sciences manufacturing software",
+    "alifie",
+    "sohem",
   ],
   authors: [{ name: "Wireone Labs" }],
   creator: "Wireone Labs",
@@ -109,6 +144,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_JSON_LD) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SOFTWARE_APPLICATION_JSON_LD) }}
         />
         <Suspense fallback={null}>
           <AnalyticsTracker />

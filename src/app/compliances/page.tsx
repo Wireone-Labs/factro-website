@@ -28,7 +28,7 @@ const TIMELINE_STATUS: Record<
 };
 
 export const metadata: Metadata = pageMetadata({
-  title: "Compliances",
+  title: "Compliance Software — 21 CFR Part 11 & EU Annex 11",
   description:
     "Ninety-six control points, validated in live pilot runs with pharmaceutical manufacturers. Validation-ready for 21 CFR Part 11, EU Annex 11 and Revised Schedule M.",
   path: "/compliances",
