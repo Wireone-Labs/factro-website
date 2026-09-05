@@ -23,8 +23,17 @@ function ribbonColor(t: number): string {
   return `${r}, ${g}, ${bch}`;
 }
 
-const COLS = 42;
-const ROWS = 26;
+// Grid density derives from viewport size rather than a fixed column
+// count, so cells stay roughly the same physical size on a narrow phone
+// as on a wide desktop hero instead of being crushed into slivers.
+const TARGET_CELL = 34;
+const MIN_COLS = 12;
+const MAX_COLS = 42;
+const MIN_ROWS = 9;
+const MAX_ROWS = 26;
+
+const clamp = (value: number, min: number, max: number) =>
+  Math.max(min, Math.min(max, value));
 
 interface MeshPoint {
   bx: number;
@@ -49,17 +58,19 @@ export function HeroMesh() {
 
     let width = 0;
     let height = 0;
+    let cols = MAX_COLS;
+    let rows = MAX_ROWS;
     let points: MeshPoint[] = [];
     let frameId = 0;
 
     const buildPoints = () => {
-      const gx = width / (COLS - 1);
-      const gy = height / (ROWS - 1);
+      const gx = width / (cols - 1);
+      const gy = height / (rows - 1);
       const next: MeshPoint[] = [];
-      for (let j = 0; j < ROWS; j++) {
-        for (let i = 0; i < COLS; i++) {
+      for (let j = 0; j < rows; j++) {
+        for (let i = 0; i < cols; i++) {
           // Diagonal flow matching the ribbon: deep blue top-right, mint bottom-left.
-          const colorT = 1 - (i / (COLS - 1) * 0.5 + j / (ROWS - 1) * 0.5);
+          const colorT = 1 - (i / (cols - 1) * 0.5 + j / (rows - 1) * 0.5);
           next.push({
             bx: i * gx,
             by: j * gy,
@@ -80,6 +91,8 @@ export function HeroMesh() {
       const rect = canvas.getBoundingClientRect();
       width = rect.width;
       height = rect.height;
+      cols = Math.round(clamp(width / TARGET_CELL, MIN_COLS, MAX_COLS));
+      rows = Math.round(clamp(height / TARGET_CELL, MIN_ROWS, MAX_ROWS));
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = width * dpr;
       canvas.height = height * dpr;
@@ -87,7 +100,7 @@ export function HeroMesh() {
       buildPoints();
     };
 
-    const idx = (i: number, j: number) => j * COLS + i;
+    const idx = (i: number, j: number) => j * cols + i;
 
     const draw = (t: number) => {
       ctx.clearRect(0, 0, width, height);
@@ -102,8 +115,8 @@ export function HeroMesh() {
         p.y = p.by + Math.sin(time * p.speed * 1.3 + p.phase) * p.amp * 0.7;
       }
 
-      for (let j = 0; j < ROWS - 1; j++) {
-        for (let i = 0; i < COLS - 1; i++) {
+      for (let j = 0; j < rows - 1; j++) {
+        for (let i = 0; i < cols - 1; i++) {
           const a = points[idx(i, j)];
           const b = points[idx(i + 1, j)];
           const c = points[idx(i, j + 1)];
