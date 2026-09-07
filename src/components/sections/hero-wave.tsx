@@ -58,7 +58,8 @@ export function HeroWave() {
             src="/brand/hero-ribbon.webp"
             alt=""
             fill
-            priority
+            loading="eager"
+            fetchPriority="high"
             sizes="(max-width: 640px) 50rem, 58rem"
             className="object-contain object-right-top"
           />
@@ -72,6 +73,8 @@ export function HeroWave() {
             src="/brand/hero-ribbon.webp"
             alt=""
             fill
+            loading="eager"
+            fetchPriority="high"
             sizes="(max-width: 640px) 50rem, 58rem"
             className="object-contain object-right-top"
           />

@@ -24,7 +24,8 @@ export function Logo({
           "h-6.5 w-auto",
           variant === "light" && "brightness-0 invert",
         )}
-        priority
+        loading="eager"
+        fetchPriority="high"
       />
     </Link>
   );
