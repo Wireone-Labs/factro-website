@@ -60,7 +60,7 @@ export function HeroWave() {
             fill
             loading="eager"
             fetchPriority="high"
-            sizes="(max-width: 640px) 50rem, 58rem"
+            sizes="(max-width: 640px) 100vw, 58rem"
             className="object-contain object-right-top"
           />
         </motion.div>
@@ -75,7 +75,7 @@ export function HeroWave() {
             fill
             loading="eager"
             fetchPriority="high"
-            sizes="(max-width: 640px) 50rem, 58rem"
+            sizes="(max-width: 640px) 100vw, 58rem"
             className="object-contain object-right-top"
           />
         </motion.div>

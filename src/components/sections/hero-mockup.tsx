@@ -16,6 +16,8 @@ interface HeroMockupProps {
    *  top/bottom only, never left/right) at every viewport width, as long as
    *  the chosen ratio is wider than the widest source image. */
   cropAspect?: string;
+  /** Overrides the responsive `sizes` hint used when `cropAspect` is set. */
+  sizes?: string;
 }
 
 export function HeroMockup({
@@ -25,6 +27,7 @@ export function HeroMockup({
   height,
   priority,
   cropAspect,
+  sizes = "(max-width: 1024px) 100vw, 60vw",
 }: HeroMockupProps) {
   return (
     <div className="relative mx-auto w-full max-w-5xl">
@@ -41,7 +44,7 @@ export function HeroMockup({
               alt={alt}
               fill
               priority={priority}
-              sizes="(max-width: 1024px) 100vw, 60vw"
+              sizes={sizes}
               className="object-cover object-top"
             />
           ) : (

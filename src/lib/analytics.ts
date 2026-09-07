@@ -1,11 +1,8 @@
-import { logEvent as firebaseLogEvent } from "firebase/analytics";
-import { getFirebaseAnalytics } from "@/lib/firebase";
+import { track } from "@vercel/analytics";
 
-export async function trackEvent(
+export function trackEvent(
   eventName: string,
   params?: Record<string, string | number | boolean>,
 ) {
-  const analytics = await getFirebaseAnalytics();
-  if (!analytics) return;
-  firebaseLogEvent(analytics, eventName, params);
+  track(eventName, params);
 }

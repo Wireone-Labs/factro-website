@@ -52,6 +52,7 @@ export function WhatItOffers() {
               alt="Factro live operations dashboard tracking order book value, supplier deviation rate, vendor OTIF and dozens of other live parameters"
               width={1920}
               height={1490}
+              sizes="(max-width: 1024px) calc(100vw - 48px), 60vw"
               cropAspect="aspect-[16/9]"
             />
           </Reveal>
