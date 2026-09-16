@@ -1,10 +1,11 @@
 import { Hero } from "@/components/sections/hero";
-import { DayOne } from "@/components/sections/day-one";
 import { ThreePillars } from "@/components/sections/three-pillars";
-import { OneSystemFourStacks } from "@/components/sections/one-system-four-stacks";
+import { ModulesTeaser } from "@/components/sections/modules-teaser";
 import { GenealogyHighlight } from "@/components/sections/genealogy-highlight";
 import { DashboardHighlight } from "@/components/sections/dashboard-highlight";
 import { ProductionPlanningHighlight } from "@/components/sections/production-planning-highlight";
+import { RealtimeVisibilityHighlight } from "@/components/sections/realtime-visibility-highlight";
+import { AiComplianceCheckerHighlight } from "@/components/sections/ai-compliance-checker-highlight";
 import { BusinessOutcomes } from "@/components/sections/business-outcomes";
 import { IndustriesTeaser } from "@/components/sections/industries-teaser";
 import { SupportHighlight } from "@/components/sections/support-highlight";
@@ -18,12 +19,13 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <DayOne />
       <ThreePillars />
-      <OneSystemFourStacks />
+      <ModulesTeaser />
       <GenealogyHighlight />
       <DashboardHighlight />
       <ProductionPlanningHighlight />
+      <RealtimeVisibilityHighlight />
+      <AiComplianceCheckerHighlight />
       <BusinessOutcomes />
       <IndustriesTeaser />
       <SupportHighlight />

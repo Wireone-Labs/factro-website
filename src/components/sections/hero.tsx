@@ -24,7 +24,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
             className="text-balance text-4xl font-semibold tracking-tight text-ink-900 sm:text-5xl lg:text-6xl lg:leading-[1.08]"
           >
-            Precision meets total compliance.
+            Experience the future of manufacturing.
           </motion.h1>
 
           <motion.p

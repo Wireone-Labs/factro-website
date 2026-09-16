@@ -28,27 +28,6 @@ export function ThreePillars() {
                 <p className="mt-3 text-sm leading-relaxed text-ink-500">
                   {pillar.description}
                 </p>
-
-                <div className="flex-1" />
-
-                <div className="mt-8 flex flex-col gap-2.5 border-t border-line pt-6">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-ink-400">
-                    What you get
-                  </p>
-                  {pillar.bullets.map((bullet) => (
-                    <div key={bullet.text} className="flex items-start gap-2">
-                      <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-brand-400" />
-                      <span className="text-sm leading-relaxed text-ink-600">
-                        {bullet.text}
-                        {bullet.beta && (
-                          <span className="ml-2 inline-flex items-center rounded-full bg-brand-50 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-brand-600 align-middle">
-                            Q4 beta
-                          </span>
-                        )}
-                      </span>
-                    </div>
-                  ))}
-                </div>
               </div>
             </RevealItem>
           ))}

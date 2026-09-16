@@ -125,43 +125,23 @@ export function IndustryDetail({ industry }: { industry: Industry }) {
             framework&apos;s published scope, not a legal determination.
           </p>
 
-          <div className="mt-16">
+          <div className="mt-12">
             <p className="text-center text-xs font-semibold uppercase tracking-wide text-ink-400">
-              Compliance coverage by geography
-            </p>
-            <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-relaxed text-ink-500">
-              Share of {industry.name.toLowerCase()} controls that satisfy
-              each standard, by the region it governs.
+              Coverage by geography
             </p>
             <RevealGroup
-              className="mx-auto mt-8 flex max-w-2xl flex-col gap-3"
-              stagger={0.05}
+              className="mx-auto mt-4 flex max-w-2xl flex-wrap justify-center gap-2"
+              stagger={0.03}
             >
               {coverage.map((row) => (
                 <RevealItem
                   key={row.name}
-                  className="flex items-center gap-4 rounded-xl border border-line bg-white px-4 py-3.5"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3 py-1.5 text-xs"
                 >
-                  <span className="text-xl leading-none" aria-hidden>
-                    {row.flag}
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
-                      <span className="text-sm font-medium text-ink-900">
-                        {row.name}
-                      </span>
-                      <span className="text-xs text-ink-400">{row.region}</span>
-                    </div>
-                    <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-mist">
-                      <div
-                        className="h-full rounded-full bg-brand-500"
-                        style={{ width: `${row.percent}%` }}
-                      />
-                    </div>
-                  </div>
-                  <span className="shrink-0 text-sm font-semibold whitespace-nowrap text-ink-700">
-                    {row.matchedControls}/{row.totalControls} · {row.percent}%
-                  </span>
+                  <span aria-hidden>{row.flag}</span>
+                  <span className="font-medium text-ink-700">{row.region}</span>
+                  <span className="text-ink-300">·</span>
+                  <span className="font-semibold text-ink-900">{row.percent}%</span>
                 </RevealItem>
               ))}
             </RevealGroup>

@@ -203,21 +203,7 @@ export const INDUSTRIES: Industry[] = [
           "Chapter 4 on documentation and Annex 11 on computerised systems, alongside a new Annex 22 on artificial intelligence. Public consultation closed in October 2025, and the pack follows the revisions into the product as they land.",
       },
     ],
-    extras: [
-      {
-        heading: "The batch record is the product",
-        intro:
-          "Everything else on this page supports one thing. If the batch record is complete when the batch is complete, release is a review rather than a reconstruction, and nothing incomplete ever reaches quality.",
-        bullets: [
-          "Dispensing with second-person verification, recorded as it happens rather than signed off afterwards",
-          "Line clearance per stage, blocking the next step until the previous one is closed",
-          "Quarantined material structurally refused, so the control is the system rather than a label on a drum",
-          "Calibration blocking the stage, not surfacing weeks later as a batch-level finding",
-          "In-process results attached to the stage that produced them, with out of specification and out of trend investigation routed automatically",
-          "Batch release with COA assembled from the records already held",
-        ],
-      },
-    ],
+    extras: [],
   },
   {
     id: "medical-devices",
