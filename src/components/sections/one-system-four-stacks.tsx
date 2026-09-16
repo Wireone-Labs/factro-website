@@ -1,7 +1,9 @@
-import { Landmark } from "lucide-react";
+import { ArrowRight, Landmark } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { Button } from "@/components/ui/button";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
+import { ModulesGrid } from "@/components/sections/modules-grid";
 
 const STACKS = [
   {
@@ -86,6 +88,30 @@ export function OneSystemFourStacks() {
               accountant notices nothing except that the numbers arrive
               reconciled.
             </p>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.05}>
+          <p className="mx-auto mt-14 max-w-2xl text-center text-sm font-semibold text-ink-900">
+            Or drill straight into any one of the ten modules
+          </p>
+        </Reveal>
+        <ModulesGrid />
+
+        <Reveal delay={0.1}>
+          <p className="mx-auto mt-10 max-w-2xl text-center text-sm leading-relaxed text-ink-500">
+            Buy it once. It keeps getting better. Every release is included:
+            new modules, new capabilities, new regulatory profiles. No
+            upgrade fee, no renegotiation at renewal.
+          </p>
+        </Reveal>
+
+        <Reveal delay={0.14}>
+          <div className="mt-8 flex justify-center">
+            <Button href="/modules" variant="secondary" size="lg" className="group">
+              See what&apos;s in every module
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </Button>
           </div>
         </Reveal>
       </Container>

@@ -11,12 +11,82 @@ import {
 
 export interface IndustryControl {
   text: string;
+  /** Matches a ComplianceMatrixRow.area on the same Industry — the standards
+   *  a control satisfies are derived from that row rather than duplicated
+   *  here, so the two can't drift apart. */
+  area: string;
 }
 
 export interface ComplianceMatrixRow {
   area: string;
   /** One boolean per entry in the parent Industry's `matrixStandards`. */
   marks: boolean[];
+}
+
+export interface MappedStandard {
+  name: string;
+  region: string;
+  /** Exact string in `matrixStandards` this corresponds to, when the source
+   *  doc's compliance matrix gave it a dedicated column. Some mapped
+   *  standards (a reporting-only regulation, a lab-methods guideline) don't
+   *  get their own column — omit this field for those, and they're shown
+   *  informationally but excluded from the interactive filter and the
+   *  coverage-by-geography section, which both need real matrix data. */
+  matrixName?: string;
+}
+
+/** The standards a control satisfies, derived from its matrix row. */
+export function controlStandards(industry: Industry, control: IndustryControl): string[] {
+  const row = industry.matrix.find((r) => r.area === control.area);
+  if (!row) return [];
+  return industry.matrixStandards.filter((_, i) => row.marks[i]);
+}
+
+const REGION_FLAGS: Record<string, string> = {
+  "United States": "🇺🇸",
+  "European Union": "🇪🇺",
+  "EU": "🇪🇺",
+  India: "🇮🇳",
+  Global: "🌐",
+  APAC: "🌏",
+  "US / EU": "🌐",
+};
+
+export function regionFlag(region: string): string {
+  return REGION_FLAGS[region] ?? "🌐";
+}
+
+export interface StandardCoverage {
+  name: string;
+  region: string;
+  flag: string;
+  matchedControls: number;
+  totalControls: number;
+  percent: number;
+}
+
+/** Standards with real matrix data behind them — the ones the interactive
+ *  filter and the coverage section can actually compute from. */
+export function matrixBackedStandards(industry: Industry): MappedStandard[] {
+  return industry.mappedStandards.filter((s) => s.matrixName);
+}
+
+/** Real coverage per matrix-backed standard — the share of this industry's
+ *  own controls that satisfy it — rather than a hand-picked estimate. */
+export function standardCoverage(industry: Industry): StandardCoverage[] {
+  return matrixBackedStandards(industry).map((standard) => {
+    const matched = industry.controls.filter((control) =>
+      controlStandards(industry, control).includes(standard.matrixName!),
+    ).length;
+    return {
+      name: standard.name,
+      region: standard.region,
+      flag: regionFlag(standard.region),
+      matchedControls: matched,
+      totalControls: industry.controls.length,
+      percent: Math.round((matched / industry.controls.length) * 100),
+    };
+  });
 }
 
 export interface IndustryTable {
@@ -32,6 +102,13 @@ export interface IndustryExtraSection {
   table?: IndustryTable;
 }
 
+export interface RegulatoryTimelineEntry {
+  status: "applied" | "monitoring" | "upcoming";
+  date: string;
+  title: string;
+  description: string;
+}
+
 export interface Industry {
   id: string;
   slug: string;
@@ -39,12 +116,16 @@ export interface Industry {
   name: string;
   tagline: string;
   summary: string;
-  mappedStandards: { name: string; region: string }[];
+  mappedStandards: MappedStandard[];
   narrativeHeading: string;
   narrative: string[];
   controls: IndustryControl[];
   matrixStandards: string[];
   matrix: ComplianceMatrixRow[];
+  /** Feeds "We watch the regulations so you don't have to" — real dated
+   *  regulatory change facts from the mapped standards, not a fabricated
+   *  status feed. */
+  regulatoryTimeline: RegulatoryTimelineEntry[];
   extras: IndustryExtraSection[];
 }
 
@@ -58,12 +139,12 @@ export const INDUSTRIES: Industry[] = [
     summary:
       "Ninety-six control points, validated in live pilot runs with pharmaceutical manufacturers. The batch record writes itself as the batch runs, quality is the gate rather than the review, and the audit pack is a download because the evidence was never scattered. Validation-ready for 21 CFR Part 11, EU Annex 11 and Revised Schedule M, with ISO 27001 in progress, and kept current with regulatory change as part of the product, at no extra cost.",
     mappedStandards: [
-      { name: "FDA 21 CFR Part 11", region: "United States" },
-      { name: "EU Annex 11 / EU GMP", region: "European Union" },
-      { name: "Revised Schedule M", region: "India" },
-      { name: "PIC/S GMP", region: "APAC" },
-      { name: "WHO", region: "Global" },
-      { name: "ICH Q10 / GAMP 5", region: "Global" },
+      { name: "FDA 21 CFR Part 11", region: "United States", matrixName: "21 CFR Part 11" },
+      { name: "EU Annex 11 / EU GMP", region: "European Union", matrixName: "EU Annex 11" },
+      { name: "Revised Schedule M", region: "India", matrixName: "Revised Schedule M" },
+      { name: "PIC/S GMP", region: "APAC", matrixName: "PIC/S GMP" },
+      { name: "WHO", region: "Global", matrixName: "WHO" },
+      { name: "ICH Q10 / GAMP 5", region: "Global", matrixName: "ICH Q10 / GAMP 5" },
     ],
     narrativeHeading: "Schedule M stopped being a deadline and became an inspection",
     narrative: [
@@ -71,26 +152,26 @@ export const INDUSTRIES: Industry[] = [
       "What Schedule M asks for is not a document exercise. Pharmaceutical quality system, quality risk management, product quality review, lifecycle validation, computerised system controls and data integrity are continuous obligations, and they are only continuous if the system produces them as a by-product of the work. Assembling them in the fortnight before an inspection is the thing the regulation was written to stop.",
     ],
     controls: [
-      { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason" },
-      { text: "Immutable records, secure archives and no hard delete of GxP data" },
-      { text: "Re-authenticated approvals capturing the approver, time and meaning on every sign-off" },
-      { text: "Role-based access control, down to the individual field" },
-      { text: "Segregation of duties enforced in the system, maker is never checker" },
-      { text: "Linked-record architecture carrying full data lineage end to end" },
-      { text: "Electronic batch records across MFR, BMR and BPR" },
-      { text: "SOP governance and document control with version history" },
-      { text: "FIFO and FEFO with hold, quarantine and release status control" },
-      { text: "QC sampling at GRN, IPQC and finished goods, with COA generation" },
-      { text: "Deviation detection routed into CAPA with owners and due dates" },
-      { text: "Approval workflows with role-based, re-authenticated sign-off" },
-      { text: "Production planning with batch, lot and vendor qualification traceability throughout" },
-      { text: "Validation-ready workflows with URS, IQ, OQ, PQ traceability matrices" },
-      { text: "Audit-ready exports in inspector-readable form, on demand" },
-      { text: "Training tied to document version, reassigned on every revision" },
-      { text: "ALCOA+ data integrity enforced across every record, attributable through to available" },
-      { text: "Self-inspection scheduling and Annual Product Quality Review" },
-      { text: "Automated redundant backup with point-in-time disaster recovery" },
-      { text: "Quality Risk Management with risk register and FMEA scoring" },
+      { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason", area: "Audit trail & data integrity" },
+      { text: "Immutable records, secure archives and no hard delete of GxP data", area: "Audit trail & data integrity" },
+      { text: "Re-authenticated approvals capturing the approver, time and meaning on every sign-off", area: "Approvals & sign-off" },
+      { text: "Role-based access control, down to the individual field", area: "Access control & segregation of duties" },
+      { text: "Segregation of duties enforced in the system, maker is never checker", area: "Access control & segregation of duties" },
+      { text: "Linked-record architecture carrying full data lineage end to end", area: "Data lineage & traceability" },
+      { text: "Electronic batch records across MFR, BMR and BPR", area: "Batch & production records" },
+      { text: "SOP governance and document control with version history", area: "Document, training & SOP control" },
+      { text: "FIFO and FEFO with hold, quarantine and release status control", area: "Material status & QC sampling" },
+      { text: "QC sampling at GRN, IPQC and finished goods, with COA generation", area: "Material status & QC sampling" },
+      { text: "Deviation detection routed into CAPA with owners and due dates", area: "Deviation, CAPA & inspection readiness" },
+      { text: "Approval workflows with role-based, re-authenticated sign-off", area: "Approvals & sign-off" },
+      { text: "Production planning with batch, lot and vendor qualification traceability throughout", area: "Batch & production records" },
+      { text: "Validation-ready workflows with URS, IQ, OQ, PQ traceability matrices", area: "Computerized systems validation" },
+      { text: "Audit-ready exports in inspector-readable form, on demand", area: "Audit trail & data integrity" },
+      { text: "Training tied to document version, reassigned on every revision", area: "Document, training & SOP control" },
+      { text: "ALCOA+ data integrity enforced across every record, attributable through to available", area: "Audit trail & data integrity" },
+      { text: "Self-inspection scheduling and Annual Product Quality Review", area: "Deviation, CAPA & inspection readiness" },
+      { text: "Automated redundant backup with point-in-time disaster recovery", area: "Backup & disaster recovery" },
+      { text: "Quality Risk Management with risk register and FMEA scoring", area: "Quality risk management" },
     ],
     matrixStandards: ["21 CFR Part 11", "EU Annex 11", "Revised Schedule M", "PIC/S GMP", "WHO", "ICH Q10 / GAMP 5"],
     matrix: [
@@ -106,6 +187,22 @@ export const INDUSTRIES: Industry[] = [
       { area: "Backup & disaster recovery", marks: [true, true, true, true, true, true] },
       { area: "Quality risk management", marks: [false, false, true, true, true, true] },
     ],
+    regulatoryTimeline: [
+      {
+        status: "applied",
+        date: "Live now",
+        title: "Revised Schedule M enforcement",
+        description:
+          "No grace period across every turnover band, with state drug controllers reporting inspections monthly to CDSCO.",
+      },
+      {
+        status: "monitoring",
+        date: "In revision",
+        title: "EudraLex Volume 4 Annex 11 & new Annex 22",
+        description:
+          "Chapter 4 on documentation and Annex 11 on computerised systems, alongside a new Annex 22 on artificial intelligence. Public consultation closed in October 2025, and the pack follows the revisions into the product as they land.",
+      },
+    ],
     extras: [
       {
         heading: "The batch record is the product",
@@ -120,13 +217,6 @@ export const INDUSTRIES: Industry[] = [
           "Batch release with COA assembled from the records already held",
         ],
       },
-      {
-        heading: "Dates on the calendar",
-        bullets: [
-          "Live now, no grace period. Revised Schedule M enforcement across every turnover band, with state drug controllers reporting inspections monthly to CDSCO.",
-          "In revision. EudraLex Volume 4 Chapter 4 on documentation and Annex 11 on computerised systems, alongside a new Annex 22 on artificial intelligence. Public consultation closed in October 2025, and the pack follows the revisions into the product as they land.",
-        ],
-      },
     ],
   },
   {
@@ -138,11 +228,11 @@ export const INDUSTRIES: Industry[] = [
     summary:
       "Design control, production and post-market surveillance on one record, with the device file assembling itself as the work happens. Validation-ready for 21 CFR Part 820 as amended by the Quality Management System Regulation, ISO 13485:2016 and EU MDR, and kept current with regulatory change as part of the product, at no extra cost.",
     mappedStandards: [
-      { name: "FDA 21 CFR Part 820 / QMSR", region: "United States" },
-      { name: "ISO 13485:2016", region: "Global" },
-      { name: "ISO 14971:2019", region: "Global" },
-      { name: "EU MDR 2017/745", region: "European Union" },
-      { name: "Medical Devices Rules 2017", region: "India" },
+      { name: "FDA 21 CFR Part 820 / QMSR", region: "United States", matrixName: "21 CFR 820 / QMSR" },
+      { name: "ISO 13485:2016", region: "Global", matrixName: "ISO 13485" },
+      { name: "ISO 14971:2019", region: "Global", matrixName: "ISO 14971" },
+      { name: "EU MDR 2017/745", region: "European Union", matrixName: "EU MDR" },
+      { name: "Medical Devices Rules 2017", region: "India", matrixName: "MDR 2017 India" },
       { name: "21 CFR Part 803 / MDR vigilance", region: "US / EU" },
     ],
     narrativeHeading: "Your quality system is the regulation now",
@@ -151,26 +241,26 @@ export const INDUSTRIES: Industry[] = [
       "Two changes matter more than the renaming. Management review, internal audit and supplier audit records are now inspectable, having been explicitly shielded under the old rule. And Section 820.35 still requires complaint record data elements, servicing records and the UDI recorded for each device or batch, which a system built to ISO 13485 alone will miss.",
     ],
     controls: [
-      { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason" },
-      { text: "Medical device file assembled continuously from specification, manufacturing, packaging, labelling and servicing information" },
-      { text: "Design and development file carrying inputs, outputs, reviews, verification, validation and transfer" },
-      { text: "Design change traceability, so a change reaches the risk file and the affected released records" },
-      { text: "Risk management file to ISO 14971, linked to the process steps that implement each control measure" },
-      { text: "Role-based access control, down to the individual field" },
-      { text: "Segregation of duties enforced in the system, maker is never checker" },
-      { text: "Re-authenticated approvals capturing the approver, time and meaning on every release" },
-      { text: "UDI recorded per device or batch, with GUDID and EUDAMED attribute changes tracked on a 30-day clock" },
-      { text: "Labelling and packaging examination documented before release, per Section 820.45" },
-      { text: "Device batch and unit records with full material and process genealogy" },
-      { text: "Complaint intake with prescribed data elements and the reporting clock attached" },
-      { text: "Vigilance and MDR reporting routed by jurisdiction against the correct deadline" },
-      { text: "Servicing records held to the same controls as production records" },
-      { text: "Management review, internal audit and supplier audit records under full access control and retention" },
-      { text: "Supplier qualification with audit history and re-qualification scheduling" },
-      { text: "Nonconformity and CAPA with owners, due dates and effectiveness review before closure" },
-      { text: "Post-market surveillance data flowing into PSUR preparation" },
-      { text: "Process validation and equipment qualification with IQ, OQ, PQ and calibration history" },
-      { text: "Training tied to document version, reassigned on every revision" },
+      { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason", area: "Audit trail & data integrity" },
+      { text: "Medical device file assembled continuously from specification, manufacturing, packaging, labelling and servicing information", area: "Medical device file" },
+      { text: "Design and development file carrying inputs, outputs, reviews, verification, validation and transfer", area: "Design & development control" },
+      { text: "Design change traceability, so a change reaches the risk file and the affected released records", area: "Design & development control" },
+      { text: "Risk management file to ISO 14971, linked to the process steps that implement each control measure", area: "Risk management" },
+      { text: "Role-based access control, down to the individual field", area: "Access control & segregation of duties" },
+      { text: "Segregation of duties enforced in the system, maker is never checker", area: "Access control & segregation of duties" },
+      { text: "Re-authenticated approvals capturing the approver, time and meaning on every release", area: "Access control & segregation of duties" },
+      { text: "UDI recorded per device or batch, with GUDID and EUDAMED attribute changes tracked on a 30-day clock", area: "UDI & labelling control" },
+      { text: "Labelling and packaging examination documented before release, per Section 820.45", area: "UDI & labelling control" },
+      { text: "Device batch and unit records with full material and process genealogy", area: "Production & batch records" },
+      { text: "Complaint intake with prescribed data elements and the reporting clock attached", area: "Complaints & vigilance" },
+      { text: "Vigilance and MDR reporting routed by jurisdiction against the correct deadline", area: "Complaints & vigilance" },
+      { text: "Servicing records held to the same controls as production records", area: "Medical device file" },
+      { text: "Management review, internal audit and supplier audit records under full access control and retention", area: "Supplier & outsourcing control" },
+      { text: "Supplier qualification with audit history and re-qualification scheduling", area: "Supplier & outsourcing control" },
+      { text: "Nonconformity and CAPA with owners, due dates and effectiveness review before closure", area: "Complaints & vigilance" },
+      { text: "Post-market surveillance data flowing into PSUR preparation", area: "Post-market surveillance" },
+      { text: "Process validation and equipment qualification with IQ, OQ, PQ and calibration history", area: "Validation & qualification" },
+      { text: "Training tied to document version, reassigned on every revision", area: "Validation & qualification" },
     ],
     matrixStandards: ["21 CFR 820 / QMSR", "ISO 13485", "ISO 14971", "EU MDR", "MDR 2017 India"],
     matrix: [
@@ -185,6 +275,34 @@ export const INDUSTRIES: Industry[] = [
       { area: "Post-market surveillance", marks: [true, true, true, true, true] },
       { area: "Supplier & outsourcing control", marks: [true, true, false, true, true] },
       { area: "Validation & qualification", marks: [true, true, false, true, true] },
+    ],
+    regulatoryTimeline: [
+      {
+        status: "upcoming",
+        date: "28 Nov 2026",
+        title: "EUDAMED legacy device registration closes",
+        description:
+          "Devices placed on the EU market before 28 May 2026 and still sold must be registered in the UDI and device module.",
+      },
+      {
+        status: "upcoming",
+        date: "26 May 2027",
+        title: "Notified body application gate",
+        description: "For Class B and Class A sterile in vitro diagnostics.",
+      },
+      {
+        status: "upcoming",
+        date: "31 Dec 2027",
+        title: "EU MDR legacy certificates expire",
+        description: "For Class III and implantable Class IIb devices.",
+      },
+      {
+        status: "upcoming",
+        date: "31 Dec 2028",
+        title: "EU MDR legacy certificates expire",
+        description:
+          "For Class IIa, non-implantable Class IIb and the remaining Class I categories.",
+      },
     ],
     extras: [
       {
@@ -204,15 +322,6 @@ export const INDUSTRIES: Industry[] = [
         },
       },
       {
-        heading: "Dates on the calendar",
-        bullets: [
-          "28 November 2026. EUDAMED legacy device registration closes. Devices placed on the EU market before 28 May 2026 and still sold must be registered in the UDI and device module.",
-          "26 May 2027. Notified body application gate for Class B and Class A sterile in vitro diagnostics.",
-          "31 December 2027. EU MDR legacy certificates expire for Class III and implantable Class IIb devices.",
-          "31 December 2028. EU MDR legacy certificates expire for Class IIa, non-implantable Class IIb and the remaining Class I categories.",
-        ],
-      },
-      {
         heading: "India licensing, built in",
         intro:
           "Class A and B devices are licensed by the state authority on Form MD-5, Class C and D centrally on Form MD-9, and since October 2025 Class A and B applicants need central risk classification before applying to the state. The pack holds the Fifth Schedule quality management system, the plant master file and the device master files in the shape an audit reads them, whether that audit comes from a CDSCO-registered notified body or from CDSCO directly.",
@@ -228,12 +337,12 @@ export const INDUSTRIES: Industry[] = [
     summary:
       "The HACCP plan as something that executes, not something that sits in a binder. Every critical control point monitored at the frequency the plan specifies, every corrective action bound to the product it affected, and every lot traceable end to end. Validation-ready for FSSAI Schedule 4, FSSC 22000 and 21 CFR Part 117, and kept current with regulatory change as part of the product, at no extra cost.",
     mappedStandards: [
-      { name: "FSSAI Schedule 4 Part II", region: "India" },
-      { name: "Codex CXC 1-1969 HACCP", region: "Global" },
-      { name: "FSSC 22000 / ISO 22000:2018", region: "Global" },
-      { name: "BRCGS Food Safety", region: "Global" },
-      { name: "21 CFR Part 117", region: "United States" },
-      { name: "FSMA 204, 21 CFR Part 1 Subpart S", region: "United States" },
+      { name: "FSSAI Schedule 4 Part II", region: "India", matrixName: "FSSAI Schedule 4" },
+      { name: "Codex CXC 1-1969 HACCP", region: "Global", matrixName: "Codex HACCP" },
+      { name: "FSSC 22000 / ISO 22000:2018", region: "Global", matrixName: "FSSC 22000" },
+      { name: "BRCGS Food Safety", region: "Global", matrixName: "BRCGS" },
+      { name: "21 CFR Part 117", region: "United States", matrixName: "21 CFR 117" },
+      { name: "FSMA 204, 21 CFR Part 1 Subpart S", region: "United States", matrixName: "FSMA 204" },
     ],
     narrativeHeading: "A critical control point that was not recorded was not monitored",
     narrative: [
@@ -241,26 +350,26 @@ export const INDUSTRIES: Industry[] = [
       "The 2020 revision of Codex put validation into principles three and six, which means a critical limit now has to be justified, not just set. Underneath the statutory floor sits a commercial ceiling: FSSC 22000 or BRCGS is what your buyer demands, and it is usually stricter than the law.",
     ],
     controls: [
-      { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason" },
-      { text: "HACCP plan as an executable object, with hazards, control measures, CCPs and validated critical limits held as records" },
-      { text: "CCP monitoring tasks issued at the frequency the plan specifies, to a named owner" },
-      { text: "A missed check raises a deviation automatically, rather than surfacing as a blank cell at verification" },
-      { text: "Corrective action bound to affected product, with the batch or time window held and the disposition recorded" },
-      { text: "Prerequisite programme records covering hygiene, pest control, sanitation and maintenance" },
-      { text: "Allergen status travelling with the material, with changeover and cleaning enforced between incompatible runs" },
-      { text: "Allergen declaration checked against actual formulation, across the eight Indian, nine US and fourteen EU lists" },
-      { text: "Traceability lot codes carried end to end, received, retained through transformation and passed on" },
-      { text: "One-up, one-back supplier and customer records on every lot" },
-      { text: "Mock recall as a scheduled exercise, producing the trace, the reconciliation and the elapsed time as a record" },
-      { text: "Recall plan with classification, notification and effectiveness checks" },
-      { text: "Role-based access control, down to the individual field" },
-      { text: "Segregation of duties enforced in the system, maker is never checker" },
-      { text: "FoSTaC supervisor ratios tracked live, one certified supervisor per 25 food handlers or part thereof" },
-      { text: "Training tied to document version, reassigned on every revision" },
-      { text: "Supplier approval and incoming material verification with certificate capture" },
-      { text: "Calibration of monitoring equipment blocking the stage when overdue" },
-      { text: "Environmental and product testing scheduled, with results attached to the lot" },
-      { text: "Automated redundant backup with point-in-time disaster recovery" },
+      { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason", area: "Records & retention" },
+      { text: "HACCP plan as an executable object, with hazards, control measures, CCPs and validated critical limits held as records", area: "Hazard analysis & CCP determination" },
+      { text: "CCP monitoring tasks issued at the frequency the plan specifies, to a named owner", area: "CCP monitoring & corrective action" },
+      { text: "A missed check raises a deviation automatically, rather than surfacing as a blank cell at verification", area: "CCP monitoring & corrective action" },
+      { text: "Corrective action bound to affected product, with the batch or time window held and the disposition recorded", area: "CCP monitoring & corrective action" },
+      { text: "Prerequisite programme records covering hygiene, pest control, sanitation and maintenance", area: "Prerequisite programmes" },
+      { text: "Allergen status travelling with the material, with changeover and cleaning enforced between incompatible runs", area: "Allergen control" },
+      { text: "Allergen declaration checked against actual formulation, across the eight Indian, nine US and fourteen EU lists", area: "Allergen control" },
+      { text: "Traceability lot codes carried end to end, received, retained through transformation and passed on", area: "Traceability lot code through the chain" },
+      { text: "One-up, one-back supplier and customer records on every lot", area: "Lot traceability" },
+      { text: "Mock recall as a scheduled exercise, producing the trace, the reconciliation and the elapsed time as a record", area: "Recall & withdrawal" },
+      { text: "Recall plan with classification, notification and effectiveness checks", area: "Recall & withdrawal" },
+      { text: "Role-based access control, down to the individual field", area: "Records & retention" },
+      { text: "Segregation of duties enforced in the system, maker is never checker", area: "Records & retention" },
+      { text: "FoSTaC supervisor ratios tracked live, one certified supervisor per 25 food handlers or part thereof", area: "Training & competence" },
+      { text: "Training tied to document version, reassigned on every revision", area: "Training & competence" },
+      { text: "Supplier approval and incoming material verification with certificate capture", area: "Supplier approval" },
+      { text: "Calibration of monitoring equipment blocking the stage when overdue", area: "Validation & verification" },
+      { text: "Environmental and product testing scheduled, with results attached to the lot", area: "Validation & verification" },
+      { text: "Automated redundant backup with point-in-time disaster recovery", area: "Records & retention" },
     ],
     matrixStandards: ["FSSAI Schedule 4", "Codex HACCP", "FSSC 22000", "BRCGS", "21 CFR 117", "FSMA 204"],
     matrix: [
@@ -276,6 +385,39 @@ export const INDUSTRIES: Industry[] = [
       { area: "Training & competence", marks: [true, true, true, true, true, false] },
       { area: "Records & retention", marks: [true, true, true, true, true, true] },
     ],
+    regulatoryTimeline: [
+      {
+        status: "applied",
+        date: "1 Apr 2026",
+        title: "FSSAI licensing turnover tiers reset",
+        description:
+          "Basic registration runs to ₹1.5 crore, state licence from ₹1.5 crore to ₹50 crore, central licence above ₹50 crore.",
+      },
+      {
+        status: "upcoming",
+        date: "30 Apr 2027",
+        title: "Last date FSSC 22000 Version 6 audits accepted",
+        description: "",
+      },
+      {
+        status: "upcoming",
+        date: "1 May 2027",
+        title: "FSSC 22000 Version 7 upgrade audits begin",
+        description: "Moving prerequisite programmes onto the ISO 22002 2025 series.",
+      },
+      {
+        status: "upcoming",
+        date: "30 Apr 2028",
+        title: "FSSC 22000 Version 7 transition completes",
+        description: "",
+      },
+      {
+        status: "upcoming",
+        date: "20 Jul 2028",
+        title: "FSMA 204 compliance deadline",
+        description: "For foods on the Food Traceability List.",
+      },
+    ],
     extras: [
       {
         heading: "Traceability, precisely",
@@ -284,16 +426,6 @@ export const INDUSTRIES: Industry[] = [
           "One up, one back is the baseline everywhere. India under the FSS Act framework, the United States under 21 CFR Part 1 Subpart J, and the European Union under Regulation 178/2002 Article 18. You must know your immediate supplier and your immediate customer.",
           "FSMA 204 goes further for listed foods. The traceability lot code has to survive the whole chain, which means it must be received, retained through transformation and passed on. That is a data discipline problem, and it is the one that catches manufacturers out.",
           "The 24-hour test is what the rule actually measures. FDA can ask for an electronic sortable spreadsheet covering critical tracking events and key data elements, and it has to arrive within a day. In Factro that is an export, not a fortnight of reconstruction.",
-        ],
-      },
-      {
-        heading: "Dates on the calendar",
-        bullets: [
-          "1 April 2026, in force. FSSAI licensing turnover tiers reset. Basic registration runs to ₹1.5 crore, state licence from ₹1.5 crore to ₹50 crore, central licence above ₹50 crore.",
-          "30 April 2027. Last date FSSC 22000 Version 6 audits are accepted.",
-          "1 May 2027. FSSC 22000 Version 7 upgrade audits begin, moving prerequisite programmes onto the ISO 22002 2025 series.",
-          "30 April 2028. FSSC 22000 Version 7 transition completes.",
-          "20 July 2028. FSMA 204 compliance for foods on the Food Traceability List.",
         ],
       },
     ],
@@ -307,12 +439,12 @@ export const INDUSTRIES: Industry[] = [
     summary:
       "Master manufacturing records per formulation and per batch size, identity testing enforced as a gate, and yield measured against theoretical at every control point. Validation-ready for 21 CFR Part 111 and FSSAI health supplement requirements, and kept current with regulatory change as part of the product, at no extra cost.",
     mappedStandards: [
-      { name: "21 CFR Part 111", region: "United States" },
-      { name: "21 CFR Part 117 Subpart B", region: "United States" },
-      { name: "FSSAI health supplements", region: "India" },
+      { name: "21 CFR Part 111", region: "United States", matrixName: "21 CFR 111" },
+      { name: "21 CFR Part 117 Subpart B", region: "United States", matrixName: "21 CFR 117 Sub B" },
+      { name: "FSSAI health supplements", region: "India", matrixName: "FSSAI" },
       { name: "FSSAI Schedule 4 Part II", region: "India" },
-      { name: "Directive 2002/46/EC", region: "European Union" },
-      { name: "Regulation (EU) 2015/2283", region: "European Union" },
+      { name: "Directive 2002/46/EC", region: "European Union", matrixName: "EU 2002/46/EC" },
+      { name: "Regulation (EU) 2015/2283", region: "European Union", matrixName: "EU 2015/2283" },
     ],
     narrativeHeading: "Every dietary ingredient gets tested. A certificate is not a substitute",
     narrative: [
@@ -320,26 +452,26 @@ export const INDUSTRIES: Industry[] = [
       "The second thing that catches plants is arithmetic. A master manufacturing record is required for each unique formulation and each batch size, so four products across three pack sizes is twelve records, not four, and they have to stay consistent with each other through every change.",
     ],
     controls: [
-      { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason" },
-      { text: "Specifications across all seven Section 111.70 categories, each versioned and separately approved" },
-      { text: "Master manufacturing records generated per formulation and per batch size, inheriting a single formulation change under change control" },
-      { text: "Theoretical yield at each control point with maximum and minimum deviation limits that trigger investigation" },
-      { text: "Identity testing enforced as a gate, so an untested dietary ingredient cannot be dispensed" },
-      { text: "Supplier qualification recorded as evidence, with confirming results and periodic re-confirmation" },
-      { text: "Certificate content checked on intake for method, limits and actual results" },
-      { text: "Batch production records created for every batch, following the master record exactly" },
-      { text: "Separate attribution for weighing, verifying the weighing, adding and verifying the addition of each component" },
-      { text: "Actual yield against percentage of theoretical recorded at close" },
-      { text: "Label reconciliation and material review disposition on the same record" },
-      { text: "Declared intentional overage carried on the master record" },
-      { text: "Reprocessing documented with quality approval before and after" },
-      { text: "Quality control documentation recorded at the time of performance, not reconstructed" },
-      { text: "Role-based access control, down to the individual field" },
-      { text: "Segregation of duties enforced in the system, maker is never checker" },
-      { text: "Adverse event intake on the 15 business day clock, with six year retention applied automatically" },
-      { text: "FIFO and FEFO with hold, quarantine and release status control" },
-      { text: "Training tied to document version, reassigned on every revision" },
-      { text: "Automated redundant backup with point-in-time disaster recovery" },
+      { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason", area: "Audit trail & data integrity" },
+      { text: "Specifications across all seven Section 111.70 categories, each versioned and separately approved", area: "Specification setting" },
+      { text: "Master manufacturing records generated per formulation and per batch size, inheriting a single formulation change under change control", area: "Master manufacturing record" },
+      { text: "Theoretical yield at each control point with maximum and minimum deviation limits that trigger investigation", area: "Yield & deviation limits" },
+      { text: "Identity testing enforced as a gate, so an untested dietary ingredient cannot be dispensed", area: "Component identity testing" },
+      { text: "Supplier qualification recorded as evidence, with confirming results and periodic re-confirmation", area: "Supplier qualification" },
+      { text: "Certificate content checked on intake for method, limits and actual results", area: "Supplier qualification" },
+      { text: "Batch production records created for every batch, following the master record exactly", area: "Batch production record" },
+      { text: "Separate attribution for weighing, verifying the weighing, adding and verifying the addition of each component", area: "Batch production record" },
+      { text: "Actual yield against percentage of theoretical recorded at close", area: "Yield & deviation limits" },
+      { text: "Label reconciliation and material review disposition on the same record", area: "Labelling & claims control" },
+      { text: "Declared intentional overage carried on the master record", area: "Master manufacturing record" },
+      { text: "Reprocessing documented with quality approval before and after", area: "Batch production record" },
+      { text: "Quality control documentation recorded at the time of performance, not reconstructed", area: "Hygiene & manufacturing practice" },
+      { text: "Role-based access control, down to the individual field", area: "Audit trail & data integrity" },
+      { text: "Segregation of duties enforced in the system, maker is never checker", area: "Audit trail & data integrity" },
+      { text: "Adverse event intake on the 15 business day clock, with six year retention applied automatically", area: "Adverse event reporting" },
+      { text: "FIFO and FEFO with hold, quarantine and release status control", area: "Hygiene & manufacturing practice" },
+      { text: "Training tied to document version, reassigned on every revision", area: "Hygiene & manufacturing practice" },
+      { text: "Automated redundant backup with point-in-time disaster recovery", area: "Audit trail & data integrity" },
     ],
     matrixStandards: ["21 CFR 111", "21 CFR 117 Sub B", "FSSAI", "EU 2002/46/EC", "EU 2015/2283"],
     matrix: [
@@ -354,6 +486,22 @@ export const INDUSTRIES: Industry[] = [
       { area: "Ingredient permissibility", marks: [true, false, true, true, true] },
       { area: "Labelling & claims control", marks: [true, false, true, true, true] },
       { area: "Adverse event reporting", marks: [true, false, false, false, false] },
+    ],
+    regulatoryTimeline: [
+      {
+        status: "monitoring",
+        date: "Ongoing",
+        title: "EU novel-food authorisation status",
+        description:
+          "An ingredient without significant EU consumption history before 15 May 1997 needs authorisation under Regulation 2015/2283 before it can be sold — the pack holds authorisation status against the material master and checks it at formulation.",
+      },
+      {
+        status: "monitoring",
+        date: "Ongoing",
+        title: "EU permitted vitamins and minerals",
+        description:
+          "Harmonised under Annexes I and II of Directive 2002/46/EC, but maximum levels and botanical substances remain national competence — the pack models permissibility per country.",
+      },
     ],
     extras: [
       {
@@ -389,11 +537,11 @@ export const INDUSTRIES: Industry[] = [
     summary:
       "The Product Information File held continuously rather than assembled under pressure, ingredient restrictions checked against live annexes, and registration clocks that run themselves. Built to ISO 22716, mapped to MoCRA, EU Regulation 1223/2009 and Cosmetics Rules 2020, and kept current with regulatory change as part of the product, at no extra cost.",
     mappedStandards: [
-      { name: "ISO 22716:2007", region: "Global" },
-      { name: "MoCRA", region: "United States" },
-      { name: "Regulation (EC) 1223/2009", region: "European Union" },
-      { name: "Cosmetics Rules 2020 / Schedule M-II", region: "India" },
-      { name: "IS 4707 Parts 1–4", region: "India" },
+      { name: "ISO 22716:2007", region: "Global", matrixName: "ISO 22716" },
+      { name: "MoCRA", region: "United States", matrixName: "MoCRA" },
+      { name: "Regulation (EC) 1223/2009", region: "European Union", matrixName: "EU 1223/2009" },
+      { name: "Cosmetics Rules 2020 / Schedule M-II", region: "India", matrixName: "Schedule M-II" },
+      { name: "IS 4707 Parts 1–4", region: "India", matrixName: "IS 4707" },
       { name: "ISO 11930:2019", region: "Global" },
     ],
     narrativeHeading: "The obligations arrived before the manufacturing rule did",
@@ -402,26 +550,26 @@ export const INDUSTRIES: Industry[] = [
       "ISO 22716 is the standard everyone actually builds to. In the European Union it carries a presumption of conformity with Article 8. India's Schedule M-II is materially thinner: no change control, no internal audit, no out of specification handling, no complaints or recall procedure. We built the pack to ISO 22716 and treat Schedule M-II as a subset of it.",
     ],
     controls: [
-      { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason" },
-      { text: "Product Information File assembled continuously, retained ten years after the last batch placed on the market" },
-      { text: "Cosmetic Product Safety Report held with the formulation and batches it covers" },
-      { text: "Ingredient restriction checking against live annexes, flagging every affected formulation when a substance is added" },
-      { text: "Batch manufacturing records in the Schedule M-II shape, carrying quantity required against quantity actually used" },
-      { text: "Retained samples tracked as inventory, with location, quantity and parent batch" },
-      { text: "Stability and challenge testing results bound to the shelf life and period-after-opening claim" },
-      { text: "Preservative efficacy testing to ISO 11930, with results attached to the formulation version" },
-      { text: "Facility registration renewal on its own anniversary, not the calendar year" },
-      { text: "Product listing updated annually with full ingredient detail" },
-      { text: "Safety substantiation records held against each marketed product" },
-      { text: "Serious adverse event intake on the 15 business day clock, with the one-year follow-up obligation and six year retention" },
-      { text: "Role-based access control, down to the individual field" },
-      { text: "Segregation of duties enforced in the system, maker is never checker" },
-      { text: "Change control across formulation, supplier, process and label" },
-      { text: "Internal audit scheduling with findings routed to CAPA" },
-      { text: "Out of specification handling with investigation and disposition" },
-      { text: "Complaints and recall procedure with classification and effectiveness checks" },
-      { text: "Subcontracting control with written scope and qualification records" },
-      { text: "Training tied to document version, reassigned on every revision" },
+      { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason", area: "Batch documentation" },
+      { text: "Product Information File assembled continuously, retained ten years after the last batch placed on the market", area: "Product Information File" },
+      { text: "Cosmetic Product Safety Report held with the formulation and batches it covers", area: "Safety assessment & substantiation" },
+      { text: "Ingredient restriction checking against live annexes, flagging every affected formulation when a substance is added", area: "Ingredient restriction control" },
+      { text: "Batch manufacturing records in the Schedule M-II shape, carrying quantity required against quantity actually used", area: "Batch documentation" },
+      { text: "Retained samples tracked as inventory, with location, quantity and parent batch", area: "Retained samples" },
+      { text: "Stability and challenge testing results bound to the shelf life and period-after-opening claim", area: "Stability & microbiological quality" },
+      { text: "Preservative efficacy testing to ISO 11930, with results attached to the formulation version", area: "Stability & microbiological quality" },
+      { text: "Facility registration renewal on its own anniversary, not the calendar year", area: "Registration & notification" },
+      { text: "Product listing updated annually with full ingredient detail", area: "Registration & notification" },
+      { text: "Safety substantiation records held against each marketed product", area: "Safety assessment & substantiation" },
+      { text: "Serious adverse event intake on the 15 business day clock, with the one-year follow-up obligation and six year retention", area: "Adverse event reporting" },
+      { text: "Role-based access control, down to the individual field", area: "Batch documentation" },
+      { text: "Segregation of duties enforced in the system, maker is never checker", area: "Batch documentation" },
+      { text: "Change control across formulation, supplier, process and label", area: "Change control" },
+      { text: "Internal audit scheduling with findings routed to CAPA", area: "Internal audit & OOS" },
+      { text: "Out of specification handling with investigation and disposition", area: "Internal audit & OOS" },
+      { text: "Complaints and recall procedure with classification and effectiveness checks", area: "Complaints & recall" },
+      { text: "Subcontracting control with written scope and qualification records", area: "Change control" },
+      { text: "Training tied to document version, reassigned on every revision", area: "Batch documentation" },
     ],
     matrixStandards: ["ISO 22716", "MoCRA", "EU 1223/2009", "Schedule M-II", "IS 4707"],
     matrix: [
@@ -437,16 +585,35 @@ export const INDUSTRIES: Industry[] = [
       { area: "Internal audit & OOS", marks: [true, false, true, false, false] },
       { area: "Complaints & recall", marks: [true, true, true, false, false] },
     ],
-    extras: [
+    regulatoryTimeline: [
       {
-        heading: "Dates on the calendar",
-        bullets: [
-          "In force. MoCRA facility registration on a two-year renewal, annual product listing, safety substantiation, serious adverse event reporting and FDA mandatory recall authority.",
-          "9 February 2026, in force. IS 4707 Part 2:2025 replaced the 2017 prohibited and restricted ingredient standard in India. Part 3:2025 on permitted preservatives took effect 9 August 2025.",
-          "1 May 2026, in force. EU Omnibus Act VIII applied, and non-compliant stock had to be off the market.",
-          "1 February 2027. EU Omnibus Act IX applies, carrying new CMR classifications and recent scientific committee opinions.",
-        ],
+        status: "applied",
+        date: "In force",
+        title: "MoCRA obligations",
+        description:
+          "Facility registration on a two-year renewal, annual product listing, safety substantiation, serious adverse event reporting and FDA mandatory recall authority.",
       },
+      {
+        status: "applied",
+        date: "9 Feb 2026",
+        title: "IS 4707 Part 2:2025 in force",
+        description:
+          "Replaced the 2017 prohibited and restricted ingredient standard in India. Part 3:2025 on permitted preservatives took effect 9 August 2025.",
+      },
+      {
+        status: "applied",
+        date: "1 May 2026",
+        title: "EU Omnibus Act VIII applied",
+        description: "Non-compliant stock had to be off the market.",
+      },
+      {
+        status: "upcoming",
+        date: "1 Feb 2027",
+        title: "EU Omnibus Act IX applies",
+        description: "Carrying new CMR classifications and recent scientific committee opinions.",
+      },
+    ],
+    extras: [
       {
         heading: "India licensing, built in",
         intro:
@@ -463,13 +630,13 @@ export const INDUSTRIES: Industry[] = [
     summary:
       "Sequencing and flush rules enforced before a batch starts, prescription limits treated as hard boundaries, and one unbroken trace from premix to treated animal. Validation-ready for Regulation (EU) 2025/2091, Regulation (EU) 2019/4 and 21 CFR Parts 225 and 226, and kept current with regulatory change as part of the product, at no extra cost.",
     mappedStandards: [
-      { name: "Regulation (EU) 2025/2091", region: "European Union" },
+      { name: "Regulation (EU) 2025/2091", region: "European Union", matrixName: "EU 2025/2091" },
       { name: "Regulation (EU) 2025/2154 / VICH GL60", region: "European Union" },
-      { name: "Regulation (EU) 2019/6", region: "European Union" },
-      { name: "Regulation (EU) 2019/4 medicated feed", region: "European Union" },
-      { name: "21 CFR Parts 225 and 226", region: "United States" },
-      { name: "21 CFR 558.6 VFD", region: "United States" },
-      { name: "Schedule M, Drugs Rules 1945", region: "India" },
+      { name: "Regulation (EU) 2019/6", region: "European Union", matrixName: "EU 2019/6" },
+      { name: "Regulation (EU) 2019/4 medicated feed", region: "European Union", matrixName: "EU 2019/4" },
+      { name: "21 CFR Parts 225 and 226", region: "United States", matrixName: "21 CFR 225" },
+      { name: "21 CFR 558.6 VFD", region: "United States", matrixName: "21 CFR 558.6" },
+      { name: "Schedule M, Drugs Rules 1945", region: "India", matrixName: "Schedule M" },
     ],
     narrativeHeading: "Veterinary GMP is its own regulation now",
     narrative: [
@@ -477,26 +644,26 @@ export const INDUSTRIES: Industry[] = [
       "Medicated feed is a second regime on top. Carry-over between batches, prescription validity, treatment duration and the prohibition on antimicrobial prophylaxis are all hard limits, and they are the limits an inspector tests first because they are the ones a production schedule quietly breaks.",
     ],
     controls: [
-      { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason" },
-      { text: "Sequencing rules enforced before the batch starts, blocking an unsafe production order rather than warning about it" },
-      { text: "Flush and cleanout recorded as evidence, with the flush batch held against the run it protects" },
-      { text: "Carry-over limits applied to non-target feed per Annexes I and III" },
-      { text: "Homogeneous dispersion verification with assay results attached to the batch" },
-      { text: "Prescription validity checked against statutory limits, six months for non food producing animals, three weeks for food producing and fur animals, five days for antimicrobials" },
-      { text: "Treatment duration capped, one month for standard medicated feed and two weeks where antibiotics are involved" },
-      { text: "Antimicrobial prophylaxis structurally refused, not flagged" },
-      { text: "Veterinary Feed Directive records with the issuing veterinarian, expiry and no-refill rule enforced" },
-      { text: "Assay sampling scheduled against the calendar year requirement, three representative samples per drug with one from the first batch" },
-      { text: "Master Record File and production records with unique batch identification and full tracing" },
-      { text: "Labelling proofread against the Master Record File, dated and attributed" },
-      { text: "Withdrawal period computed and carried to the treated animal, including cascade defaults under Article 115" },
-      { text: "Premix to medicated feed to prescription to holding to animal, held as one continuous trace" },
-      { text: "Maximum residue limit status held against each active substance" },
-      { text: "Continuous signal management with suspected adverse events submitted on a 30 day clock" },
-      { text: "Pharmacovigilance system master file maintained with a named qualified person" },
-      { text: "Role-based access control, down to the individual field" },
-      { text: "Segregation of duties enforced in the system, maker is never checker" },
-      { text: "Retention clocks by record class, five years, two years and one year, applied automatically" },
+      { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason", area: "Audit trail & data integrity" },
+      { text: "Sequencing rules enforced before the batch starts, blocking an unsafe production order rather than warning about it", area: "Carry-over & sequencing control" },
+      { text: "Flush and cleanout recorded as evidence, with the flush batch held against the run it protects", area: "Carry-over & sequencing control" },
+      { text: "Carry-over limits applied to non-target feed per Annexes I and III", area: "Carry-over & sequencing control" },
+      { text: "Homogeneous dispersion verification with assay results attached to the batch", area: "Assay & laboratory controls" },
+      { text: "Prescription validity checked against statutory limits, six months for non food producing animals, three weeks for food producing and fur animals, five days for antimicrobials", area: "Prescription & VFD control" },
+      { text: "Treatment duration capped, one month for standard medicated feed and two weeks where antibiotics are involved", area: "Prescription & VFD control" },
+      { text: "Antimicrobial prophylaxis structurally refused, not flagged", area: "Antimicrobial use restriction" },
+      { text: "Veterinary Feed Directive records with the issuing veterinarian, expiry and no-refill rule enforced", area: "Prescription & VFD control" },
+      { text: "Assay sampling scheduled against the calendar year requirement, three representative samples per drug with one from the first batch", area: "Assay & laboratory controls" },
+      { text: "Master Record File and production records with unique batch identification and full tracing", area: "Batch & production records" },
+      { text: "Labelling proofread against the Master Record File, dated and attributed", area: "Labelling control" },
+      { text: "Withdrawal period computed and carried to the treated animal, including cascade defaults under Article 115", area: "Withdrawal & residue control" },
+      { text: "Premix to medicated feed to prescription to holding to animal, held as one continuous trace", area: "Feed-to-animal traceability" },
+      { text: "Maximum residue limit status held against each active substance", area: "Withdrawal & residue control" },
+      { text: "Continuous signal management with suspected adverse events submitted on a 30 day clock", area: "Pharmacovigilance" },
+      { text: "Pharmacovigilance system master file maintained with a named qualified person", area: "Pharmacovigilance" },
+      { text: "Role-based access control, down to the individual field", area: "Audit trail & data integrity" },
+      { text: "Segregation of duties enforced in the system, maker is never checker", area: "Audit trail & data integrity" },
+      { text: "Retention clocks by record class, five years, two years and one year, applied automatically", area: "Audit trail & data integrity" },
     ],
     matrixStandards: ["EU 2025/2091", "EU 2019/4", "EU 2019/6", "21 CFR 225", "21 CFR 558.6", "Schedule M"],
     matrix: [
@@ -511,6 +678,15 @@ export const INDUSTRIES: Industry[] = [
       { area: "Feed-to-animal traceability", marks: [false, true, true, true, true, false] },
       { area: "Pharmacovigilance", marks: [false, false, true, false, false, false] },
       { area: "Validation & qualification", marks: [true, true, true, true, false, true] },
+    ],
+    regulatoryTimeline: [
+      {
+        status: "applied",
+        date: "Since 16 Jul 2026",
+        title: "Veterinary GMP split from human GMP",
+        description:
+          "EudraLex Volume 4 no longer covers human and veterinary manufacturing together. Two Commission Implementing Regulations now carry veterinary manufacturing practice and veterinary active substance practice in their own right — guidance became binding regulation.",
+      },
     ],
     extras: [
       {
@@ -560,12 +736,12 @@ export const INDUSTRIES: Industry[] = [
     summary:
       "Scoped client access without a second system, change control routed by each client's agreement, and an audit pack that is a filtered view rather than a project. Validation-ready for ICH Q7, EudraLex Volume 4 Part II and Revised Schedule M, and kept current with regulatory change as part of the product, at no extra cost.",
     mappedStandards: [
-      { name: "ICH Q7", region: "Global" },
-      { name: "EudraLex Volume 4 Part II / Chapter 7", region: "European Union" },
-      { name: "Revised Schedule M", region: "India" },
-      { name: "WHO TRS 957 Annex 2", region: "Global" },
+      { name: "ICH Q7", region: "Global", matrixName: "ICH Q7" },
+      { name: "EudraLex Volume 4 Part II / Chapter 7", region: "European Union", matrixName: "EudraLex Vol 4 Pt II" },
+      { name: "Revised Schedule M", region: "India", matrixName: "Revised Schedule M" },
+      { name: "WHO TRS 957 Annex 2", region: "Global", matrixName: "WHO TRS 957" },
       { name: "WHO TRS 1044 Annex 4", region: "Global" },
-      { name: "ICH Q10 and Q12", region: "Global" },
+      { name: "ICH Q10 and Q12", region: "Global", matrixName: "ICH Q10 / Q12" },
     ],
     narrativeHeading: "Your client is responsible for a batch you made",
     narrative: [
@@ -573,26 +749,26 @@ export const INDUSTRIES: Industry[] = [
       "What the regulations do fix is that the executed record exists at the site that performed the manufacture, is readily available for inspection, and if electronic is immediately retrievable throughout its retention period. Everything else, retention, format, access rights and what happens when the contract ends, is settled by the quality agreement. Factro is built so the record of truth stays where the regulation puts it while your client still sees what their agreement entitles them to see.",
     ],
     controls: [
-      { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason" },
-      { text: "Scoped client access, where each client sees their batches, deviations, changes and documents and nothing belonging to another" },
-      { text: "Record of truth held at the manufacturing site, immediately retrievable throughout retention" },
-      { text: "Certified true copies produced as a controlled act, logging who exported what, for whom and when" },
-      { text: "Client-specific change control routing, matching each agreement's approval and notification thresholds" },
-      { text: "Evidence of notification, so a change communicated is a record rather than an email" },
-      { text: "Executed batch records with full material, process and equipment genealogy" },
-      { text: "Starting material and key intermediate traceability, container by container where required" },
-      { text: "Supplier qualification with audit history and re-qualification scheduling" },
-      { text: "Deviation, out of specification and out of trend investigation with root cause and CAPA" },
-      { text: "Audit trail review as a scheduled, evidenced activity, not just an available log" },
-      { text: "Role-based access control, down to the individual field" },
-      { text: "Segregation of duties enforced in the system, maker is never checker" },
-      { text: "Cleaning validation and cross-contamination control, including containment for potent materials" },
-      { text: "Process validation and equipment qualification with IQ, OQ, PQ and calibration history" },
-      { text: "Analytical method validation and transfer, with protocol and report held together" },
-      { text: "Technology transfer pack, sending and receiving responsibility matrix, gap assessment and comparability" },
-      { text: "Established conditions checked before a change reaches the floor, per ICH Q12" },
-      { text: "Master file alignment, keeping the open and restricted parts consistent with the process as run" },
-      { text: "Product quality review assembled from records rather than compiled at year end" },
+      { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason", area: "Audit trail & data integrity" },
+      { text: "Scoped client access, where each client sees their batches, deviations, changes and documents and nothing belonging to another", area: "Outsourced activities & quality agreements" },
+      { text: "Record of truth held at the manufacturing site, immediately retrievable throughout retention", area: "Outsourced activities & quality agreements" },
+      { text: "Certified true copies produced as a controlled act, logging who exported what, for whom and when", area: "Outsourced activities & quality agreements" },
+      { text: "Client-specific change control routing, matching each agreement's approval and notification thresholds", area: "Change control" },
+      { text: "Evidence of notification, so a change communicated is a record rather than an email", area: "Change control" },
+      { text: "Executed batch records with full material, process and equipment genealogy", area: "Executed batch records" },
+      { text: "Starting material and key intermediate traceability, container by container where required", area: "Material traceability" },
+      { text: "Supplier qualification with audit history and re-qualification scheduling", area: "Supplier qualification" },
+      { text: "Deviation, out of specification and out of trend investigation with root cause and CAPA", area: "Laboratory controls" },
+      { text: "Audit trail review as a scheduled, evidenced activity, not just an available log", area: "Audit trail & data integrity" },
+      { text: "Role-based access control, down to the individual field", area: "Access control & segregation of duties" },
+      { text: "Segregation of duties enforced in the system, maker is never checker", area: "Access control & segregation of duties" },
+      { text: "Cleaning validation and cross-contamination control, including containment for potent materials", area: "Validation & qualification" },
+      { text: "Process validation and equipment qualification with IQ, OQ, PQ and calibration history", area: "Validation & qualification" },
+      { text: "Analytical method validation and transfer, with protocol and report held together", area: "Technology transfer" },
+      { text: "Technology transfer pack, sending and receiving responsibility matrix, gap assessment and comparability", area: "Technology transfer" },
+      { text: "Established conditions checked before a change reaches the floor, per ICH Q12", area: "Change control" },
+      { text: "Master file alignment, keeping the open and restricted parts consistent with the process as run", area: "Technology transfer" },
+      { text: "Product quality review assembled from records rather than compiled at year end", area: "Product quality review" },
     ],
     matrixStandards: ["ICH Q7", "EudraLex Vol 4 Pt II", "Revised Schedule M", "WHO TRS 957", "ICH Q10 / Q12"],
     matrix: [
@@ -607,6 +783,15 @@ export const INDUSTRIES: Industry[] = [
       { area: "Validation & qualification", marks: [true, true, true, true, true] },
       { area: "Technology transfer", marks: [true, true, true, true, true] },
       { area: "Product quality review", marks: [true, true, true, true, true] },
+    ],
+    regulatoryTimeline: [
+      {
+        status: "applied",
+        date: "Live now",
+        title: "Revised Schedule M enforcement for API sites",
+        description:
+          "Where ICH Q7 recommends, Schedule M requires — pharmaceutical quality system, quality risk management, product quality review, lifecycle validation, computerised system controls and data integrity are now obligations on every covered site, with no grace period for any turnover band.",
+      },
     ],
     extras: [
       {

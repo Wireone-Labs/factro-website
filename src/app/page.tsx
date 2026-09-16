@@ -1,13 +1,12 @@
 import { Hero } from "@/components/sections/hero";
 import { DayOne } from "@/components/sections/day-one";
-import { IndustriesTeaser } from "@/components/sections/industries-teaser";
 import { ThreePillars } from "@/components/sections/three-pillars";
 import { OneSystemFourStacks } from "@/components/sections/one-system-four-stacks";
 import { GenealogyHighlight } from "@/components/sections/genealogy-highlight";
 import { DashboardHighlight } from "@/components/sections/dashboard-highlight";
 import { ProductionPlanningHighlight } from "@/components/sections/production-planning-highlight";
-import { ModulesTeaser } from "@/components/sections/modules-teaser";
 import { BusinessOutcomes } from "@/components/sections/business-outcomes";
+import { IndustriesTeaser } from "@/components/sections/industries-teaser";
 import { SupportHighlight } from "@/components/sections/support-highlight";
 import { Proof } from "@/components/sections/proof";
 import { Faq } from "@/components/sections/faq";
@@ -20,14 +19,13 @@ export default function Home() {
     <>
       <Hero />
       <DayOne />
-      <IndustriesTeaser />
       <ThreePillars />
       <OneSystemFourStacks />
       <GenealogyHighlight />
       <DashboardHighlight />
       <ProductionPlanningHighlight />
-      <ModulesTeaser />
       <BusinessOutcomes />
+      <IndustriesTeaser />
       <SupportHighlight />
       <Proof />
 

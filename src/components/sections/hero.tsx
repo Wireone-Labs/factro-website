@@ -43,15 +43,17 @@ export function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.22 }}
-            className="mt-6 inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 rounded-full border border-line bg-white px-4 py-2 text-xs font-medium text-ink-600"
+            className="mt-6 flex flex-wrap items-center justify-center gap-2"
           >
-            <span>7 regulated industries</span>
-            <span className="text-ink-300">·</span>
-            <span>96 control points</span>
-            <span className="text-ink-300">·</span>
-            <span>10 modules on one database</span>
-            <span className="text-ink-300">·</span>
-            <span>30 days to go-live, committed</span>
+            <span className="inline-flex items-center rounded-full border border-line bg-white px-3.5 py-1.5 text-xs font-medium text-ink-600">
+              Compliance native
+            </span>
+            <span className="inline-flex items-center rounded-full border border-line bg-white px-3.5 py-1.5 text-xs font-medium text-ink-600">
+              Process driven
+            </span>
+            <span className="inline-flex items-center rounded-full border border-line bg-white px-3.5 py-1.5 text-xs font-medium text-ink-600">
+              AI first
+            </span>
           </motion.div>
 
           <motion.div
