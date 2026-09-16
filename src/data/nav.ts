@@ -159,7 +159,6 @@ export const INDUSTRIES_MENU: MegaMenu = {
 export const NAV_ITEMS: NavItem[] = [
   { label: "Industries", href: "/industries", menu: INDUSTRIES_MENU },
   { label: "Modules", href: "/modules", menu: MODULES_MENU },
-  { label: "Compliance Engine", href: "/compliance-engine" },
   { label: "Security", href: "/infrastructure-security" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },

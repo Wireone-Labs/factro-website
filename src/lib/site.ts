@@ -40,7 +40,6 @@ export const SITE_ROUTES: SiteRoute[] = [
       priority: 0.8,
     }),
   ),
-  { path: "/compliance-engine", changeFrequency: "monthly", priority: 0.7 },
   { path: "/infrastructure-security", changeFrequency: "monthly", priority: 0.7 },
   { path: "/pricing", changeFrequency: "monthly", priority: 0.8 },
   { path: "/demo", changeFrequency: "monthly", priority: 0.9 },

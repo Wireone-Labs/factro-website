@@ -90,14 +90,7 @@ export default function InfrastructureSecurityPage() {
             <p className="mt-10 text-center text-sm leading-relaxed text-ink-500">
               Looking for the regulatory mapping? This page covers how the
               platform is built. For the controls that satisfy your
-              industry&apos;s standards, see{" "}
-              <Link
-                href="/compliance-engine"
-                className="font-medium text-brand-600 underline underline-offset-2"
-              >
-                the Compliance Engine
-              </Link>{" "}
-              or your{" "}
+              industry&apos;s standards, see your{" "}
               <Link
                 href="/industries"
                 className="font-medium text-brand-600 underline underline-offset-2"

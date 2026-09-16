@@ -1,4 +1,5 @@
 import { Hero } from "@/components/sections/hero";
+import { DayOneIntro } from "@/components/sections/day-one-intro";
 import { ThreePillars } from "@/components/sections/three-pillars";
 import { ModulesTeaser } from "@/components/sections/modules-teaser";
 import { GenealogyHighlight } from "@/components/sections/genealogy-highlight";
@@ -19,6 +20,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <DayOneIntro />
       <GenealogyHighlight />
       <DashboardHighlight />
       <ProductionPlanningHighlight />

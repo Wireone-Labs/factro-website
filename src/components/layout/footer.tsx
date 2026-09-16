@@ -18,11 +18,16 @@ const FOOTER_COLUMNS = [
   {
     heading: "Modules",
     links: [
-      { label: "All modules", href: "/modules" },
+      { label: "Sales", href: "/modules?tab=sales" },
+      { label: "Purchase", href: "/modules?tab=purchase" },
+      { label: "Inventory", href: "/modules?tab=inventory" },
+      { label: "Facility", href: "/modules?tab=facility" },
       { label: "Production", href: "/modules?tab=production" },
       { label: "Quality", href: "/modules?tab=quality" },
-      { label: "Inventory", href: "/modules?tab=inventory" },
       { label: "CAPA", href: "/modules?tab=capa" },
+      { label: "Documents", href: "/modules?tab=documents" },
+      { label: "Training", href: "/modules?tab=training" },
+      { label: "Library", href: "/modules?tab=library" },
     ],
   },
   {
@@ -30,7 +35,6 @@ const FOOTER_COLUMNS = [
     links: [
       { label: "Pricing", href: "/pricing" },
       { label: "Industries", href: "/industries" },
-      { label: "Compliance Engine", href: "/compliance-engine" },
       { label: "Infrastructure & Security", href: "/infrastructure-security" },
       { label: "About us", href: "/about" },
       { label: "Book a demo", href: BOOK_DEMO_HREF },

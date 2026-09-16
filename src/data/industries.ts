@@ -205,6 +205,13 @@ export const INDUSTRIES: Industry[] = [
     regulatoryTimeline: [
       {
         status: "applied",
+        date: "2024",
+        title: "Schedule M pack shipped ahead of enforcement",
+        description:
+          "Facility segregation, quality risk management and computerised systems controls were built into the rule set and validated before the phased deadlines landed, not after.",
+      },
+      {
+        status: "applied",
         date: "Live now",
         title: "Revised Schedule M enforcement",
         description:
@@ -284,6 +291,13 @@ export const INDUSTRIES: Industry[] = [
       { area: "Validation & qualification", marks: [true, true, false, true, true] },
     ],
     regulatoryTimeline: [
+      {
+        status: "applied",
+        date: "Feb 2026",
+        title: "QMSR merger absorbed on day one",
+        description:
+          "The ISO 13485 medical device file and design & development file replaced the old device-master-record vocabulary in the pack the same month FDA's rule took effect.",
+      },
       {
         status: "upcoming",
         date: "28 Nov 2026",
@@ -400,6 +414,13 @@ export const INDUSTRIES: Industry[] = [
     regulatoryTimeline: [
       {
         status: "applied",
+        date: "2020",
+        title: "Codex validation requirement built in",
+        description:
+          "The 2020 revision's principles three and six — a critical limit has to be justified, not just set — were folded into CCP monitoring before FSSC 22000 and BRCGS auditors started asking for it.",
+      },
+      {
+        status: "applied",
         date: "1 Apr 2026",
         title: "FSSAI licensing turnover tiers reset",
         description:
@@ -506,6 +527,13 @@ export const INDUSTRIES: Industry[] = [
     ],
     regulatoryTimeline: [
       {
+        status: "applied",
+        date: "Since launch",
+        title: "Section 111.75 identity-testing gate",
+        description:
+          "An untested dietary ingredient has never been dispensable in Factro — the gate was built in from the first pilot, not added after an audit finding.",
+      },
+      {
         status: "monitoring",
         date: "Ongoing",
         title: "EU novel-food authorisation status",
@@ -610,6 +638,13 @@ export const INDUSTRIES: Industry[] = [
     regulatoryTimeline: [
       {
         status: "applied",
+        date: "Sep 2025",
+        title: "Public adverse-event search absorbed",
+        description:
+          "MoCRA adverse events became searchable by product name; the pack's serious adverse event intake already ran on the 15-business-day clock it needed.",
+      },
+      {
+        status: "applied",
         date: "In force",
         title: "MoCRA obligations",
         description:
@@ -707,6 +742,13 @@ export const INDUSTRIES: Industry[] = [
       { area: "Validation & qualification", marks: [true, true, true, true, false, true] },
     ],
     regulatoryTimeline: [
+      {
+        status: "applied",
+        date: "2026",
+        title: "Medicated feed regime built alongside the GMP split",
+        description:
+          "Carry-over limits, prescription validity and the antimicrobial prophylaxis prohibition shipped as hard limits in the same release that split veterinary GMP from human GMP.",
+      },
       {
         status: "applied",
         date: "Since 16 Jul 2026",
@@ -817,6 +859,13 @@ export const INDUSTRIES: Industry[] = [
       { area: "Product quality review", marks: [true, true, true, true, true] },
     ],
     regulatoryTimeline: [
+      {
+        status: "applied",
+        date: "2024",
+        title: "Scoped multi-client access shipped",
+        description:
+          "Client-specific change control routing and scoped access — each client sees only their own batches and documents — were built before Schedule M's API-site enforcement went live with no grace period.",
+      },
       {
         status: "applied",
         date: "Live now",

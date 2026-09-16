@@ -68,14 +68,8 @@ export function IndustryDetail({ industry }: { industry: Industry }) {
                 ))}
               </div>
               <p className="mt-4 text-sm text-ink-400">
-                The controls below run on the same{" "}
-                <Link
-                  href="/compliance-engine"
-                  className="font-medium text-brand-600 underline underline-offset-2"
-                >
-                  Compliance Engine
-                </Link>{" "}
-                every industry uses.
+                The controls below run on the same compliance engine every
+                industry uses.
               </p>
             </div>
           </Reveal>
