@@ -58,7 +58,7 @@ const SOFTWARE_APPLICATION_JSON_LD = {
   audience: {
     "@type": "Audience",
     audienceType:
-      "Pharmaceutical, nutraceutical and food & beverage manufacturers",
+      "Pharmaceutical, medical device, food & beverage, nutraceutical, cosmetics, veterinary and API/CDMO manufacturers",
   },
 };
 
@@ -90,6 +90,13 @@ export const metadata: Metadata = {
     "QMS software",
     "GRN software",
     "life sciences manufacturing software",
+    "medical device QMS software",
+    "ISO 13485 software",
+    "cosmetics manufacturing software",
+    "veterinary GMP software",
+    "API manufacturing software",
+    "CDMO software",
+    "regulated manufacturing ERP",
     "alifie",
     "sohem",
   ],

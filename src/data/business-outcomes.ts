@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { ClipboardCheck, Factory, Building2, Package } from "lucide-react";
+import { ClipboardCheck, Factory, Building2, Package, Gavel } from "lucide-react";
 
 export interface OutcomeBullet {
   lead: string;
@@ -61,6 +61,18 @@ export const BUSINESS_OUTCOMES: BusinessOutcome[] = [
       { lead: "Book equals floor", detail: "one ledger for GRN, dispensing, return and disposal" },
       { lead: "Before it bites", detail: "expiry and retest alerts land weeks ahead" },
       { lead: "A bin, not a building", detail: "someone new can find the lot on their first day" },
+    ],
+  },
+  {
+    id: "regulatory-lead",
+    icon: Gavel,
+    timeframe: "The deadline",
+    role: "The Regulatory Lead",
+    bullets: [
+      { lead: "Clocks that run themselves", detail: "a reportable event starts a timer against the right jurisdiction" },
+      { lead: "One framework changes, not the system", detail: "when a standard revises, the pack revises" },
+      { lead: "Every clause has an owner", detail: "the control that satisfies it is named and evidenced" },
+      { lead: "Nothing found late", detail: "an expiring certificate surfaces as a task, not as a finding" },
     ],
   },
 ];

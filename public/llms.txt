@@ -1,19 +1,31 @@
 # Factro
 
-> Factro is a compliance-native ERP for pharmaceutical, nutraceutical and food & beverage manufacturers. Supply chain, batch execution and quality live on one record, with GMP compliance, audit trails and electronic signatures built into the architecture rather than configured on top of it.
+> Factro is a compliance-native ERP for regulated manufacturers — pharmaceuticals, medical devices, food & beverage, nutraceuticals, cosmetics, veterinary and API/CDMO. Supply chain, batch execution and quality live on one record, with compliance built into the architecture rather than configured on top of it.
 
-Factro is built around three pillars: a Compliance Engine that enforces regulatory rules as system constraints rather than guidance documents, an Orchestrator that routes work and handovers as tracked tickets with owners and clocks instead of email and verbal handoffs, and an Agentic RAG layer that surfaces genealogy, deviations and forecasts from the plant's own historical data instead of leaving it unread.
+Factro is built around three pillars: a Compliance Engine that enforces regulatory rules as system constraints rather than guidance documents, an Orchestrator that routes work and handovers as tracked tickets with owners and clocks instead of email and verbal handoffs, and an Agentic RAG layer that surfaces genealogy, deviations and forecasts from the plant's own historical data instead of leaving it unread. The same core primitives satisfy every framework; an industry "pack" maps each one's clauses onto them.
+
+## Industries
+
+- [Pharmaceuticals](https://factro.io/industries/pharmaceuticals): 21 CFR Part 11, EU Annex 11, Revised Schedule M, PIC/S GMP, WHO, ICH Q10/GAMP 5.
+- [Medical Devices](https://factro.io/industries/medical-devices): 21 CFR Part 820/QMSR, ISO 13485, ISO 14971, EU MDR, Medical Devices Rules 2017.
+- [Food & Beverage](https://factro.io/industries/food-beverage): FSSAI Schedule 4, Codex HACCP, FSSC 22000, 21 CFR Part 117, FSMA 204.
+- [Nutraceuticals](https://factro.io/industries/nutraceuticals): 21 CFR Part 111, FSSAI health supplements, EU 2002/46/EC, EU 2015/2283.
+- [Cosmetics](https://factro.io/industries/cosmetics): ISO 22716, MoCRA, EU Regulation 1223/2009, Cosmetics Rules 2020.
+- [Veterinary](https://factro.io/industries/veterinary): EU 2025/2091, EU 2019/4, 21 CFR Parts 225/226, VICH GL60.
+- [API & CDMO](https://factro.io/industries/api-cdmo): ICH Q7, EudraLex Volume 4 Part II, Revised Schedule M, WHO TRS 957.
+
+A single site can carry more than one regulatory pack at once — see [all industries](https://factro.io/industries).
 
 ## Product
 
-- [Modules](https://factro.io/modules): Sales, Purchase, Inventory, Facility, Production, Quality, CAPA, Documents, Training and Library — ten modules on one data model, replacing what separate ERP, MES, QMS and LIMS systems do apart.
-- [Compliances](https://factro.io/compliances): Built for 21 CFR Part 11, EU Annex 11, WHO GMP and India's Revised Schedule M (G.S.R. 922(E)), with 96 control points validated in live pilot runs with pharmaceutical manufacturers.
-- [Infrastructure & Security](https://factro.io/infrastructure-security): AWS-hosted in India (Mumbai/Hyderabad), per-tenant encryption, independently penetration tested, 99% uptime target, continuous DevOps monitoring.
-- [Pricing](https://factro.io/pricing): Standard plan (multi-tenant) starts at ₹3,849/user/month, ₹3,499/user/month billed annually, minimum 8 users, no upfront fees or AMC charges — for single-site or small-group manufacturers. Dedicated plan (private, single-tenant infrastructure) is custom-quoted for enterprises exporting to US/EU markets. Includes a comparison against SAP, QT9, Oracle NetSuite and MasterControl pricing for pharma manufacturing.
+- [Compliance Engine](https://factro.io/compliance-engine): the industry-agnostic rule engine — 14 control primitives, ALCOA+ data integrity, configuration-not-code rule changes, continuous inspection readiness.
+- [Modules](https://factro.io/modules): Sales, Purchase, Inventory, Facility, Production, Quality, CAPA, Documents, Training and Library — ten modules on one data model, replacing what separate ERP, MES, QMS and LIMS systems do apart. Finance stays on Tally; Factro posts reconciled entries back to it.
+- [Infrastructure & Security](https://factro.io/infrastructure-security): AWS-hosted in India (Mumbai/Hyderabad), per-tenant encryption, independently penetration tested, 99% uptime target.
+- [Pricing](https://factro.io/pricing): Standard plan (multi-tenant) is ₹3,499/user/month billed annually as early-adopter pricing for the first 10 customers (locked 3 years), ₹3,999/user/month thereafter; minimum 8 users, no upfront fees. Dedicated plan (private infrastructure) is quoted per deployment.
 
 ## Company
 
-- [About](https://factro.io/about): Factro is built by Wireone Labs. Founding and engineering team background spans fintech, agritech, automotive and edtech product engineering at Series B/C startups.
+- [About](https://factro.io/about): Factro is built by Wireone Labs in Bengaluru. Thirty days to go-live, committed — two months free if late. Demos run on-site, at Factro's expense.
 - Contact: hello@factro.io, +91 81225 76712
 - [Book a demo](https://factro.io/demo)
 

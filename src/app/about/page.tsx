@@ -1,84 +1,111 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Link from "next/link";
 import { PageHero } from "@/components/sections/page-hero";
 import { Cta } from "@/components/sections/cta";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
-import { TEAM_MEMBERS, FOUNDING_STORIES } from "@/data/team";
-import { BOOK_DEMO_HREF, SALES_MAILTO } from "@/data/nav";
+import { TrackedLink } from "@/components/analytics/tracked-link";
+import {
+  BOOK_DEMO_HREF,
+  SALES_MAILTO,
+  SALES_EMAIL,
+  SALES_PHONE,
+  SALES_PHONE_HREF,
+} from "@/data/nav";
 import { pageMetadata } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "About Us",
   description:
-    "Factro is young. No wall of logos, and we've told you plainly which parts are still being built.",
+    "Factro is a compliance-native manufacturing platform for regulated industries, built by Wireone Labs in Bengaluru.",
   path: "/about",
 });
 
-function initials(name: string) {
-  return name
-    .split(" ")
-    .map((part) => part[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
-}
+const WHAT_WE_BUILD = [
+  {
+    lead: "Compliance as architecture.",
+    detail:
+      "A control that can be overridden at 2am is not a control. We make the non-compliant action unavailable rather than warning about it, which is why the record looks the same on a Saturday as it does during an inspection.",
+  },
+  {
+    lead: "One platform, many frameworks.",
+    detail:
+      "The primitives behind 21 CFR Part 11, Schedule 4 Part II, 21 CFR Part 111 and ICH Q7 are the same. We implement them once and map each industry's clauses onto them.",
+  },
+  {
+    lead: "Built for India first, to a standard that holds anywhere.",
+    detail:
+      "The regulatory reality of an Indian plant exporting to the US and EU is the hardest version of this problem, so it is the one we designed for.",
+  },
+];
+
+const HOW_WE_WORK = [
+  {
+    lead: "The people who build it answer the phone.",
+    detail: "You are not routed through a support tier to reach someone who can change the software.",
+  },
+  {
+    lead: "We come to your floor.",
+    detail: "Demos run on your workflows, at your facility, at our expense, and your data never leaves the room.",
+  },
+  {
+    lead: "Thirty days to go-live, committed.",
+    detail: "If we miss it, you run on us for two further months at no cost.",
+  },
+  {
+    lead: "Every release is included.",
+    detail: "New modules, new capabilities and new regulatory packs arrive without an upgrade fee or a renegotiation at renewal.",
+  },
+];
 
 export default function AboutPage() {
   return (
     <>
       <PageHero
         eyebrow="About us"
-        title="We are young. So were you."
-        description="No wall of logos, and we've told you plainly which parts are still being built."
+        title="A compliance-native manufacturing platform for regulated industries"
+        description="Factro runs supply chain, batch execution and quality on one database, with the rules of your industry enforced in the architecture rather than configured on top of it. It is built by Wireone Labs in Bengaluru."
       />
 
       <section className="py-12 sm:py-16">
-        <Container>
+        <Container className="max-w-3xl">
           <SectionHeading
-            eyebrow="Who's building it"
-            title="Core team"
-            description="Small on purpose — everyone here writes code, talks to pilot plants, or both."
+            eyebrow="What we build"
+            title="One system where most of this market builds pieces"
+            description="A plant that buys an ERP, an MES, a QMS, a LIMS and a document system then spends every year paying to make the five of them talk to each other, and spends every inspection proving that what they said to each other was true. Putting execution, quality and compliance on one record is a harder problem than building any one of them, and it is the only version that survives an audit without an assembly exercise first."
           />
+
+          <RevealGroup className="mt-10 flex flex-col gap-6" stagger={0.06}>
+            {WHAT_WE_BUILD.map((item) => (
+              <RevealItem key={item.lead}>
+                <p className="text-base leading-relaxed text-ink-600">
+                  <span className="font-semibold text-ink-900">{item.lead}</span>{" "}
+                  {item.detail}
+                </p>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </Container>
+      </section>
+
+      <section className="py-12 sm:py-16">
+        <Container className="max-w-3xl">
+          <SectionHeading eyebrow="How we work" title="What working with us looks like" />
+
           <RevealGroup
-            className="mx-auto mt-12 flex max-w-3xl flex-col gap-5"
-            stagger={0.08}
+            className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2"
+            stagger={0.06}
           >
-            {TEAM_MEMBERS.map((member) => (
-              <RevealItem key={member.id}>
-                <div className="flex flex-col items-center gap-5 rounded-2xl border border-line bg-white p-6 text-center sm:flex-row sm:items-start sm:p-7 sm:text-left">
-                  {member.photo ? (
-                    <Image
-                      src={member.photo}
-                      alt={member.name}
-                      width={72}
-                      height={72}
-                      className="h-18 w-18 shrink-0 rounded-full object-cover"
-                    />
-                  ) : (
-                    <span className="flex h-18 w-18 shrink-0 items-center justify-center rounded-full border border-brand-100 bg-brand-50 text-xl font-semibold text-brand-600">
-                      {initials(member.name)}
-                    </span>
-                  )}
-                  <div className="flex-1">
-                    <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 sm:justify-start">
-                      <h3 className="text-base font-semibold text-ink-900">
-                        {member.name}
-                      </h3>
-                      <span className="text-sm font-medium text-brand-500">
-                        {member.role}
-                      </span>
-                      {member.yearsExperience && (
-                        <span className="inline-flex items-center rounded-full border border-line bg-mist/60 px-2.5 py-0.5 text-xs font-medium text-ink-500">
-                          {member.yearsExperience}+ years experience
-                        </span>
-                      )}
-                    </div>
-                    <p className="mt-2 text-sm leading-relaxed text-ink-500">
-                      {member.bio}
-                    </p>
-                  </div>
+            {HOW_WE_WORK.map((item) => (
+              <RevealItem key={item.lead}>
+                <div className="h-full rounded-2xl border border-line bg-white p-6">
+                  <h3 className="text-sm font-semibold text-ink-900">
+                    {item.lead}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-500">
+                    {item.detail}
+                  </p>
                 </div>
               </RevealItem>
             ))}
@@ -86,80 +113,49 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="py-12 sm:py-16">
-        <Container className="max-w-3xl">
-          <SectionHeading
-            eyebrow="How we got here"
-            title="Two years, built on real plants"
-          />
-
-          <Reveal delay={0.05}>
-            <p className="mt-8 text-base leading-relaxed text-ink-600 sm:text-lg">
-              We have been building for the past two years — periodic trials
-              and feedback sessions with real manufacturers, alongside
-              studying world-class products like MasterControl, QT9 and SAP,
-              to build something with a high bar: modern UX, optimised for
-              speed, with enterprise-grade security built in.
-            </p>
-          </Reveal>
-
-          <RevealGroup
-            className="mt-10 flex flex-col gap-7 border-l-2 border-line pl-6"
-            stagger={0.06}
-          >
-            {FOUNDING_STORIES.map((story) => (
-              <RevealItem key={story.year} className="relative">
-                <span className="absolute -left-[1.97rem] top-1.5 h-2.5 w-2.5 rounded-full bg-brand-500" />
-                <span className="text-xs font-semibold uppercase tracking-wide text-brand-500">
-                  {story.year}
-                </span>
-                <p className="mt-1 text-sm leading-relaxed text-ink-600">
-                  {story.text}
-                </p>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-          <Reveal delay={0.1}>
-            <p className="mt-8 text-xl leading-snug font-semibold tracking-tight text-ink-900 sm:text-2xl">
-              None of them looked like a safe purchase at the time. Somebody
-              backed them anyway.
-            </p>
-          </Reveal>
-
-          <Reveal delay={0.16}>
-            <p className="mt-10 text-base leading-relaxed text-ink-600 sm:text-lg">
-              Factro is young. No wall of logos, and we have told you plainly
-              which parts are still being built. What we have is a small team
-              that designs, builds, tests and ships, answers the phone
-              itself, and stands on pilot floors watching its own software
-              get used. Putting execution, quality and compliance in one
-              system that survives an inspection is a hard problem, and most
-              software here has quietly settled for a piece of it. We would
-              rather solve the whole thing, for India first, to a standard
-              that holds anywhere.
-            </p>
-          </Reveal>
-        </Container>
-      </section>
-
       <section className="pb-12 sm:pb-16">
         <Container className="max-w-3xl">
           <Reveal>
-            <div className="relative mx-auto aspect-[21/9] w-full max-w-2xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_18%,black_82%,transparent)]">
-              <Image
-                src="/about/torii-gate.jpg"
-                alt=""
-                fill
-                sizes="(max-width: 768px) 100vw, 42rem"
-                className="object-cover"
-              />
+            <div className="rounded-2xl border border-line bg-mist/50 px-6 py-6 sm:px-8 sm:py-8">
+              <h3 className="text-sm font-semibold text-ink-900">Where it runs</h3>
+              <p className="mt-3 text-sm leading-relaxed text-ink-600">
+                Factro runs on AWS in Mumbai or Hyderabad, so data stays in
+                India, with per-tenant encryption, two-tier backups and
+                point-in-time recovery on every deployment. Dedicated
+                customers can choose any AWS region and take a private estate
+                end to end. ISO 27001 certification is in progress.
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-ink-600">
+                For the technical detail, see{" "}
+                <Link
+                  href="/infrastructure-security"
+                  className="font-medium text-brand-600 underline underline-offset-2"
+                >
+                  Infrastructure &amp; Security
+                </Link>
+                .
+              </p>
             </div>
           </Reveal>
-          <Reveal delay={0.06}>
-            <blockquote className="mt-6 text-center text-lg leading-snug font-semibold tracking-tight text-ink-900 sm:text-xl">
-              Back us early and you will not be a customer we support. You
-              will be a plant we build around.
-            </blockquote>
+
+          <Reveal delay={0.06} className="mt-10 text-center">
+            <p className="text-sm font-semibold text-ink-900">Talk to us</p>
+            <div className="mt-3 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-ink-500">
+              <TrackedLink
+                href={SALES_PHONE_HREF}
+                event="phone_click"
+                eventParams={{ location: "about_page" }}
+                className="font-medium text-ink-700 hover:text-brand-600"
+              >
+                {SALES_PHONE}
+              </TrackedLink>
+              <a
+                href={SALES_MAILTO}
+                className="font-medium text-ink-700 hover:text-brand-600"
+              >
+                {SALES_EMAIL}
+              </a>
+            </div>
           </Reveal>
         </Container>
       </section>

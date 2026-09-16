@@ -13,6 +13,11 @@ export interface PricingPlan {
   ctaLabel: string;
   ctaHref: string;
   features: string[];
+  /** Early-adopter pricing window, shown as a callout above the price. */
+  earlyAdopter?: {
+    badge: string;
+    detail: string;
+  };
 }
 
 export const PRICING_PLANS: PricingPlan[] = [
@@ -27,6 +32,11 @@ export const PRICING_PLANS: PricingPlan[] = [
     unit: "/ user / month",
     minUsers: "Minimum 8 users · no upfront fees, no AMC charges",
     note: "Choose Standard if you're a single site or small group supplying domestic or WHO-GMP markets. Nothing about compliance, security or audit readiness is weaker here, the controls are identical.",
+    earlyAdopter: {
+      badge: "Early adopter pricing — first 10 customers only",
+      detail:
+        "Held for the first 10 customers and locked for 3 years from the date they sign. From the 11th customer onwards, Standard is ₹3,999 / user / month billed annually, or ₹4,399 billed monthly.",
+    },
     ctaLabel: "Start with Standard",
     ctaHref: "/demo",
     features: [
@@ -67,6 +77,21 @@ export const PRICING_FAQS = [
   {
     question: "Is there a setup fee?",
     answer: "No. No upfront fees and no AMC charges on Standard.",
+  },
+  {
+    question: "How long does early adopter pricing last?",
+    answer:
+      "It applies to the first 10 customers only. If you are one of them, ₹3,499 is locked for 3 years from signing. After the 10th customer, Standard is ₹3,999 per user per month.",
+  },
+  {
+    question: "What do I need to do to qualify?",
+    answer:
+      "Sign the agreement and complete payment as per the billing terms. Both have to happen while slots remain.",
+  },
+  {
+    question: "Does early adopter pricing apply to Dedicated?",
+    answer:
+      "No. Dedicated is quoted per deployment, based on your region, infrastructure and validation requirements — talk to us for a number.",
   },
   {
     question: "What happens if we outgrow Standard?",

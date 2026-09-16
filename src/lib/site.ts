@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 export const SITE_URL = "https://factro.io";
 export const SITE_NAME = "Factro";
 export const SITE_DESCRIPTION =
-  "Factro is a compliance-native ERP for pharmaceutical, nutraceutical and food & beverage manufacturers — supply chain, batch execution and quality on one record, with compliance built into the architecture rather than configured on top.";
-export const SITE_TAGLINE = "Compliance-Native ERP for Pharma Manufacturing";
+  "Factro is a compliance-native ERP for regulated manufacturers — pharmaceuticals, medical devices, food & beverage, nutraceuticals, cosmetics, veterinary and API/CDMO — running supply chain, batch execution and quality on one record, with compliance built into the architecture rather than configured on top.";
+export const SITE_TAGLINE = "AI-First ERP for Regulated Manufacturing";
 
 export interface SiteRoute {
   path: string;
@@ -19,10 +19,28 @@ export interface SiteRoute {
   priority: number;
 }
 
+const INDUSTRY_SLUGS = [
+  "pharmaceuticals",
+  "medical-devices",
+  "food-beverage",
+  "nutraceuticals",
+  "cosmetics",
+  "veterinary",
+  "api-cdmo",
+];
+
 export const SITE_ROUTES: SiteRoute[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/modules", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/compliances", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/industries", changeFrequency: "monthly", priority: 0.8 },
+  ...INDUSTRY_SLUGS.map(
+    (slug): SiteRoute => ({
+      path: `/industries/${slug}`,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    }),
+  ),
+  { path: "/compliance-engine", changeFrequency: "monthly", priority: 0.7 },
   { path: "/infrastructure-security", changeFrequency: "monthly", priority: 0.7 },
   { path: "/pricing", changeFrequency: "monthly", priority: 0.8 },
   { path: "/demo", changeFrequency: "monthly", priority: 0.9 },

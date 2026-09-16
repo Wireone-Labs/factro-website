@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Check } from "lucide-react";
+import { Check, Landmark } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { ModulesShowcase } from "@/components/sections/modules-showcase";
 import { Cta } from "@/components/sections/cta";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { RevealGroup, RevealItem } from "@/components/ui/reveal";
+import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { IconTile } from "@/components/ui/icon-tile";
 import { UNDERNEATH_EVERY_MODULE, ROADMAP_ITEMS } from "@/data/modules";
 import { pageMetadata } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
-  title: "ERP, MES & QMS Modules for Pharma Manufacturing",
+  title: "ERP, MES & QMS Modules for Regulated Manufacturing",
   description:
     "Everything your ERP, MES, QMS and LIMS do separately, running on one system that already talks to itself.",
   path: "/modules",
@@ -32,6 +32,22 @@ export default function ModulesPage() {
           never mixed.
         </p>
       </PageHero>
+
+      <section className="pb-4">
+        <Container>
+          <Reveal className="mx-auto flex max-w-2xl items-start gap-3 rounded-2xl border border-brand-100 bg-brand-50/60 px-5 py-4">
+            <Landmark className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
+            <p className="text-sm leading-relaxed text-ink-700">
+              <span className="font-semibold">Finance stays where it is.</span>{" "}
+              Tally keeps the books. Factro posts voucher-level entries for
+              batch costs, purchases, sales and payments, and generates
+              e-invoices and e-way bills against the dispatch record. Your
+              accountant notices nothing except that the numbers arrive
+              reconciled.
+            </p>
+          </Reveal>
+        </Container>
+      </section>
 
       <Suspense fallback={null}>
         <ModulesShowcase />

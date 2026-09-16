@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, PlayCircle, ShieldCheck } from "lucide-react";
+import { ArrowRight, PlayCircle } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { HeroWave } from "@/components/sections/hero-wave";
@@ -24,45 +24,35 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
             className="text-balance text-4xl font-semibold tracking-tight text-ink-900 sm:text-5xl lg:text-6xl lg:leading-[1.08]"
           >
-            A compliance-native digital manufacturing platform for
-            pharmaceuticals.
+            Precision meets total compliance.
           </motion.h1>
-
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.14 }}
-            className="mt-5 flex flex-wrap items-center justify-center gap-2"
-          >
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3 py-1.5 text-xs font-medium text-ink-600">
-              <ShieldCheck className="h-3.5 w-3.5 text-brand-500" />
-              Revised Schedule M — G.S.R. 922(E)
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3 py-1.5 text-xs font-medium text-ink-600">
-              <ShieldCheck className="h-3.5 w-3.5 text-brand-500" />
-              21 CFR Part 11
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3 py-1.5 text-xs font-medium text-ink-600">
-              <ShieldCheck className="h-3.5 w-3.5 text-brand-500" />
-              EU Annex 11
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3 py-1.5 text-xs font-medium text-ink-600">
-              <ShieldCheck className="h-3.5 w-3.5 text-brand-500" />
-              WHO GMP
-            </span>
-          </motion.div>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.6, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
             className="text-balance mt-6 max-w-2xl text-base leading-relaxed text-ink-500 sm:text-lg"
           >
-            Every batch record, audit trail and electronic signature is
-            built around the regulation it has to satisfy. Inspection
-            readiness is a byproduct of how the system runs, not a scramble
-            before one.
+            Plan, execute and optimise end-to-end operations. Deliver On
+            Time In Full with AI-driven production and quality intelligence
+            — compliance built into the architecture, not configured on
+            top of it.
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.22 }}
+            className="mt-6 inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 rounded-full border border-line bg-white px-4 py-2 text-xs font-medium text-ink-600"
+          >
+            <span>7 regulated industries</span>
+            <span className="text-ink-300">·</span>
+            <span>96 control points</span>
+            <span className="text-ink-300">·</span>
+            <span>10 modules on one database</span>
+            <span className="text-ink-300">·</span>
+            <span>30 days to go-live, committed</span>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -98,7 +88,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.32 }}
             className="mt-6 text-xs font-medium text-ink-400"
           >
-            In pilot with pharmaceutical manufacturers in India
+            In pilot with regulated manufacturers in India
           </motion.p>
         </div>
       </Container>

@@ -1,12 +1,12 @@
 import { Hero } from "@/components/sections/hero";
-import { WhoIsItFor } from "@/components/sections/who-is-it-for";
+import { DayOne } from "@/components/sections/day-one";
+import { IndustriesTeaser } from "@/components/sections/industries-teaser";
 import { ThreePillars } from "@/components/sections/three-pillars";
-import { WhatItOffers } from "@/components/sections/what-it-offers";
+import { OneSystemFourStacks } from "@/components/sections/one-system-four-stacks";
 import { GenealogyHighlight } from "@/components/sections/genealogy-highlight";
 import { DashboardHighlight } from "@/components/sections/dashboard-highlight";
 import { ProductionPlanningHighlight } from "@/components/sections/production-planning-highlight";
 import { ModulesTeaser } from "@/components/sections/modules-teaser";
-import { RoiCalculator } from "@/components/sections/roi-calculator";
 import { BusinessOutcomes } from "@/components/sections/business-outcomes";
 import { SupportHighlight } from "@/components/sections/support-highlight";
 import { Proof } from "@/components/sections/proof";
@@ -19,14 +19,14 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <WhoIsItFor />
+      <DayOne />
+      <IndustriesTeaser />
       <ThreePillars />
-      <WhatItOffers />
+      <OneSystemFourStacks />
       <GenealogyHighlight />
       <DashboardHighlight />
       <ProductionPlanningHighlight />
       <ModulesTeaser />
-      <RoiCalculator />
       <BusinessOutcomes />
       <SupportHighlight />
       <Proof />
@@ -38,8 +38,8 @@ export default function Home() {
               Currently in pilot.
             </p>
             <p className="mt-2 text-sm leading-relaxed text-ink-500">
-              Factro is running live trials with pharmaceutical manufacturers
-              in India, covering batch execution, quality and supply chain.
+              Factro is running live trials with regulated manufacturers in
+              India, covering batch execution, quality and supply chain.
               Customer references are available under NDA during evaluation.
             </p>
           </Reveal>
@@ -51,7 +51,7 @@ export default function Home() {
       <Cta
         id="cta-home"
         title="Bring a real batch and a real deviation."
-        description="Thirty minutes, no slides, no scripted scenarios. You pick the workflow, we run it in Factro."
+        description="Thirty minutes, at your facility, at our expense. No slides, no scripted scenarios. You pick the workflow, we run it in Factro."
       />
     </>
   );

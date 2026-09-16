@@ -31,7 +31,7 @@ export default function InfrastructureSecurityPage() {
       <PageHero
         eyebrow="Infrastructure & Security"
         title="Enterprise-grade security, built in"
-        description="Compliances covers the regulatory controls. This page covers how the platform itself is built, hosted and protected underneath them."
+        description="The Compliance Engine and your industry pack cover the regulatory controls. This page covers how the platform itself is built, hosted and protected underneath them."
       />
 
       <section className="pb-4">
@@ -89,13 +89,20 @@ export default function InfrastructureSecurityPage() {
           <Reveal delay={0.1}>
             <p className="mt-10 text-center text-sm leading-relaxed text-ink-500">
               Looking for the regulatory mapping? This page covers how the
-              platform is built. For which controls satisfy 21 CFR Part 11,
-              EU Annex 11 and Revised Schedule M, see{" "}
+              platform is built. For the controls that satisfy your
+              industry&apos;s standards, see{" "}
               <Link
-                href="/compliances"
+                href="/compliance-engine"
                 className="font-medium text-brand-600 underline underline-offset-2"
               >
-                Compliances
+                the Compliance Engine
+              </Link>{" "}
+              or your{" "}
+              <Link
+                href="/industries"
+                className="font-medium text-brand-600 underline underline-offset-2"
+              >
+                industry page
               </Link>
               .
             </p>

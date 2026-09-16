@@ -11,6 +11,7 @@ import {
   GraduationCap,
   Layers,
 } from "lucide-react";
+import { INDUSTRIES } from "@/data/industries";
 
 export interface MegaMenuItem {
   label: string;
@@ -120,9 +121,45 @@ export const MODULES_MENU: MegaMenu = {
   footerHref: "/modules",
 };
 
+export const INDUSTRIES_MENU: MegaMenu = {
+  description: "Seven regulated industries. Same core, a different regulatory pack.",
+  columns: [
+    {
+      heading: "",
+      items: INDUSTRIES.slice(0, 3).map((industry) => ({
+        label: industry.name,
+        description: industry.tagline,
+        href: `/industries/${industry.slug}`,
+        icon: industry.icon,
+      })),
+    },
+    {
+      heading: "",
+      items: INDUSTRIES.slice(3, 5).map((industry) => ({
+        label: industry.name,
+        description: industry.tagline,
+        href: `/industries/${industry.slug}`,
+        icon: industry.icon,
+      })),
+    },
+    {
+      heading: "",
+      items: INDUSTRIES.slice(5, 7).map((industry) => ({
+        label: industry.name,
+        description: industry.tagline,
+        href: `/industries/${industry.slug}`,
+        icon: industry.icon,
+      })),
+    },
+  ],
+  footerLabel: "See all industries",
+  footerHref: "/industries",
+};
+
 export const NAV_ITEMS: NavItem[] = [
+  { label: "Industries", href: "/industries", menu: INDUSTRIES_MENU },
   { label: "Modules", href: "/modules", menu: MODULES_MENU },
-  { label: "Compliances", href: "/compliances" },
+  { label: "Compliance Engine", href: "/compliance-engine" },
   { label: "Security", href: "/infrastructure-security" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },

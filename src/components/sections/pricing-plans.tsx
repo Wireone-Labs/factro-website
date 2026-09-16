@@ -90,6 +90,12 @@ export function PricingPlans() {
                   {plan.tagline}
                 </p>
 
+                {plan.earlyAdopter && (
+                  <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-brand-600">
+                    {plan.earlyAdopter.badge}
+                  </p>
+                )}
+
                 <div className="mt-6 min-h-16">
                   {plan.monthly !== null ? (
                     <div className="flex items-baseline gap-1.5">
@@ -154,10 +160,19 @@ export function PricingPlans() {
                   ))}
                 </ul>
 
-                {plan.note && (
-                  <p className="mt-6 border-t border-line pt-5 text-xs leading-relaxed text-ink-500">
-                    {plan.note}
-                  </p>
+                {(plan.note || plan.earlyAdopter) && (
+                  <div className="mt-6 flex flex-col gap-3 border-t border-line pt-5">
+                    {plan.earlyAdopter && (
+                      <p className="text-xs leading-relaxed text-ink-500">
+                        {plan.earlyAdopter.detail}
+                      </p>
+                    )}
+                    {plan.note && (
+                      <p className="text-xs leading-relaxed text-ink-500">
+                        {plan.note}
+                      </p>
+                    )}
+                  </div>
                 )}
               </div>
             </RevealItem>

@@ -29,7 +29,8 @@ const FOOTER_COLUMNS = [
     heading: "Company",
     links: [
       { label: "Pricing", href: "/pricing" },
-      { label: "Compliances", href: "/compliances" },
+      { label: "Industries", href: "/industries" },
+      { label: "Compliance Engine", href: "/compliance-engine" },
       { label: "Infrastructure & Security", href: "/infrastructure-security" },
       { label: "About us", href: "/about" },
       { label: "Book a demo", href: BOOK_DEMO_HREF },
@@ -41,7 +42,7 @@ const FOOTER_COLUMNS = [
     links: [
       { label: "Privacy policy", href: "/privacy" },
       { label: "Terms of service", href: "/terms" },
-      { label: "Security & compliance", href: "/compliances" },
+      { label: "Security & compliance", href: "/infrastructure-security" },
       { label: "Contact sales", href: SALES_MAILTO },
     ],
   },

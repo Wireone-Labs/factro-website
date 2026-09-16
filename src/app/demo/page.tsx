@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
-import { Phone, ShieldCheck, Sparkles } from "lucide-react";
+import { Phone, ShieldCheck, Sparkles, Bot, GitBranch } from "lucide-react";
 import { Container } from "@/components/ui/container";
-import { Reveal } from "@/components/ui/reveal";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { IconTile } from "@/components/ui/icon-tile";
+import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { DemoForm } from "@/components/forms/demo-form";
 import { DemoBackground } from "@/components/sections/demo-background";
+import { DemoChecklist } from "@/components/sections/demo-checklist";
 import { TrackedLink } from "@/components/analytics/tracked-link";
 import { SALES_PHONE, SALES_PHONE_HREF } from "@/data/nav";
 import { pageMetadata } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Book a Demo — Pharma Manufacturing ERP",
+  title: "Book a Demo — Regulated Manufacturing ERP",
   description:
     "Bring a real batch and a real deviation. Thirty minutes, no slides — we run it in Factro on your own data.",
   path: "/demo",
@@ -25,8 +28,39 @@ const TIMELINE = [
   { label: "Day 30", description: "Go-live. Every module connected." },
 ];
 
+const GO_LIVE_STEPS = [
+  { when: "Week 1", phase: "Process-led demo and discovery", detail: "Walkthrough of your actual workflows. No slides" },
+  { when: "Week 2", phase: "Fit assessment and scoping", detail: "Your processes mapped to modules. You leave with a confirmed go-live date" },
+  { when: "Weeks 3 and 4", phase: "Configuration, migration and training", detail: "Master data migrated. Team trained role by role" },
+  { when: "Day 30", phase: "Go-live", detail: "One system, full operation, every module connected" },
+  { when: "Weeks 5 to 8", phase: "Hypercare", detail: "Daily monitoring and a dedicated line for blockers" },
+  { when: "Always", phase: "Permanent support", detail: "A dedicated account manager and a direct line to a team that knows your plant" },
+];
+
+const AI_FEATURES = [
+  {
+    icon: ShieldCheck,
+    title: "Compliance Checker",
+    description:
+      "Runs throughout the day, processing every event against the compliance you configured, and flags a drift while the batch is still open rather than after a reviewer finds it.",
+  },
+  {
+    icon: GitBranch,
+    title: "Deviation Intelligence",
+    description:
+      "Clusters anomalies and deviations by product, line, stage and shift, so the same root cause stops reappearing under a new number every quarter.",
+  },
+  {
+    icon: Bot,
+    title: "AI Assistant",
+    description:
+      "Ask in plain language and pull targeted answers across operations, with forward and backward genealogy from raw material lot to dispatched pack, and a material shortage alert before the shortage forms.",
+  },
+];
+
 export default function DemoPage() {
   return (
+    <>
     <section className="relative overflow-hidden pt-28 pb-16 sm:pt-36 sm:pb-20">
       <DemoBackground />
 
@@ -127,5 +161,99 @@ export default function DemoPage() {
         </div>
       </Container>
     </section>
+
+      <section className="mt-20 py-16 sm:mt-28 sm:py-20">
+        <Container>
+          <SectionHeading
+            eyebrow="Force multiplier"
+            title="Ask AI in English, not SQL or Excel"
+            description="Deviations cluster themselves and anomalies surface before review. The answer arrives as a sentence, not as a spreadsheet someone spent a day assembling. Every answer carries the records it came from, so your QA head can check it rather than trust it. Nothing leaves your tenant to make that happen."
+          />
+          <RevealGroup
+            className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-3"
+            stagger={0.08}
+          >
+            {AI_FEATURES.map((feature) => (
+              <RevealItem key={feature.title}>
+                <div className="h-full rounded-2xl border border-line bg-white p-6">
+                  <IconTile icon={feature.icon} size="md" />
+                  <h3 className="mt-4 text-sm font-semibold text-ink-900">
+                    {feature.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-500">
+                    {feature.description}
+                  </p>
+                </div>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+          <p className="mx-auto mt-6 max-w-xl text-center text-xs leading-relaxed text-ink-400">
+            Intelligence features are in beta for Q4 2026. A private model
+            runs inside your deployment. No prompt leaves your tenant, and
+            nothing trains a model.
+          </p>
+        </Container>
+      </section>
+
+      <DemoChecklist />
+
+      <section className="py-16 sm:py-20">
+        <Container>
+          <SectionHeading
+            eyebrow="Thirty days"
+            title="From your data to a plant running on Factro"
+            description="Six steps, no surprises. The clock starts when we have your complete dataset."
+          />
+
+          <div className="mx-auto mt-10 max-w-3xl overflow-x-auto">
+            <table className="w-full min-w-[560px] border-collapse text-sm">
+              <thead>
+                <tr className="border-b border-line">
+                  <th className="py-2.5 pr-4 text-left text-xs font-semibold uppercase tracking-wide text-ink-400">
+                    When
+                  </th>
+                  <th className="py-2.5 pr-4 text-left text-xs font-semibold uppercase tracking-wide text-ink-400">
+                    Phase
+                  </th>
+                  <th className="py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-ink-400">
+                    What happens
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {GO_LIVE_STEPS.map((step) => (
+                  <tr key={step.when} className="border-b border-line/60">
+                    <td className="py-3 pr-4 align-top text-sm font-semibold whitespace-nowrap text-ink-900">
+                      {step.when}
+                    </td>
+                    <td className="py-3 pr-4 align-top text-sm font-medium whitespace-nowrap text-ink-700">
+                      {step.phase}
+                    </td>
+                    <td className="py-3 align-top text-sm leading-relaxed text-ink-600">
+                      {step.detail}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <Reveal delay={0.1}>
+            <div className="mx-auto mt-8 max-w-2xl rounded-2xl border border-brand-100 bg-brand-50/60 px-6 py-5 text-center">
+              <p className="text-lg font-bold tracking-tight text-brand-700">
+                Our commitment: two months free if we are late.
+              </p>
+              <p className="mt-1.5 text-sm leading-relaxed text-ink-700">
+                We commit to full go-live within thirty days of receiving
+                your complete dataset. If we do not make it, you keep
+                running on us for two further months at no cost, no
+                questions asked. One condition: the clock starts when the
+                dataset is complete.
+              </p>
+            </div>
+          </Reveal>
+        </Container>
+      </section>
+    </>
   );
 }

@@ -5,33 +5,38 @@ export interface FaqItem {
 
 export const FAQS: FaqItem[] = [
   {
-    question: "Is Factro built for regulated industries?",
+    question: "Is Factro going to replace my SAP?",
     answer:
-      "Yes. Factro is designed around process manufacturing that carries compliance weight — pharma, nutraceuticals, specialty chemicals, cosmetics, and food & beverage. GMP Mode locks records once they're approved, so your batch history stays audit-ready.",
+      "No. If SAP runs your finance, procurement and planning, it stays exactly where it is. Factro complements it with the layers SAP was never built to do well: manufacturing execution on the floor, a quality system that gates rather than reviews, and the AI layer over both. We post back to your ERP rather than asking you to move off it.",
   },
   {
-    question: "How does quality management work?",
+    question: "Can Factro run on its own, without an ERP behind it?",
     answer:
-      "Quality runs as a connected system, not a form. Deviations, corrective actions, change control, and customer complaints are tracked as linked CAPA workflows, backed by in-process quality checks and document-controlled SOPs — with training sign-off tied to the same trail.",
+      "Yes. It is an end-to-end stack for manufacturing operations, covering sales and purchase and inventory through execution, quality and documents. Plenty of plants run Factro as the whole thing. The only piece we deliberately leave alone is the books.",
   },
   {
-    question: "Can our team use Factro on the shop floor?",
+    question: "What happens to Tally and our accountant?",
     answer:
-      "Factro installs as a progressive web app, so operators can run it like a native app on shared tablets or terminals at the work center — no separate mobile build required.",
+      "Nothing changes for them. Tally keeps the books. Factro posts voucher-level entries for batch costs, purchases, sales and payments, and generates e-invoices and e-way bills against the dispatch record. The numbers simply arrive reconciled.",
   },
   {
-    question: "Does Factro support multiple facilities?",
+    question: "How long until we are live?",
     answer:
-      "Factro models your site down to individual units, work centers, warehouses, and QC labs, all in one facility hierarchy — so every asset, batch, and inspection is traceable back to exactly where it happened.",
+      "Thirty days from your complete dataset, committed. If we miss it, you run on us for two further months at no cost. Weeks five to eight are hypercare with daily monitoring and a dedicated line for blockers.",
   },
   {
-    question: "Can we customize fields and documents to match our process?",
+    question: "We make products in more than one regulated category. Does that mean two systems?",
     answer:
-      "Yes. The Masters engine lets you configure custom fields, segment templates, approval chains, and Certificate of Analysis document formats — so the system adapts to how your products are actually specified.",
+      "No. A single site can carry two or three regulatory packs at once, and a batch knows which one applies to it. Your inspector still sees one system, one access model and one audit log, which also means one validation exercise rather than several.",
   },
   {
-    question: "How do we get started?",
+    question: "Where does our data live, and who can see it?",
     answer:
-      "Book a demo and our team will walk through setting up your product library, facility structure, and quality workflows around how your plant already operates.",
+      "AWS Mumbai or Hyderabad, so data stays in India, with a per-tenant encryption key and two-tier backups with point-in-time recovery. Dedicated customers can choose any region and take a private estate end to end. Support access is time-boxed, approved by you and logged to the audit trail.",
+  },
+  {
+    question: "Is the AI going to train on our batch data?",
+    answer:
+      "No. A private model runs inside your deployment. No prompt leaves your tenant and nothing trains a model, which is the only version of this that survives a customer audit.",
   },
 ];
