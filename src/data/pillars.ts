@@ -29,7 +29,7 @@ export const PILLARS: Pillar[] = [
   {
     id: "agentic-ai",
     icon: Sparkles,
-    label: "Pillar 03 · Agentic AIs",
+    label: "Pillar 03 · Agentic AI",
     title: "Insights surface on their own.",
     description:
       "A layer watching every record and action on the platform. Your plant holds eighteen months of pattern nobody has looked at, because looking would take three weeks. This looks. It surfaces what you never knew to ask, flags what is drifting while it matters, and answers in plain language. Every answer carries the records it came from, so you can check it rather than trust it.",

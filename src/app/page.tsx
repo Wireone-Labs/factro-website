@@ -19,13 +19,13 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <ThreePillars />
-      <ModulesTeaser />
       <GenealogyHighlight />
       <DashboardHighlight />
       <ProductionPlanningHighlight />
       <RealtimeVisibilityHighlight />
       <AiComplianceCheckerHighlight />
+      <ThreePillars />
+      <ModulesTeaser />
       <BusinessOutcomes />
       <IndustriesTeaser />
       <SupportHighlight />

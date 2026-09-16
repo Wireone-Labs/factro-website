@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BookOpenCheck, Gavel, Info, Radar } from "lucide-react";
+import { BookOpenCheck, Info, Radar } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { Cta } from "@/components/sections/cta";
 import { IndustryControlsList } from "@/components/sections/industry-controls-list";
@@ -55,37 +55,6 @@ export function IndustryDetail({ industry }: { industry: Industry }) {
       <section className="py-12 sm:py-14">
         <Container>
           <Reveal className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-8">
-            <IconTile icon={Gavel} size="lg" className="shrink-0" />
-            <div className="flex-1">
-              <h2 className="text-2xl font-semibold tracking-tight text-ink-900 sm:text-3xl">
-                The rule is the control itself
-              </h2>
-              <p className="mt-5 text-base leading-relaxed text-ink-600">
-                The Compliance Engine is a rule engine built from the
-                regulations themselves, not a checklist bolted on afterward.
-                Maker cannot be checker, enforced by the system rather than a
-                policy document. Every signature re-authenticates and
-                captures a reason in the same transaction. Inspection
-                readiness is scored continuously, surfacing risk before an
-                inspection finds it. A rule change is a setting, not a
-                software release, and the system tells you what it affects
-                before you commit it. See{" "}
-                <Link
-                  href="/compliance-engine"
-                  className="font-medium text-brand-600 underline underline-offset-2"
-                >
-                  how the engine works
-                </Link>{" "}
-                across every industry.
-              </p>
-            </div>
-          </Reveal>
-        </Container>
-      </section>
-
-      <section className="py-12 sm:py-14">
-        <Container>
-          <Reveal className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-8">
             <IconTile icon={industry.icon} size="lg" className="shrink-0" />
             <div className="flex-1">
               <h2 className="text-2xl font-semibold tracking-tight text-ink-900 sm:text-3xl">
@@ -98,21 +67,57 @@ export function IndustryDetail({ industry }: { industry: Industry }) {
                   </p>
                 ))}
               </div>
+              <p className="mt-4 text-sm text-ink-400">
+                The controls below run on the same{" "}
+                <Link
+                  href="/compliance-engine"
+                  className="font-medium text-brand-600 underline underline-offset-2"
+                >
+                  Compliance Engine
+                </Link>{" "}
+                every industry uses.
+              </p>
             </div>
           </Reveal>
         </Container>
       </section>
 
+      <section className="pb-12 sm:pb-14">
+        <Container>
+          <SectionHeading
+            eyebrow="Built for you"
+            title={`What's tailored for ${industry.name.toLowerCase()}`}
+            description="Not just compliance mapping — here's where the modules themselves work differently for this industry."
+          />
+          <RevealGroup
+            className="mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-3 sm:grid-cols-2"
+            stagger={0.05}
+          >
+            {industry.builtFor.map((item) => (
+              <RevealItem key={item.module + item.detail}>
+                <div className="h-full rounded-xl border border-line bg-white p-4">
+                  <span className="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-brand-600">
+                    {item.module}
+                  </span>
+                  <p className="mt-2.5 text-sm leading-relaxed text-ink-600">
+                    {item.detail}
+                  </p>
+                </div>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </Container>
+      </section>
+
       <section className="pb-16 sm:pb-20">
         <Container>
-          <p className="text-center text-xs font-semibold uppercase tracking-wide text-ink-400">
-            {industry.controls.length} controls, {industry.mappedStandards.length} standards
-          </p>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-relaxed text-ink-500">
-            Every control Factro enforces for {industry.name.toLowerCase()}.
-            Select a standard to see exactly which controls satisfy it.
-          </p>
-          <Reveal delay={0.05} className="mt-8">
+          <div className="mx-auto flex max-w-2xl flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+            <p className="text-xs font-semibold uppercase tracking-wide text-ink-400">
+              {industry.controls.length} controls, {industry.mappedStandards.length} standards
+            </p>
+            <p className="text-xs text-ink-400">Select a standard to filter</p>
+          </div>
+          <Reveal delay={0.05} className="mt-4">
             <IndustryControlsList
               controls={industry.controls}
               matrix={industry.matrix}
@@ -125,7 +130,7 @@ export function IndustryDetail({ industry }: { industry: Industry }) {
             framework&apos;s published scope, not a legal determination.
           </p>
 
-          <div className="mt-12">
+          <div className="mt-8">
             <p className="text-center text-xs font-semibold uppercase tracking-wide text-ink-400">
               Coverage by geography
             </p>

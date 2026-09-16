@@ -109,6 +109,12 @@ export interface RegulatoryTimelineEntry {
   description: string;
 }
 
+export interface BuiltForEntry {
+  /** A CoreModule tag/name this capability lives in, e.g. "Production". */
+  module: string;
+  detail: string;
+}
+
 export interface Industry {
   id: string;
   slug: string;
@@ -119,6 +125,9 @@ export interface Industry {
   mappedStandards: MappedStandard[];
   narrativeHeading: string;
   narrative: string[];
+  /** How the actual product — specific modules — is tailored for this
+   *  industry, as distinct from the regulatory-mapping content below. */
+  builtFor: BuiltForEntry[];
   controls: IndustryControl[];
   matrixStandards: string[];
   matrix: ComplianceMatrixRow[];
@@ -150,6 +159,12 @@ export const INDUSTRIES: Industry[] = [
     narrative: [
       "For two years Revised Schedule M was something to prepare for. It is not any more. The deadline for manufacturers above ₹250 crore passed in June 2024, the conditional extension for everyone below ended on 31 December 2025, and state drug controllers have been filing monthly inspection reports to CDSCO since November 2025. There is no turnover band left with a grace period.",
       "What Schedule M asks for is not a document exercise. Pharmaceutical quality system, quality risk management, product quality review, lifecycle validation, computerised system controls and data integrity are continuous obligations, and they are only continuous if the system produces them as a by-product of the work. Assembling them in the fortnight before an inspection is the thing the regulation was written to stop.",
+    ],
+    builtFor: [
+      { module: "Production", detail: "eBMR and eBPR execution — dispensing requires second-person verification, and line clearance blocks the next stage until the previous one is closed." },
+      { module: "Quality", detail: "In-process results attach to the stage that produced them, with out-of-specification and out-of-trend investigation routed automatically." },
+      { module: "Inventory", detail: "Quarantined material is structurally refused at the point of dispensing — the control is the system, not a label on a drum." },
+      { module: "Facility", detail: "Calibration blocks the stage the moment it lapses, instead of surfacing weeks later as a batch-level finding." },
     ],
     controls: [
       { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason", area: "Audit trail & data integrity" },
@@ -225,6 +240,12 @@ export const INDUSTRIES: Industry[] = [
     narrative: [
       "Since 2 February 2026 the FDA no longer maintains a separate quality system rulebook. Part 820 incorporates ISO 13485:2016 directly, and the vocabulary the industry used for thirty years went with it. Device master records, device history records and design history files are no longer regulatory terms. What replaced them are the ISO 13485 medical device file and design and development file, plus a short list of FDA-specific record content that ISO does not cover.",
       "Two changes matter more than the renaming. Management review, internal audit and supplier audit records are now inspectable, having been explicitly shielded under the old rule. And Section 820.35 still requires complaint record data elements, servicing records and the UDI recorded for each device or batch, which a system built to ISO 13485 alone will miss.",
+    ],
+    builtFor: [
+      { module: "Library", detail: "The medical device file and design & development file assemble continuously from specification, manufacturing, packaging and labelling records already in the system." },
+      { module: "Production", detail: "UDI recorded per device or batch, with GUDID and EUDAMED attribute changes tracked automatically on a 30-day clock." },
+      { module: "CAPA", detail: "Complaint intake carries the prescribed data elements and reporting clock from the moment it's logged; nonconformities need an effectiveness review before they can close." },
+      { module: "Facility", detail: "Servicing records are held to the same controls as production records, not tracked in a separate spreadsheet." },
     ],
     controls: [
       { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason", area: "Audit trail & data integrity" },
@@ -335,6 +356,11 @@ export const INDUSTRIES: Industry[] = [
       "That is the argument every food auditor makes, and it is the one most plants lose. Your team checks the temperature. The question at audit is whether anyone can prove it, at what frequency, against a validated limit, with the corrective action attached when it drifted and the affected product held.",
       "The 2020 revision of Codex put validation into principles three and six, which means a critical limit now has to be justified, not just set. Underneath the statutory floor sits a commercial ceiling: FSSC 22000 or BRCGS is what your buyer demands, and it is usually stricter than the law.",
     ],
+    builtFor: [
+      { module: "Quality", detail: "The HACCP plan lives as an executable object — CCP monitoring tasks are issued at the frequency the plan specifies, to a named owner, and a missed check raises a deviation automatically." },
+      { module: "Inventory", detail: "Allergen status travels with the material, with changeover and cleaning enforced between incompatible runs." },
+      { module: "CAPA", detail: "A mock recall runs as a scheduled exercise, producing the trace, the reconciliation and the elapsed time as a record — not a fire drill." },
+    ],
     controls: [
       { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason", area: "Records & retention" },
       { text: "HACCP plan as an executable object, with hazards, control measures, CCPs and validated critical limits held as records", area: "Hazard analysis & CCP determination" },
@@ -437,6 +463,11 @@ export const INDUSTRIES: Industry[] = [
       "Section 111.75(a)(1)(i) is the clause that fails audits. It requires at least one appropriate test to verify the identity of every component that is a dietary ingredient, before use. A supplier certificate does not discharge it. Certificates can be relied on for components that are not dietary ingredients, and only after you have qualified the supplier by confirming their results yourself, with the certificate stating the method, the limits and the actual results.",
       "The second thing that catches plants is arithmetic. A master manufacturing record is required for each unique formulation and each batch size, so four products across three pack sizes is twelve records, not four, and they have to stay consistent with each other through every change.",
     ],
+    builtFor: [
+      { module: "Library", detail: "Master manufacturing records generate per formulation and per batch size, inheriting a single formulation change under change control instead of twelve records drifting apart." },
+      { module: "Production", detail: "Separate attribution for weighing, verifying the weighing, adding and verifying the addition — each component, every batch." },
+      { module: "Quality", detail: "Identity testing is enforced as a gate, so an untested dietary ingredient cannot be dispensed onto the floor." },
+    ],
     controls: [
       { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason", area: "Audit trail & data integrity" },
       { text: "Specifications across all seven Section 111.70 categories, each versioned and separately approved", area: "Specification setting" },
@@ -535,6 +566,11 @@ export const INDUSTRIES: Industry[] = [
       "MoCRA gave the FDA authority to write a cosmetic manufacturing practice regulation. That regulation has not been published. Meanwhile facility registration, product listing, safety substantiation and serious adverse event reporting are all in force and enforced, and adverse events have been publicly searchable by product name since September 2025. The obligations landed first, which means the records matter more, not less.",
       "ISO 22716 is the standard everyone actually builds to. In the European Union it carries a presumption of conformity with Article 8. India's Schedule M-II is materially thinner: no change control, no internal audit, no out of specification handling, no complaints or recall procedure. We built the pack to ISO 22716 and treat Schedule M-II as a subset of it.",
     ],
+    builtFor: [
+      { module: "Library", detail: "The Product Information File assembles continuously and stays retained ten years after the last batch placed on the market, instead of being pulled together under pressure." },
+      { module: "Inventory", detail: "Retained samples are tracked as inventory, with location, quantity and parent batch, not a shelf someone remembers." },
+      { module: "Quality", detail: "Ingredient restriction checking runs against live annexes, flagging every affected formulation the moment a substance is added." },
+    ],
     controls: [
       { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason", area: "Batch documentation" },
       { text: "Product Information File assembled continuously, retained ten years after the last batch placed on the market", area: "Product Information File" },
@@ -628,6 +664,11 @@ export const INDUSTRIES: Industry[] = [
     narrative: [
       "For decades EudraLex Volume 4 covered human and veterinary manufacturing together. Since 16 July 2026 it does not. Two Commission Implementing Regulations carry veterinary manufacturing practice and veterinary active substance practice in their own right. The requirements remain close to human GMP, but guidance became binding regulation, and that changes the inspection posture rather than the paperwork.",
       "Medicated feed is a second regime on top. Carry-over between batches, prescription validity, treatment duration and the prohibition on antimicrobial prophylaxis are all hard limits, and they are the limits an inspector tests first because they are the ones a production schedule quietly breaks.",
+    ],
+    builtFor: [
+      { module: "Production", detail: "Sequencing rules block an unsafe production order before the batch starts, rather than warning about it after; flush and cleanout record themselves as evidence." },
+      { module: "Quality", detail: "Withdrawal period computes and carries to the treated animal automatically, including cascade defaults under Article 115." },
+      { module: "CAPA", detail: "Continuous signal management submits suspected adverse events on the 30-day clock, with the qualified person named on the file." },
     ],
     controls: [
       { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason", area: "Audit trail & data integrity" },
@@ -733,6 +774,11 @@ export const INDUSTRIES: Industry[] = [
     narrative: [
       "When a contract site runs a batch, the owner remains responsible for compliance with manufacturing practice and the contract facility is a manufacturer in its own right. Two parties, one batch, one record, and no regulation anywhere that assigns ownership of it. Everything difficult about running a contract site descends from that.",
       "What the regulations do fix is that the executed record exists at the site that performed the manufacture, is readily available for inspection, and if electronic is immediately retrievable throughout its retention period. Everything else, retention, format, access rights and what happens when the contract ends, is settled by the quality agreement. Factro is built so the record of truth stays where the regulation puts it while your client still sees what their agreement entitles them to see.",
+    ],
+    builtFor: [
+      { module: "Documents", detail: "Change control routes per client, matching each agreement's own approval and notification thresholds instead of one blanket workflow." },
+      { module: "Quality", detail: "Scoped client access — each client sees their batches, deviations, changes and documents, and nothing belonging to another." },
+      { module: "Facility", detail: "Cleaning validation and cross-contamination control, including containment tracking for potent materials." },
     ],
     controls: [
       { text: "Append-only, hash-chained audit trail capturing old value, new value, author, time and reason", area: "Audit trail & data integrity" },
