@@ -12,6 +12,7 @@ export function Cta({
   primaryHref = BOOK_DEMO_HREF,
   secondaryLabel = "Email our team",
   secondaryHref = SALES_MAILTO,
+  children,
 }: {
   id?: string;
   title?: string;
@@ -20,6 +21,7 @@ export function Cta({
   primaryHref?: string;
   secondaryLabel?: string;
   secondaryHref?: string;
+  children?: React.ReactNode;
 }) {
   return (
     <section id={id} className="pb-16 sm:pb-20">
@@ -68,6 +70,7 @@ export function Cta({
                   {secondaryLabel}
                 </Button>
               </div>
+              {children}
             </div>
           </div>
         </Reveal>

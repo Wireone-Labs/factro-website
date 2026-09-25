@@ -1,6 +1,7 @@
-import { CheckCircle2, ShieldCheck } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
+import { HeroMockup } from "@/components/sections/hero-mockup";
 
 const POINTS = [
   "Every event on the platform checked against the compliance you configured, all day",
@@ -37,13 +38,12 @@ export function AiComplianceCheckerHighlight() {
           </Reveal>
 
           <Reveal delay={0.08} className="lg:order-1">
-            <div className="relative mx-auto w-full max-w-5xl">
-              <div className="relative overflow-hidden rounded-2xl border border-line bg-white shadow-[0_30px_80px_-20px_rgba(15,14,23,0.25)] sm:rounded-3xl">
-                <div className="relative flex aspect-[16/9] w-full items-center justify-center bg-mist/40">
-                  <ShieldCheck className="h-14 w-14 text-brand-300" strokeWidth={1.5} />
-                </div>
-              </div>
-            </div>
+            <HeroMockup
+              src="/dashboard/compliance-checker.png"
+              alt="Factro AI Compliance Checker dashboard showing readiness score, compliance gaps, evidence coverage, control signals and a grounded AI agent"
+              width={1920}
+              height={1189}
+            />
           </Reveal>
         </div>
       </Container>

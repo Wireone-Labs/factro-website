@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Lock, MonitorCheck, ShieldCheck, Timer, Bug } from "lucide-react";
+import { Cloud, KeyRound, ShieldCheck, Bug } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { Cta } from "@/components/sections/cta";
 import { Container } from "@/components/ui/container";
@@ -18,10 +18,9 @@ export const metadata: Metadata = pageMetadata({
 });
 
 const QUICK_FACTS = [
-  { icon: Lock, label: "AES-256 everywhere" },
-  { icon: ShieldCheck, label: "MFA on every login" },
-  { icon: Timer, label: "RFC 3161 timestamping" },
-  { icon: MonitorCheck, label: "99% uptime SLA" },
+  { icon: Cloud, label: "Cloud or on-premises" },
+  { icon: KeyRound, label: "Per-tenant encryption" },
+  { icon: ShieldCheck, label: "MFA and role-based access" },
   { icon: Bug, label: "Independently penetration tested" },
 ];
 

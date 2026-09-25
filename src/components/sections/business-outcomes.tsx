@@ -52,7 +52,7 @@ export function BusinessOutcomes() {
         </p>
 
         <RevealGroup
-          className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2"
           stagger={0.08}
         >
           {BUSINESS_OUTCOMES.map((outcome) => (

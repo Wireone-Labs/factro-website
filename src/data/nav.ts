@@ -160,8 +160,8 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "Industries", href: "/industries", menu: INDUSTRIES_MENU },
   { label: "Modules", href: "/modules", menu: MODULES_MENU },
   { label: "Security", href: "/infrastructure-security" },
-  { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact-us" },
 ];
 
 export const SIGN_IN_URL = "https://app.factro.io/login";

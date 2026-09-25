@@ -20,7 +20,6 @@ A single site can carry more than one regulatory pack at once — see [all indus
 
 - [Modules](https://factro.io/modules): Sales, Purchase, Inventory, Facility, Production, Quality, CAPA, Documents, Training and Library — ten modules on one data model, replacing what separate ERP, MES, QMS and LIMS systems do apart. Finance stays on Tally; Factro posts reconciled entries back to it.
 - [Infrastructure & Security](https://factro.io/infrastructure-security): AWS-hosted in India (Mumbai/Hyderabad), per-tenant encryption, independently penetration tested, 99% uptime target.
-- [Pricing](https://factro.io/pricing): Standard plan (multi-tenant) is ₹3,499/user/month billed annually as early-adopter pricing for the first 10 customers (locked 3 years), ₹3,999/user/month thereafter; minimum 8 users, no upfront fees. Dedicated plan (private infrastructure) is quoted per deployment.
 
 ## Company
 

@@ -15,11 +15,6 @@ export const FAQS: FaqItem[] = [
       "Yes. It is an end-to-end stack for manufacturing operations, covering sales and purchase and inventory through execution, quality and documents. Plenty of plants run Factro as the whole thing. The only piece we deliberately leave alone is the books.",
   },
   {
-    question: "What happens to Tally and our accountant?",
-    answer:
-      "Nothing changes for them. Tally keeps the books. Factro posts voucher-level entries for batch costs, purchases, sales and payments, and generates e-invoices and e-way bills against the dispatch record. The numbers simply arrive reconciled.",
-  },
-  {
     question: "How long until we are live?",
     answer:
       "Thirty days from your complete dataset, committed. If we miss it, you run on us for two further months at no cost. Weeks five to eight are hypercare with daily monitoring and a dedicated line for blockers.",
@@ -30,9 +25,9 @@ export const FAQS: FaqItem[] = [
       "No. A single site can carry two or three regulatory packs at once, and a batch knows which one applies to it. Your inspector still sees one system, one access model and one audit log, which also means one validation exercise rather than several.",
   },
   {
-    question: "Where does our data live, and who can see it?",
+    question: "Where does Factro run?",
     answer:
-      "AWS Mumbai or Hyderabad, so data stays in India, with a per-tenant encryption key and two-tier backups with point-in-time recovery. Dedicated customers can choose any region and take a private estate end to end. Support access is time-boxed, approved by you and logged to the audit trail.",
+      "Factro can run as a shared, multi-tenant service on the cloud provider and regional infrastructure you prefer. It can also be tailored as an on-premises deployment when your security, regulatory or operational requirements call for it.",
   },
   {
     question: "Is the AI going to train on our batch data?",

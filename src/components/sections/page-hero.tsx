@@ -21,7 +21,7 @@ export function PageHero({
       <HeroMesh />
       <div className="pointer-events-none absolute left-1/2 top-[-12rem] h-[28rem] w-[56rem] -translate-x-1/2 rounded-full bg-brand-200/40 blur-3xl" />
 
-      <Container className="relative">
+      <Container className="relative z-10">
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <motion.span
             initial={{ opacity: 0, y: 10 }}

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { PageHero } from "@/components/sections/page-hero";
 import { Cta } from "@/components/sections/cta";
 import { Container } from "@/components/ui/container";
@@ -18,11 +17,16 @@ import { pageMetadata } from "@/lib/site";
 export const metadata: Metadata = pageMetadata({
   title: "About Us",
   description:
-    "Factro is a compliance-native manufacturing platform for regulated industries, built by Wireone Labs in Bengaluru.",
+    "Factro is built in Bengaluru for regulated manufacturers operating across Indian, US, EU and global standards.",
   path: "/about",
 });
 
 const WHAT_WE_BUILD = [
+  {
+    lead: "Built where the constraints are real.",
+    detail:
+      "Indian manufacturers run complex plants, serve multiple markets and cannot spend years stitching imported systems together. Factro starts with that operating reality instead of treating it as an edge case.",
+  },
   {
     lead: "Compliance as architecture.",
     detail:
@@ -31,12 +35,30 @@ const WHAT_WE_BUILD = [
   {
     lead: "One platform, many frameworks.",
     detail:
-      "The primitives behind 21 CFR Part 11, Schedule 4 Part II, 21 CFR Part 111 and ICH Q7 are the same. We implement them once and map each industry's clauses onto them.",
+      "The same operating core can carry Indian, US, EU and global regulatory packs at once. A batch knows which rules apply, while the plant keeps one access model, one audit trail and one source of truth.",
+  },
+];
+
+const TEAM_PROOF = [
+  {
+    value: "12+ years",
+    label: "Building production systems",
+    detail: "Across fintech, automotive and agritech.",
   },
   {
-    lead: "Built for India first, to a standard that holds anywhere.",
-    detail:
-      "The regulatory reality of an Indian plant exporting to the US and EU is the hardest version of this problem, so it is the one we designed for.",
+    value: "5 million",
+    label: "IoT messages every hour",
+    detail: "Sustained throughput in real operations, not a benchmark environment.",
+  },
+  {
+    value: "99.9%",
+    label: "Uptime sustained for five years",
+    detail: "The operating discipline behind systems that cannot pause for a bad day.",
+  },
+  {
+    value: "Cost disciplined",
+    label: "Enterprise scale without enterprise waste",
+    detail: "Delivered at infrastructure costs comparable to what many companies spend on basic ERP or BPM systems.",
   },
 ];
 
@@ -64,16 +86,56 @@ export default function AboutPage() {
     <>
       <PageHero
         eyebrow="About us"
-        title="A compliance-native manufacturing platform for regulated industries"
-        description="Factro runs supply chain, batch execution and quality on one database, with the rules of your industry enforced in the architecture rather than configured on top of it. It is built by Wireone Labs in Bengaluru."
+        title="Built from India, to a standard that holds anywhere"
+        description="Designed and engineered in Bengaluru for regulated manufacturers whose products, plants and audits cross borders. Factro combines the operating reality of Indian manufacturing with controls that stand up in US, EU and global markets."
       />
+
+      <section className="py-12 sm:py-16">
+        <Container className="max-w-4xl">
+          <SectionHeading
+            eyebrow="The team"
+            title="Young enough to move fast. Experienced enough to know what breaks."
+            description="More than twelve years building scalable systems across fintech, automotive and agritech taught us that the process diagram is never the whole process. The real operation lives in exceptions, handovers and tribal knowledge. We learn that layer, turn it into software and stay close enough to the floor to know when it is wrong."
+          />
+
+          <RevealGroup
+            className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2"
+            stagger={0.06}
+          >
+            {TEAM_PROOF.map((proof) => (
+              <RevealItem key={proof.value}>
+                <div className="h-full rounded-2xl border border-line bg-white p-6">
+                  <p className="text-2xl font-semibold tracking-tight text-brand-600">
+                    {proof.value}
+                  </p>
+                  <h3 className="mt-2 text-sm font-semibold text-ink-900">
+                    {proof.label}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-500">
+                    {proof.detail}
+                  </p>
+                </div>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+
+          <Reveal className="mx-auto mt-8 max-w-3xl text-center">
+            <p className="text-base font-medium leading-relaxed text-ink-700">
+              We are a young team with senior operating scar tissue: direct,
+              ambitious and unwilling to leave the hard part for a later
+              release. We do not confuse motion with progress. We find the
+              constraint, own it and close it.
+            </p>
+          </Reveal>
+        </Container>
+      </section>
 
       <section className="py-12 sm:py-16">
         <Container className="max-w-3xl">
           <SectionHeading
             eyebrow="What we build"
-            title="One system where most of this market builds pieces"
-            description="A plant that buys an ERP, an MES, a QMS, a LIMS and a document system then spends every year paying to make the five of them talk to each other, and spends every inspection proving that what they said to each other was true. Putting execution, quality and compliance on one record is a harder problem than building any one of them, and it is the only version that survives an audit without an assembly exercise first."
+            title="Indian manufacturing reality. Global regulatory discipline."
+            description="Factories here are not simpler versions of plants elsewhere. They run multiple product categories, export across jurisdictions and work under tighter implementation constraints. Factro is built around that complexity: one operational record, flexible deployment and controls an auditor can follow anywhere."
           />
 
           <RevealGroup className="mt-10 flex flex-col gap-6" stagger={0.06}>
@@ -113,53 +175,6 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="pb-12 sm:pb-16">
-        <Container className="max-w-3xl">
-          <Reveal>
-            <div className="rounded-2xl border border-line bg-mist/50 px-6 py-6 sm:px-8 sm:py-8">
-              <h3 className="text-sm font-semibold text-ink-900">Where it runs</h3>
-              <p className="mt-3 text-sm leading-relaxed text-ink-600">
-                Factro runs on AWS in Mumbai or Hyderabad, so data stays in
-                India, with per-tenant encryption, two-tier backups and
-                point-in-time recovery on every deployment. Dedicated
-                customers can choose any AWS region and take a private estate
-                end to end. ISO 27001 certification is in progress.
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-ink-600">
-                For the technical detail, see{" "}
-                <Link
-                  href="/infrastructure-security"
-                  className="font-medium text-brand-600 underline underline-offset-2"
-                >
-                  Infrastructure &amp; Security
-                </Link>
-                .
-              </p>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.06} className="mt-10 text-center">
-            <p className="text-sm font-semibold text-ink-900">Talk to us</p>
-            <div className="mt-3 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-ink-500">
-              <TrackedLink
-                href={SALES_PHONE_HREF}
-                event="phone_click"
-                eventParams={{ location: "about_page" }}
-                className="font-medium text-ink-700 hover:text-brand-600"
-              >
-                {SALES_PHONE}
-              </TrackedLink>
-              <a
-                href={SALES_MAILTO}
-                className="font-medium text-ink-700 hover:text-brand-600"
-              >
-                {SALES_EMAIL}
-              </a>
-            </div>
-          </Reveal>
-        </Container>
-      </section>
-
       <Cta
         id="cta-about"
         title="Talk to the people building it"
@@ -168,7 +183,24 @@ export default function AboutPage() {
         primaryHref={BOOK_DEMO_HREF}
         secondaryLabel="Email our team"
         secondaryHref={SALES_MAILTO}
-      />
+      >
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-ink-300">
+          <TrackedLink
+            href={SALES_PHONE_HREF}
+            event="phone_click"
+            eventParams={{ location: "about_page" }}
+            className="font-medium text-white hover:text-brand-200"
+          >
+            {SALES_PHONE}
+          </TrackedLink>
+          <a
+            href={SALES_MAILTO}
+            className="font-medium text-white hover:text-brand-200"
+          >
+            {SALES_EMAIL}
+          </a>
+        </div>
+      </Cta>
     </>
   );
 }

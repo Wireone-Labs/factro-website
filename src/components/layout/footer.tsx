@@ -33,7 +33,6 @@ const FOOTER_COLUMNS = [
   {
     heading: "Company",
     links: [
-      { label: "Pricing", href: "/pricing" },
       { label: "Industries", href: "/industries" },
       { label: "Infrastructure & Security", href: "/infrastructure-security" },
       { label: "About us", href: "/about" },
@@ -46,7 +45,6 @@ const FOOTER_COLUMNS = [
     links: [
       { label: "Privacy policy", href: "/privacy" },
       { label: "Terms of service", href: "/terms" },
-      { label: "Security & compliance", href: "/infrastructure-security" },
       { label: "Contact sales", href: SALES_MAILTO },
     ],
   },
