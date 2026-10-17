@@ -1,0 +1,145 @@
+.page {
+  display: contents;
+  --home-heading-size: clamp(32px, 3.5vw, 52px);
+  --home-centered-heading-size: var(--home-heading-size);
+  --home-subheading-size: clamp(28px, 2.5vw, 36px);
+  --home-card-title-size: 22px;
+  --home-body-size: 16px;
+  --home-centered-body-size: 16px;
+  --home-detail-size: 14px;
+  --home-eyebrow-size: 11px;
+  --home-question-size: 16px;
+  --home-text-heading: #101217;
+  --home-text-muted: #656975;
+  --home-text-body: #686d79;
+}
+
+.page [data-home-hero] h1 {
+  font-weight: 650;
+  line-height: 1.06;
+  letter-spacing: -.055em;
+  color: var(--home-text-heading);
+}
+.page [data-home-hero] h1 > span:last-child { color: var(--home-text-muted); }
+.page [data-home-hero] h1 + p { color: #626774; line-height: 1.65; }
+
+.page :is([data-section-heading] h2, [id="connected-system-title"], .pilotCard h2) {
+  font-size: var(--home-heading-size);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -.055em;
+  color: var(--home-text-heading);
+}
+.page [data-section-heading] h2 { font-size: var(--home-centered-heading-size); }
+.page :is([id="connected-system-title"] > span, [id="modules"] article h3 a > span > span) { color: var(--home-text-muted); }
+
+.page :is([data-section-heading] > div > span, [data-pillar-copy] > p:first-child, [id="day-one"] header p:first-child, .pilotCard > div > p:first-child) {
+  font-size: var(--home-eyebrow-size);
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.page [data-section-heading] > div > span {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+.page [id="day-one"] header p:first-child { color: var(--color-brand-600); }
+
+.page :is([data-section-heading] > div > p, [data-pillar-copy] > p:not(:first-child), [id="day-one"] header p:last-child) {
+  font-size: var(--home-body-size);
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--home-text-body);
+}
+.page [data-section-heading] > div > p { font-size: var(--home-centered-body-size); }
+
+.page :is([data-pillar-copy] > h3, [id="modules"] article h3) {
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -.04em;
+  color: var(--home-text-heading);
+}
+.page [data-pillar-copy] > h3[id] { font-size: var(--home-subheading-size); }
+
+.page :is([id="modules"] article h4, [id="business-outcomes"] h3, [id="industries"] article h4, .supportCard h3, .pilotCard h3) {
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -.035em;
+  color: var(--home-text-heading);
+}
+.page :is([id="business-outcomes"] h3, [id="industries"] article h4, .supportCard h3, .pilotCard h3) { font-size: var(--home-card-title-size); }
+
+.page :is([data-pillar-copy] li, [id="modules"] article ul li > span:last-child, [id="industries"] article li) {
+  font-weight: 400;
+  line-height: 1.65;
+  color: #656b78;
+}
+.page :is([data-pillar-copy] li, [id="industries"] article li) { font-size: var(--home-detail-size); }
+
+.page :is([id="modules"] article p, [id="business-outcomes"] p, [id="industries"] article > div > div > p, .supportCard p, .pilotCard p) {
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--home-text-body);
+}
+.page :is([id="business-outcomes"] p, [id="industries"] article > div > div > p, .supportCard p, .pilotCard p) { font-size: var(--home-detail-size); }
+
+.page .pilotCard > div > p:first-child { color: var(--color-brand-600); }
+.page .faqContainer button > span:first-child { font-size: var(--home-question-size); font-weight: 600; line-height: 1.5; color: var(--home-text-heading); }
+.page .faqContainer button + div p { font-size: var(--home-detail-size); line-height: 1.75; color: #737a87; }
+
+@media (min-width: 1920px) {
+  .page {
+    --page-container-width: var(--desktop-page-width);
+    --home-heading-size: 58px;
+    --home-centered-heading-size: 58px;
+    --home-subheading-size: 36px;
+    --home-card-title-size: 22px;
+    --home-body-size: 16px;
+    --home-centered-body-size: 16px;
+    --home-detail-size: 15px;
+    --home-eyebrow-size: 11px;
+    --home-question-size: 16px;
+  }
+  .page > section:is([id="modules"], [id="business-outcomes"], [id="industries"], [id="support"], [id="faq"], [id="compliance-decoded"]) { padding-block: var(--desktop-section-space); }
+  .page [data-section-heading] > div > p { max-width: 900px; }
+  .page .supportLayout { max-width: 1600px; margin-top: 56px; gap: 80px; }
+  .page .supportCard { padding: 36px; gap: 20px; }
+  .page .pilotSection { padding-bottom: var(--desktop-section-space); }
+  .page .pilotCard { padding: 56px; gap: 96px; }
+  .page .pilotCard p { max-width: 700px; }
+  .page .pilotCard a { height: 52px; padding-inline: 28px; font-size: 16px; }
+  .page .faqContainer { max-width: 1120px; }
+  .page .faqContainer button { padding-block: 28px; }
+}
+
+@media (max-width: 767px) {
+  .page {
+    --home-heading-size: 32px;
+    --home-centered-heading-size: 32px;
+    --home-subheading-size: 28px;
+    --home-body-size: 16px;
+    --home-centered-body-size: 16px;
+    --home-eyebrow-size: 11px;
+    --home-question-size: 16px;
+  }
+}
+@media (min-width: 1024px) and (min-height: 650px) and (max-height: 1050px) {
+  .page :is([id="day-one"], [id="industries"]) {
+    --home-heading-size: 34px;
+    --home-centered-heading-size: 34px;
+    --home-card-title-size: 17px;
+    --home-body-size: 14px;
+    --home-detail-size: 13px;
+    --home-eyebrow-size: 10px;
+  }
+  .page > [id="industries"] { padding-block: 92px 20px; }
+  .page [id="industries"] [data-section-heading] { gap: 8px; }
+}
+@media (min-width: 1024px) and (min-height: 650px) and (max-height: 700px) {
+  .page [id="day-one"] { --home-heading-size: 30px; --home-body-size: 13px; --home-card-title-size: 16px; }
+  .page [id="business-outcomes"] p { line-height: 1.5; }
+}

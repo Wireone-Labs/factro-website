@@ -1,0 +1,28 @@
+.marquee { margin-top: 40px; }
+.row:focus-visible { outline: 2px solid var(--color-brand-500); outline-offset: -2px; }
+.rows { display: grid; gap: 18px; }
+.row { overflow: hidden; padding-block: 3px; mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); }
+.track { display: flex; width: max-content; animation: compliance-scroll var(--duration) linear infinite; }
+.copy { display: flex; flex-shrink: 0; }
+.industry { display: flex; align-items: center; padding-right: 20px; }
+.industryName { color: var(--color-brand-600); }
+.standards { display: flex; align-items: center; gap: 20px; list-style: none; padding: 0; margin: 0; }
+.card { display: flex; flex-shrink: 0; align-items: center; gap: 12px; min-height: 80px; padding: 16px 24px; border: 1px solid var(--color-line); border-radius: 16px; background: white; }
+.icon { display: grid; place-items: center; flex-shrink: 0; width: 40px; height: 40px; border-radius: 12px; color: var(--color-brand-600); background: var(--color-brand-50); }
+.name { color: var(--color-ink-900); font-size: 14px; font-weight: 600; letter-spacing: -.015em; white-space: nowrap; }
+.region { margin-top: 3px; color: var(--color-ink-400); font-size: 12px; white-space: nowrap; }
+.rows:hover .track, .rows:focus-within .track { animation-play-state: paused; }
+@keyframes compliance-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (min-width: 1920px) {
+  .marquee { margin-top: 48px; }
+  .rows { gap: 24px; }
+  .card { min-height: 100px; padding: 22px 32px; gap: 18px; }
+  .icon { width: 48px; height: 48px; }
+  .name { font-size: 18px; }
+  .region { font-size: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .track { animation: none; }
+  .copy[aria-hidden="true"] { display: none; }
+  .row { overflow-x: auto; mask-image: none; padding-inline: 16px; }
+}

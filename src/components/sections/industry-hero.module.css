@@ -1,0 +1,40 @@
+.hero { width: 100%; max-width: 650px; min-width: 0; aspect-ratio: 600 / 490; position: relative; isolation: isolate; color: var(--accent); margin-inline: auto; }
+.halo { position: absolute; inset: 3% -3%; z-index: -1; background: radial-gradient(ellipse at 40% 45%,var(--soft), transparent 66%); }
+.object { position: absolute; left: 0; top: 18%; width: 43%; transform: rotate(-5deg); }
+.object svg { width: 100%; height: auto; }
+.panel { position: absolute; right: 0; top: 8%; width: 64%; padding: clamp(18px,2.2vw,28px); background: #fff; border: 1px solid var(--industry-line); border-top: 3px solid var(--accent); border-radius: 17px; box-shadow: 0 25px 50px -28px #243d5b55; transform: rotate(2deg); }
+.panel header { display: flex; justify-content: space-between; gap: 8px; font-size: 9px; letter-spacing: .05em; }
+.panel h3 { color: #263243; font-size: clamp(15px,1.7vw,22px); font-weight: 600; line-height: 1.4; letter-spacing: -.035em; margin: 14px 0 18px; }
+.stages { list-style: none; margin: 0; padding: 0; }
+.stages li { display: flex; gap: 10px; align-items: center; padding: 13px 8px; border-bottom: 1px solid #eef0f4; transition: background .5s; border-radius: 5px; }
+.stages li > span { display: grid; place-items: center; width: 23px; height: 23px; border-radius: 50%; background: #f4f6fa; color: #94a0af; font-size: 9px; }
+.stages strong { font-size: 11px; font-weight: 500; color: #627087; }.stages i { width: 5px; height: 5px; border-radius: 50%; background: #d9dfe7; margin-left: auto; }
+.stages [data-active="true"] { background: var(--soft); }.stages [data-active="true"] > span { color: white; background: var(--accent); }.stages [data-active="true"] strong { color: var(--accent); }.stages [data-active="true"] i { background: var(--accent); }
+.pack { display: flex; align-items: flex-start; gap: 10px; margin-top: 20px; }.pack svg { flex-shrink: 0; }.pack strong { font-size: 11px; font-weight: 500; display: block; }.pack span { display: block; font-size: 9px; color: #929cab; line-height: 1.7; margin-top: 5px; }
+.signature { position: absolute; bottom: 7%; left: 5%; display: flex; align-items: center; gap: 10px; border: 1px solid var(--industry-line); box-shadow: 0 10px 30px #223f5b0d; border-radius: 25px; background: var(--soft); padding: 13px 18px; font-size: 11px; transform: rotate(-3deg); }.signature i { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+.example { position: absolute; bottom: -2%; left: 5%; color: #96a0af; font-size: 9px; }
+.serials { display: grid; grid-template-columns: repeat(4,1fr); gap: 5px; margin: 12px 0; }.serials span { text-align: center; background: #f3f6fa; color: #b0b9c6; font: 10px/2 monospace; border-radius: 4px; transition: color .5s, background .5s; }.serials [data-active="true"] { color: var(--accent); background: var(--soft); }
+.chart { margin-bottom: 10px; }.chart svg { width: 100%; }.chart circle { transition: cx 1s, cy 1s; }
+.formula { display: grid; gap: 8px; margin-bottom: 15px; }.formula > div { display: flex; align-items: center; gap: 10px; }.formula span { flex: 0 0 48px; font-size: 10px; color: #8e99aa; }.formula i { height: 8px; background: var(--accent); opacity: .25; border-radius: 8px; transition: opacity .5s; }.formula [data-active="true"] { opacity: .8; }
+.hero[data-kind="serial"] .object { top: 35%; left: -4%; width: 47%; }.hero[data-kind="serial"] .panel { top: 0; transform: rotate(-2deg); }
+.hero[data-kind="clearance"] .object { top: 0; left: 18%; width: 42%; }.hero[data-kind="clearance"] .panel { top: auto; bottom: 12%; width: 95%; padding: 20px; transform: none; }.hero[data-kind="clearance"] .stages { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 7px; }.hero[data-kind="clearance"] .stages li { flex-direction: column; text-align: center; }.hero[data-kind="clearance"] .stages i { display: none; }.hero[data-kind="clearance"] .pack { margin-top: 12px; }.hero[data-kind="clearance"] .signature { bottom: -1%; left: 25%; }.hero[data-kind="clearance"] .example { bottom: -8%; }
+.hero[data-kind="analysis"] .object { top: 34%; left: -2%; }.hero[data-kind="analysis"] .panel { top: 0; }
+.hero[data-kind="formula"] .panel { top: 1%; right: 30%; transform: rotate(-3deg); }.hero[data-kind="formula"] .object { left: auto; right: -4%; top: 29%; }.hero[data-kind="formula"] .signature { left: 38%; bottom: 2%; }
+.hero[data-kind="trace"] .panel { transform: rotate(-2deg); }.hero[data-kind="trace"] .stages li { border-left: 1px solid var(--soft); border-bottom: 0; margin-left: 10px; padding-left: 15px; }.hero[data-kind="trace"] .object { top: 8%; }.hero[data-kind="trace"] .signature { bottom: 12%; }
+.hero[data-kind="process"] .object { width: 48%; top: 24%; left: -5%; }.hero[data-kind="process"] .panel { top: -2%; transform: rotate(3deg); }.hero[data-kind="process"] .signature { left: 3%; bottom: 0; }
+.hero[data-kind="process"] .example { bottom: -6%; }
+@media (max-width: 1100px) and (min-width: 768px), (max-width: 480px) {
+  .panel { padding: 14px; }.panel header { font-size: 7px; }.panel h3 { font-size: 15px; margin: 9px 0; }.stages li { padding: 9px 5px; gap: 6px; }.stages strong { font-size: 9px; }.stages li > span { width: 17px; height: 17px; font-size: 8px; }
+  .pack { margin-top: 12px; gap: 6px; }.pack strong { font-size: 9px; }.pack span { font-size: 7px; }.signature { font-size: 9px; padding: 10px 13px; }.example { font-size: 7px; bottom: -5%; }.serials span { font-size: 8px; }.chart { margin-bottom: 2px; }.formula { gap: 5px; margin-bottom: 5px; }.formula span { font-size: 8px; }
+  .hero[data-kind="clearance"] .panel { padding: 14px; }.hero[data-kind="formula"] .signature, .hero[data-kind="process"] .signature { bottom: -9%; }
+}
+@media (max-width: 767px) {
+  .hero { display: grid; gap: 16px; aspect-ratio: auto; padding-top: 122px; margin-block: 12px 20px; }
+  .hero[data-kind] .object { width: 138px; top: -15px; right: 12px; left: auto; transform: none; }
+  .hero[data-kind] .panel { position: relative; inset: auto; width: 100%; padding: 20px; transform: none; }
+  .hero[data-kind] .signature { position: relative; inset: auto; justify-self: center; transform: none; }
+  .hero[data-kind] .example { position: static; text-align: center; font-size: 8px; }
+  .panel header { font-size: 9px; }.panel h3 { font-size: 19px; margin-block: 12px 16px; }
+  .stages strong { font-size: 11px; }.stages li { padding: 12px 7px; }.pack strong { font-size: 11px; }.pack span { font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) { .hero * { animation: none !important; transition: none !important; } }

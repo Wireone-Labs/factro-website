@@ -80,6 +80,13 @@
   --foreground: var(--color-ink-900);
 }
 
+@media (min-width: 1920px) {
+  :root {
+    --desktop-page-width: min(120rem, calc(100vw - 8rem));
+    --desktop-section-space: clamp(96px, 5vw, 128px);
+  }
+}
+
 @layer base {
   * {
     border-color: var(--color-line);
@@ -151,4 +158,19 @@
       transparent
     );
   }
+}
+
+[data-bullet-list][data-bullets-visible="false"] > li {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+[data-bullet-list][data-bullets-visible="true"] > li {
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-bullet-list][data-bullets-visible] > li { opacity: 1; transform: none; animation: none; }
 }

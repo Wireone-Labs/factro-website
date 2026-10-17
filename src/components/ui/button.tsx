@@ -58,9 +58,9 @@ export function Button({
 
   if (href) {
     const isExternal = /^https?:\/\//.test(href);
-    const isMailto = href.startsWith("mailto:");
+    const isContactLink = /^(mailto|tel):/.test(href);
 
-    if (isMailto) {
+    if (isContactLink) {
       return (
         <a href={href} className={classes} onClick={handleClick}>
           {children}

@@ -2,7 +2,7 @@
 
 The public marketing site for **Factro** — the operating system for regulated
 manufacturing. Built as a fast, animated, multi-page Next.js site that
-introduces the platform, its modules, pricing, and compliance posture, and
+introduces its products, workflows, and compliance posture, and
 routes visitors toward a demo.
 
 ## Tech stack
@@ -35,18 +35,21 @@ npm run lint    # eslint
 ```
 src/
   app/                 # routes (App Router) — one folder per page
-    platform/          # /platform
-    pricing/           # /pricing
-    compliance/        # /compliance
+    (products)/        # /erp, /mes, /qms, /one
+    products/          # /products
+    how-it-works/      # all three pillars on one page
+    industries/        # /industries and industry detail pages
+    solutions/         # solution workflows and shared platform capabilities
+    security-trust/    # /security-trust
     about/             # /about
-    book-demo/         # /book-demo
+    demo/              # /demo
     privacy/ terms/    # /privacy, /terms
   components/
     layout/            # navbar, mega menu, mobile nav, footer, cookie consent
-    sections/          # page sections (hero, workflow, modules, pricing, etc.)
-    ui/                # shared primitives (Button, IconTile, Reveal, ScrollRail, ...)
+    sections/          # page sections, product stories, workflows, and visuals
+    ui/                # shared primitives (Button, IconTile, Reveal, ...)
     forms/             # demo request form
-  data/                # typed content — nav, modules, pricing, compliance, legal copy
+  data/                # typed product, pillar, industry, navigation, and legal content
   lib/                 # small shared utilities/hooks
 public/
   brand/               # logo and brand assets
@@ -58,9 +61,25 @@ own page content.
 
 ## Content
 
-Copy and structured content (modules, pricing plans, compliance pillars,
-FAQ, legal sections) live under `src/data/` as typed arrays, so real content
-can replace the current placeholders without touching component code.
+Copy and structured content (products, platform modules, the three pillars,
+industries, FAQ, and legal sections) live under `src/data/` as typed arrays.
+The Pillars page at `/how-it-works` uses the supplied platform design, with
+native approval, ruleset, task and AI previews in `pillars-page.tsx` and
+`pillar-demos.tsx`. The previous individual pillar URLs redirect to its
+corresponding sections. Static legacy redirects
+live in `next.config.ts`. `/modules` and `/platform` retain their query-aware
+compatibility routes.
+
+Product feature and role illustrations use compact HTML/CSS/SVG assets in
+`product-mini-asset.tsx`, not screenshot crops. Product heroes have separate
+warehouse, production, release and shared-record compositions in
+`product-hero-scene.tsx`; `industry-hero.tsx` supplies industry-specific scenes.
+These are labelled illustrative workflows, not live product data.
+
+`PageReveals` applies the home page's fade-up timing to headings and list items
+on other routes, without changing layout or scroll behaviour. It leaves the
+home page and existing `Reveal` components alone. New asset cycles pause off
+screen, on hover/focus, in background tabs and for reduced-motion preferences.
 
 ## Brand
 

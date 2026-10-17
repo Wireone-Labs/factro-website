@@ -1,8 +1,8 @@
 # Factro
 
-> Factro is a compliance-native ERP for regulated manufacturers — pharmaceuticals, medical devices, food & beverage, nutraceuticals, cosmetics, veterinary and API/CDMO. Supply chain, batch execution and quality live on one record, with compliance built into the architecture rather than configured on top of it.
+> Factro is a Digital Manufacturing Platform (DMP) for regulated manufacturers — pharmaceuticals, medical devices, food & beverage, nutraceuticals, cosmetics, veterinary and API/CDMO. ERP, MES and QMS share one foundation, with compliance built into the architecture rather than configured on top of it.
 
-Factro is built around three pillars: a Compliance Engine that enforces regulatory rules as system constraints rather than guidance documents, an Orchestrator that routes work and handovers as tracked tickets with owners and clocks instead of email and verbal handoffs, and an Agentic RAG layer that surfaces genealogy, deviations and forecasts from the plant's own historical data instead of leaving it unread. The same core primitives satisfy every framework; an industry "pack" maps each one's clauses onto them.
+Factro is built around three pillars: a Compliance Engine that enforces regulatory rules as system constraints rather than guidance documents, Task Manager, which routes work and handovers as tracked tickets with owners and clocks instead of email and verbal handoffs, and an Agentic RAG layer that surfaces genealogy, deviations and forecasts from the plant's own historical data instead of leaving it unread. The same core primitives satisfy every framework; an industry "pack" maps each one's clauses onto them.
 
 ## Industries
 
@@ -18,8 +18,14 @@ A single site can carry more than one regulatory pack at once — see [all indus
 
 ## Product
 
-- [Modules](https://factro.io/modules): Sales, Purchase, Inventory, Facility, Production, Quality, CAPA, Documents, Training and Library — ten modules on one data model, replacing what separate ERP, MES, QMS and LIMS systems do apart. Finance stays on Tally; Factro posts reconciled entries back to it.
-- [Infrastructure & Security](https://factro.io/infrastructure-security): AWS-hosted in India (Mumbai/Hyderabad), per-tenant encryption, independently penetration tested, 99% uptime target.
+- [Pillars](https://factro.io/how-it-works): Compliance Engine, Task Manager and AI Agents on one page, including rulesets, approvals, task performance, private AI and interactive sample workflows.
+- [ERP](https://factro.io/erp): Customer and vendor qualification, purchasing, inventory, storage, accounting and controlled masters. Explore the detailed capabilities on this product page.
+- [MES](https://factro.io/mes): Production planning, guided execution, rooms, equipment, cleaning, sensor data and connectors.
+- [QMS](https://factro.io/qms): Quality and LIMS, CAPA, documents, training, qualification and signed batch release.
+- [Connected System](https://factro.io/one): ERP + MES + QMS on one record, with Work Management, Genealogy, CAPA, Unified Testing and Realtime Insights. Capability details live within each product page; there are no separate module pages.
+- [Security & Trust](https://factro.io/security-trust): AWS-hosted in India (Mumbai/Hyderabad), per-tenant encryption, independently penetration tested, 99% uptime target.
+
+- [DMP — Digital Manufacturing Platform](https://factro.io/solutions/platform): The three solutions on one foundation: Compliance Engine, Task Manager and Intelligence Layer, with immutable audit trails, signatures and infrastructure controls built in.
 
 ## Company
 

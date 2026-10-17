@@ -1,0 +1,54 @@
+.section { min-width: 0; padding: 0 32px; scroll-margin-top: 110px; }
+.outcomes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; }
+.outcomes li { display: flex; align-items: flex-start; gap: 14px; min-width: 0; padding: 20px 0; }
+.includedRelease { grid-column: 1 / -1; scroll-margin-top: 110px; }
+.icon { display: grid; place-items: center; flex-shrink: 0; width: 42px; height: 42px; border: 1px solid var(--color-brand-100); border-radius: 12px; background: #ffffffb3; color: var(--color-brand-600); }
+.outcomes h3 { font-size: 18px; font-weight: 600; line-height: 1.4; letter-spacing: -.025em; color: var(--color-ink-900); }
+.outcomes p { margin-top: 8px; font-size: 14px; line-height: 1.6; color: var(--color-ink-500); }
+@media (min-width: 1920px) {
+  .section { padding: 0 64px; }
+  .outcomes { column-gap: 48px; }
+  .outcomes li { gap: 20px; padding-block: 36px; }
+  .icon { width: 56px; height: 56px; border-radius: 16px; }
+  .icon svg { width: 28px; height: 28px; }
+  .outcomes h3 { font-size: 24px; }
+  .outcomes p { font-size: 18px; }
+}
+@media (min-width: 1024px) and (max-height: 800px) {
+  .section { padding: 0 24px; }
+  .outcomes li { padding-block: 14px; }
+}
+@media (min-width: 1024px) and (max-width: 1919px) and (max-height: 950px) {
+  .section { padding-inline: 24px; }
+  .outcomes li { padding-block: 14px; gap: 12px; }
+  .icon { width: 36px; height: 36px; border-radius: 10px; }
+  .outcomes h3 { font-size: 17px; }
+  .outcomes p { margin-top: 6px; font-size: 13px; line-height: 1.55; }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .section { padding: 0 8px; }
+  .outcomes { grid-template-columns: minmax(0, 1fr); }
+  .outcomes li { padding-block: 16px; }
+  .outcomes h3 { font-size: 17px; }
+  .outcomes p { margin-top: 5px; font-size: 13px; }
+}
+@media (max-width: 767px) {
+  .section { padding: 0; }
+  .outcomes { column-gap: 24px; }
+  .outcomes li { padding-block: 22px; }
+  .outcomes h3 { font-size: 17px; }
+}
+@media (max-width: 599px) {
+  .outcomes { grid-template-columns: minmax(0, 1fr); }
+}
+@media (min-width: 1024px) and (min-height: 650px) and (max-height: 1050px) {
+  .section { height: 100%; padding-inline: 16px; }
+  .outcomes { height: 100%; column-gap: 24px; }
+  .outcomes li { padding-block: 12px; gap: 10px; }
+  .outcomes p { margin-top: 5px; }
+  .icon { width: 32px; height: 32px; border-radius: 10px; }
+  .icon svg { width: 20px; height: 20px; }
+}
+@media (min-width: 1024px) and (min-height: 650px) and (max-height: 700px) {
+  .outcomes li { padding-block: 4px; }
+}

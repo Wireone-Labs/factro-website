@@ -1,87 +1,30 @@
-import { Container } from "@/components/ui/container";
-import { SectionHeading } from "@/components/ui/section-heading";
-import { IconTile } from "@/components/ui/icon-tile";
-import { RevealGroup, RevealItem } from "@/components/ui/reveal";
-import { BUSINESS_OUTCOMES } from "@/data/business-outcomes";
+import { Calculator, FlaskConical, GitBranch, LibraryBig, PackageCheck, ShieldCheck, Sparkles } from "lucide-react";
+import styles from "./business-benefits.module.css";
 
-const TIME_BREAKDOWN = [
-  { activity: "Copying paper records into registers and spreadsheets", time: "3 to 4 hours" },
-  { activity: "Chasing status, samples and signatures", time: "2 to 3 hours" },
-  { activity: "Assembling reports and evidence by hand", time: "2 to 3 hours" },
+const OUTCOMES = [
+  { title: "Promise against released stock.", description: "Show sales what QC has approved, not just what sits on the shelf.", icon: PackageCheck },
+  { title: "Trace a lot without stitching reports.", description: "Pull supplier lot, batch consumption and customer dispatch from one chain, ready when a recall question lands.", icon: GitBranch },
+  { title: "Know what each batch really cost.", description: "Match purchase prices against actual floor consumption, so batch costing becomes a report instead of a spreadsheet.", icon: Calculator },
+  { title: "Stop a failed test from travelling.", description: "Let stores, planning and dispatch see a QC failure the moment the lab records it.", icon: FlaskConical },
+  { title: "Define every material once.", description: "Keep specs, BOMs and test methods in one Library that every module reads, so the warehouse and the lab never disagree on a spec.", icon: LibraryBig },
+  { title: "Validate one system, not three plus interfaces.", description: "Walk inspectors through one audit trail and one validation package instead of three vendors and the middleware between them.", icon: ShieldCheck },
 ];
 
 export function BusinessOutcomes() {
   return (
-    <section className="py-16 sm:py-20">
-      <Container>
-        <SectionHeading
-          eyebrow="Business outcomes"
-          title="Save one day every week. Per person."
-          description="Evidence assembly disappears because the evidence assembled itself. Batch records close when the batch closes."
-        />
-
-        <RevealGroup
-          className="mx-auto mt-10 flex max-w-2xl flex-col gap-2 rounded-2xl border border-line bg-white p-6"
-          stagger={0.04}
-        >
-          <p className="text-center text-xs font-semibold uppercase tracking-wide text-ink-400">
-            Where the day comes from · per week, per person
-          </p>
-          {TIME_BREAKDOWN.map((row) => (
-            <RevealItem
-              key={row.activity}
-              className="flex items-center justify-between gap-4 border-t border-line py-2.5 first:border-t-0 first:pt-4"
-            >
-              <span className="text-sm text-ink-600">{row.activity}</span>
-              <span className="shrink-0 text-sm font-semibold whitespace-nowrap text-ink-900">
-                {row.time}
-              </span>
-            </RevealItem>
-          ))}
-          <RevealItem className="flex items-center justify-between gap-4 border-t border-line pt-2.5">
-            <span className="text-sm font-semibold text-ink-900">Roughly</span>
-            <span className="shrink-0 text-sm font-semibold whitespace-nowrap text-brand-600">
-              one working day
-            </span>
-          </RevealItem>
-        </RevealGroup>
-        <p className="mx-auto mt-3 max-w-2xl text-center text-xs leading-relaxed text-ink-400">
-          Our estimate, not a measurement. Across 30 to 60 people in a
-          mid-sized plant, that&apos;s a person-year every week. Bring your
-          own numbers to the demo and we&apos;ll do this sum with them.
-        </p>
-
-        <RevealGroup
-          className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2"
-          stagger={0.08}
-        >
-          {BUSINESS_OUTCOMES.map((outcome) => (
-            <RevealItem key={outcome.id}>
-              <div className="h-full rounded-2xl border border-line bg-white p-7">
-                <div className="flex items-center gap-3">
-                  <IconTile icon={outcome.icon} size="sm" />
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide text-brand-500">
-                      {outcome.timeframe}
-                    </p>
-                    <h3 className="text-sm font-semibold text-ink-900">
-                      {outcome.role}
-                    </h3>
-                  </div>
-                </div>
-                <div className="mt-5 flex flex-col gap-3 border-t border-line pt-5">
-                  {outcome.bullets.map((bullet) => (
-                    <p key={bullet.lead} className="text-sm leading-relaxed text-ink-600">
-                      <span className="font-semibold text-ink-900">{bullet.lead}</span>
-                      , {bullet.detail}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            </RevealItem>
-          ))}
-        </RevealGroup>
-      </Container>
+    <section id="business-outcomes" className={styles.section} aria-label="The benefits of a connected system">
+      <ul className={styles.outcomes}>
+        {OUTCOMES.map(outcome => (
+          <li key={outcome.title}>
+            <span className={styles.icon}><outcome.icon size={24} strokeWidth={1.6} aria-hidden="true" /></span>
+            <div><h3>{outcome.title}</h3><p>{outcome.description}</p></div>
+          </li>
+        ))}
+        <li id="included-upgrades" className={styles.includedRelease}>
+          <span className={styles.icon}><Sparkles size={24} strokeWidth={1.6} aria-hidden="true" /></span>
+          <div><h3>Pay once. Grow without upgrading.</h3><p>Get all three products, every new module and every regulatory pack on one subscription. No upgrade fees. No integration project.</p></div>
+        </li>
+      </ul>
     </section>
   );
 }

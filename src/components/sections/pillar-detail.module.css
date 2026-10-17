@@ -1,0 +1,62 @@
+.pillarSection { padding-bottom: 80px; scroll-margin-top: 88px; }
+.pillarSection + .pillarSection { border-top: 1px solid var(--color-line); padding-top: 32px; }
+.introTitle { margin-top: 28px; color: var(--color-ink-900); font-size: 21px; line-height: 1.4; letter-spacing: -.025em; font-weight: 500; }
+.navigation { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.navigation a { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border: 1px solid var(--color-line); border-radius: 999px; color: var(--color-ink-600); font-size: 14px; }
+.navigation a:hover { border-color: var(--color-brand-300); color: var(--color-brand-600); }
+.navigation a:focus-visible { outline: 2px solid var(--color-brand-400); outline-offset: 4px; }
+.intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .85fr); align-items: center; gap: 80px; padding: 48px 0 88px; }
+.introCopy { max-width: 580px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--color-brand-600); font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.intro h2, .sectionHeading h3 { margin-top: 18px; font-size: clamp(28px, 3vw, 38px); line-height: 1.2; letter-spacing: -.04em; font-weight: 500; color: var(--color-ink-900); text-wrap: balance; }
+.introCopy > p { margin-top: 22px; color: var(--color-ink-500); font-size: 15px; line-height: 1.85; }
+.principles { display: grid; gap: 13px; margin-top: 28px; padding-top: 25px; border-top: 1px solid var(--color-line); }
+.principles li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--color-ink-600); }
+.principles svg { color: var(--color-brand-500); flex-shrink: 0; margin-top: 2px; }
+.heroIllustration { width: 100%; max-width: 420px; justify-self: end; }
+.workflowSection { background: var(--color-mist); border-block: 1px solid var(--color-line); padding: 80px 0; }
+.sectionHeading { max-width: 720px; margin: 0 auto 40px; text-align: center; }
+.sectionHeading > p { margin: 20px auto 0; max-width: 620px; color: var(--color-ink-400); font-size: 15px; line-height: 1.8; }
+.workflowDemo { display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); gap: 42px; max-width: 1040px; margin: 0 auto; align-items: center; }
+.workflowRail { position: relative; display: grid; gap: 22px; }
+.workflowRail::before { content: ""; position: absolute; top: 30px; bottom: 30px; left: 36px; width: 1px; background: var(--color-brand-200); }
+.stageButton { display: flex; align-items: center; gap: 14px; position: relative; text-align: left; width: 100%; padding: 20px 17px; background: white; border: 1px solid var(--color-line); border-radius: 10px; cursor: pointer; transition: border-color .2s, box-shadow .2s; }
+.stageButton[aria-pressed="true"] { border-color: var(--color-brand-400); box-shadow: 0 6px 24px #044afe0c; }
+.stageNumber { display: grid; place-items: center; width: 36px; height: 36px; flex-shrink: 0; border-radius: 50%; background: var(--color-brand-50); color: var(--color-brand-600); font-size: 12px; }
+.stageButton[aria-pressed="true"] .stageNumber { background: var(--color-brand-500); color: white; }
+.stageButton strong { display: block; font-size: 14px; color: var(--color-ink-800); font-weight: 500; }
+.stageButton small { display: block; margin-top: 4px; font-size: 10px; color: var(--color-ink-400); }
+.stageButton > svg { margin-left: auto; color: var(--color-brand-400); flex-shrink: 0; }
+.workflowDetail { --status: var(--color-brand-600); --status-bg: var(--color-brand-50); overflow: hidden; min-width: 0; background: white; border: 1px solid var(--color-brand-100); border-radius: 12px; box-shadow: 0 16px 40px #081c6308; }
+.workflowDetail[data-tone="amber"] { --status: #976208; --status-bg: #fff4dc; }
+.workflowDetail[data-tone="green"] { --status: #087f61; --status-bg: #e8f7f1; }
+.recordHeader { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 20px 24px; border-bottom: 1px solid var(--color-line); font-size: 10px; color: var(--color-ink-400); }
+.recordStatus { display: inline-flex; align-items: center; gap: 7px; color: var(--status); background: var(--status-bg); padding: 7px 9px; border-radius: 5px; font-weight: 500; }
+.recordBody { min-height: 335px; padding: 28px 24px; animation: record-arrive .3s ease-out; }
+.recordBody h3 { font-size: 21px; letter-spacing: -.025em; line-height: 1.35; color: var(--color-ink-900); }
+.recordBody > p { margin-top: 14px; font-size: 13px; line-height: 1.8; color: var(--color-ink-500); }
+.records { display: grid; gap: 10px; margin-top: 25px; }
+.records li { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid var(--color-line); border-radius: 5px; background: var(--color-mist); font-size: 11px; color: var(--color-ink-500); }
+.records svg { color: var(--color-brand-500); flex-shrink: 0; }
+.records svg:last-child { margin-left: auto; color: var(--status); }
+.recordFooter { display: flex; justify-content: space-between; padding: 16px 24px; border-top: 1px solid var(--color-line); color: var(--color-ink-400); font-size: 10px; }
+.capabilitySection { padding: 88px 0; }
+.capabilities { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 42px 60px; }
+.capabilities article { padding-bottom: 28px; border-bottom: 1px solid var(--color-line); }
+.miniFlow { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px; min-height: 108px; margin-bottom: 24px; padding: 22px 15px; border: 1px solid var(--color-brand-100); border-radius: 8px; background: radial-gradient(var(--color-brand-100) .7px, transparent .7px) 0 0 / 14px 14px, var(--color-mist); }
+.miniFlow > span { display: flex; align-items: center; gap: 8px; }
+.flowNode { display: inline-flex; align-items: center; min-height: 34px; padding: 8px 10px; border: 1px solid var(--color-brand-100); border-radius: 5px; background: white; color: var(--color-brand-700); font-size: 10px; }
+.miniFlow svg { color: var(--color-brand-400); }
+.capabilityIndex { display: block; font-size: 10px; letter-spacing: .1em; color: var(--color-brand-500); }
+.capabilities h4 { margin-top: 10px; color: var(--color-ink-900); font-size: 21px; line-height: 1.4; letter-spacing: -.025em; font-weight: 500; }
+.capabilities p { margin-top: 14px; color: var(--color-ink-500); font-size: 14px; line-height: 1.8; }
+.connection { display: flex; align-items: flex-start; gap: 24px; padding: 36px; background: var(--color-brand-50); border-radius: 12px; }
+.connection > svg { color: var(--color-brand-500); flex-shrink: 0; }
+.connection h3 { font-size: 24px; line-height: 1.4; letter-spacing: -.03em; font-weight: 500; color: var(--color-ink-900); }
+.connection p { max-width: 920px; margin-top: 16px; color: var(--color-ink-500); font-size: 14px; line-height: 1.8; }
+.connection .note { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--color-brand-200); font-size: 12px; color: var(--color-ink-400); }
+.stageButton:focus-visible { outline: 2px solid var(--color-brand-400); outline-offset: 4px; }
+@keyframes record-arrive { from { opacity: .4; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 1023px) { .intro { gap: 36px; } .workflowDemo { gap: 24px; } .capabilities { gap: 32px; } }
+@media (max-width: 767px) { .intro { grid-template-columns: 1fr; padding: 32px 0 60px; } .heroIllustration { justify-self: center; } .workflowDemo, .capabilities { grid-template-columns: 1fr; } .workflowSection, .capabilitySection { padding: 60px 0; } .workflowRail { gap: 12px; } .stageButton { padding: 12px 15px; } .recordHeader, .recordFooter { padding: 16px; } .recordBody { min-height: 0; padding: 24px 16px; } .connection { padding: 24px 20px; gap: 16px; } .connection > svg { width: 20px; } .connection h3 { font-size: 21px; } }
+@media (prefers-reduced-motion: reduce) { .recordBody { animation: none; } .stageButton { transition: none; } }

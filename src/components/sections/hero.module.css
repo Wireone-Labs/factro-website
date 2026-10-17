@@ -1,0 +1,75 @@
+.content h1 {
+  font-size: clamp(40px, 4.2vw, 66px);
+  font-weight: 600;
+  line-height: 1.07;
+  letter-spacing: -.055em;
+  text-wrap: balance;
+  color: #191c23;
+}
+
+.content > p { font-size: 16px; line-height: 1.8; }
+
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+@media (min-width: 1920px) {
+  .section { padding-top: clamp(176px, 13svh, 208px); padding-bottom: 64px; }
+  .content { max-width: 1120px; }
+  .content h1 { font-size: clamp(68px, 3.7vw, 88px); }
+  .content > p { max-width: 850px; font-size: 21px; }
+}
+
+@media (max-width: 1023px) {
+  .content h1 { font-size: 48px; }
+}
+
+@media (max-width: 639px) {
+  .content h1 { font-size: 42px; }
+  .content > p { font-size: 15px; }
+}
+
+.letter {
+  position: relative;
+  display: inline-block;
+}
+
+.letter::before {
+  content: attr(data-letter);
+  visibility: hidden;
+}
+
+.glyph {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  font-size: 1em;
+  line-height: inherit;
+  transform: translateX(-50%);
+  animation: charge-wave 9s ease-in-out infinite;
+}
+
+@keyframes charge-wave {
+  0%, 7%, 100% {
+    font-size: 1em;
+    font-weight: 600;
+    transform: translateX(-50%);
+  }
+  3% {
+    font-size: 1.16em;
+    font-weight: 700;
+    transform: translateX(-50%) scaleX(.9);
+  }
+  5% {
+    font-size: .98em;
+    font-weight: 600;
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glyph {
+    animation: none;
+  }
+}

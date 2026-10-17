@@ -1,114 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Calculator } from "lucide-react";
+import { History, ListChecks, Search, Users } from "lucide-react";
 import { Container } from "@/components/ui/container";
-import { SectionHeading } from "@/components/ui/section-heading";
-import { RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { ROI_CATEGORIES, MINUTES_PER_ITEM } from "@/data/roi-checklist";
-import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
+import { MarketingHeading } from "./marketing-ui";
+import shared from "./marketing-page.module.css";
+import styles from "./demo-page.module.css";
 
-function formatHours(minutes: number) {
-  if (minutes === 0) return "0 hrs";
-  const hours = Math.floor(minutes / 60);
-  const mins = minutes % 60;
-  if (hours === 0) return `${mins} min`;
-  if (mins === 0) return `${hours} hr${hours > 1 ? "s" : ""}`;
-  return `${hours} hr${hours > 1 ? "s" : ""} ${mins} min`;
-}
+const ICONS = [Search,Users,History,ListChecks];
 
 export function DemoChecklist() {
-  const [checked, setChecked] = useState<Set<string>>(new Set());
-
-  const toggle = (id: string) => {
-    if (checked.size === 0) trackEvent("demo_checklist_start");
-    setChecked((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-      } else {
-        next.add(id);
-      }
-      return next;
-    });
-  };
-
-  const minutes = checked.size * MINUTES_PER_ITEM;
-
-  return (
-    <section className="py-16 sm:py-20">
-      <Container>
-        <SectionHeading
-          eyebrow="Before you come"
-          title="Tick what you recognise"
-          description="Each item checked adds roughly 24 minutes a week, per person. We'll do this sum with your own numbers when we meet."
-        />
-
-        <RevealGroup
-          className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
-          stagger={0.08}
-        >
-          {ROI_CATEGORIES.map((category) => (
-            <RevealItem key={category.id}>
-              <div className="h-full rounded-2xl border border-line bg-white p-4">
-                <h3 className="text-xs font-semibold uppercase tracking-wide text-ink-400">
-                  {category.label}
-                </h3>
-                <div className="mt-2.5 flex flex-col gap-1.5">
-                  {category.items.map((item) => {
-                    const id = `${category.id}:${item.text}`;
-                    const active = checked.has(id);
-                    return (
-                      <button
-                        key={id}
-                        type="button"
-                        onClick={() => toggle(id)}
-                        aria-pressed={active}
-                        className={cn(
-                          "flex items-start gap-2.5 rounded-lg border px-2.5 py-2 text-left text-xs leading-snug transition-colors",
-                          active
-                            ? "border-brand-300 bg-brand-50/60 text-ink-900"
-                            : "border-line bg-white text-ink-600 hover:border-ink-300",
-                        )}
-                      >
-                        <span
-                          className={cn(
-                            "mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-md border transition-colors",
-                            active
-                              ? "border-brand-500 bg-brand-500 text-white"
-                              : "border-ink-200 bg-white",
-                          )}
-                        >
-                          {active && <Check className="h-2.5 w-2.5" strokeWidth={3} />}
-                        </span>
-                        {item.text}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            </RevealItem>
-          ))}
-        </RevealGroup>
-
-        <RevealItem>
-          <div className="mx-auto mt-8 flex max-w-md items-center justify-center gap-3 rounded-2xl border border-brand-100 bg-brand-50/60 px-6 py-4 text-center">
-            <Calculator className="h-4 w-4 shrink-0 text-brand-600" />
-            <p className="text-sm text-ink-700">
-              <span className="font-semibold">Your estimate:</span>{" "}
-              <span className="font-semibold text-brand-700">
-                {formatHours(minutes)}
-              </span>{" "}
-              / week, per person
-            </p>
-          </div>
-        </RevealItem>
-        <p className="mx-auto mt-3 max-w-md text-center text-xs leading-relaxed text-ink-400">
-          Across 30 to 60 people in a mid-sized plant, that&apos;s a
-          person-year every week.
-        </p>
-      </Container>
-    </section>
-  );
+  const [checked,setChecked] = useState<Set<string>>(new Set());
+  const hours = checked.size * MINUTES_PER_ITEM / 60;
+  return <section className={`${shared.section} ${shared.muted}`}><Container><MarketingHeading eyebrow="Before you come" title="Tick what sounds familiar." muted="We will price the time it costs." description="Each statement is a small, weekly cost that rarely shows up in a report." /><div className={styles.checklistLayout}><div className={styles.checklistCards}>{ROI_CATEGORIES.map((category,index) => { const Icon = ICONS[index]; return <fieldset className={styles.checklistCard} key={category.id}><legend className="sr-only">{category.label}</legend><h3 aria-hidden="true"><Icon size={16} />{category.label}</h3>{category.items.map((item,itemIndex) => { const identity = `${category.id}-${itemIndex}`; return <label key={identity}><input type="checkbox" checked={checked.has(identity)} onChange={() => { if (!checked.size) trackEvent("demo_checklist_start"); setChecked(previous => { const next = new Set(previous); if (next.has(identity)) next.delete(identity); else next.add(identity); return next; }); }} /><span>{item.text}</span></label>; })}</fieldset>; })}</div><aside className={styles.estimate} aria-live="polite" aria-atomic="true"><p>YOUR ESTIMATE</p><div className={styles.value}><strong>{hours.toFixed(1)}</strong><span>hours</span></div><p>per person, every week</p><p>{checked.size} {checked.size === 1 ? "item" : "items"} ticked. Each one costs about 24 minutes a week per person.</p><p>Across 30 to 60 people, that adds up to {(hours * 30).toFixed(0)}–{(hours * 60).toFixed(0)} team hours every week.</p><p className={styles.estimateNote}>Bring this to the demo. We will work it out with your numbers.</p></aside></div></Container></section>;
 }

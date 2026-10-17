@@ -1,0 +1,19 @@
+.art { display: block; width: 100%; height: auto; color: var(--accent); overflow: visible; }
+.art[data-running="false"] * { animation-play-state: paused !important; }
+.scan { animation: scan 3.5s ease-in-out infinite; }
+.temperature { transform-origin: 30px 82px; animation: temperature 4s ease-in-out infinite; }
+.pestle { animation: grind 3s ease-in-out infinite; }
+.spectrum { stroke-dasharray: 1; animation: spectrum 4s ease-in-out infinite; }
+.drop { animation: drop 3.5s ease-in infinite; }
+.trace { animation: trace 3s linear infinite; }
+.molecule { transform-box: fill-box; transform-origin: center; animation: molecule 5s ease-in-out infinite; }
+.cable { animation: cable 4s ease-in-out infinite; }
+@keyframes scan { 0%,100% { transform: translateY(0); opacity: .2; } 50% { transform: translateY(12px); opacity: .8; } }
+@keyframes temperature { 0%,100% { transform: scaleY(.7); } 50% { transform: scaleY(1); } }
+@keyframes grind { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-5px,7px); } }
+@keyframes spectrum { 0% { stroke-dashoffset: 1; } 60%,100% { stroke-dashoffset: 0; } }
+@keyframes drop { 0%,20%,100% { transform: translateY(0); opacity: 0; } 35% { opacity: .8; } 75% { transform: translateY(26px); opacity: 0; } }
+@keyframes trace { to { stroke-dashoffset: -32; } }
+@keyframes molecule { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+@keyframes cable { 0%,100% { opacity: .5; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .art * { animation: none !important; } }

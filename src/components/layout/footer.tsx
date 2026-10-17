@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { Mail, Phone } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import {
-  SIGN_IN_URL,
   BOOK_DEMO_HREF,
   SALES_MAILTO,
   SALES_EMAIL,
@@ -13,31 +14,25 @@ import {
   SALES_PHONE_HREF,
 } from "@/data/nav";
 import { trackEvent } from "@/lib/analytics";
+import styles from "./footer.module.css";
 
 const FOOTER_COLUMNS = [
   {
-    heading: "Modules",
+    heading: "Products",
     links: [
-      { label: "Sales", href: "/modules?tab=sales" },
-      { label: "Purchase", href: "/modules?tab=purchase" },
-      { label: "Inventory", href: "/modules?tab=inventory" },
-      { label: "Facility", href: "/modules?tab=facility" },
-      { label: "Production", href: "/modules?tab=production" },
-      { label: "Quality", href: "/modules?tab=quality" },
-      { label: "CAPA", href: "/modules?tab=capa" },
-      { label: "Documents", href: "/modules?tab=documents" },
-      { label: "Training", href: "/modules?tab=training" },
-      { label: "Library", href: "/modules?tab=library" },
+      { label: "ERP", href: "/erp" },
+      { label: "MES", href: "/mes" },
+      { label: "QMS", href: "/qms" },
+      { label: "All-in-One Suite", href: "/one" },
+      { label: "Pillars", href: "/how-it-works" },
     ],
   },
   {
     heading: "Company",
     links: [
       { label: "Industries", href: "/industries" },
-      { label: "Infrastructure & Security", href: "/infrastructure-security" },
       { label: "About us", href: "/about" },
       { label: "Book a demo", href: BOOK_DEMO_HREF },
-      { label: "Sign in", href: SIGN_IN_URL },
     ],
   },
   {
@@ -45,14 +40,22 @@ const FOOTER_COLUMNS = [
     links: [
       { label: "Privacy policy", href: "/privacy" },
       { label: "Terms of service", href: "/terms" },
-      { label: "Contact sales", href: SALES_MAILTO },
+      { label: "Security & Trust", href: "/security-trust" },
     ],
   },
 ];
 
 export function Footer() {
+  const footerRef = useRef<HTMLElement>(null);
+  const reducedMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: footerRef, offset: ["start end", "end end"] });
+  const contentY = useTransform(scrollYProgress, [0, 1], [-56, 0]);
+  const glowY = useTransform(scrollYProgress, [0, 1], [-120, 0]);
+
   return (
-    <footer className="border-t border-line bg-white">
+    <footer ref={footerRef} className={styles.footer}>
+      <motion.div aria-hidden="true" className={styles.glow} style={{ y: reducedMotion ? 0 : glowY }} />
+      <motion.div className={styles.content} style={{ y: reducedMotion ? 0 : contentY }}>
       <Container className="py-16">
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-5">
           <div className="col-span-2 flex flex-col gap-4">
@@ -62,17 +65,17 @@ export function Footer() {
                 alt="Factro"
                 width={883}
                 height={243}
-                className="h-7 w-auto"
+                className={`h-7 w-auto ${styles.logo}`}
               />
             </Link>
-            <p className="max-w-xs text-sm leading-relaxed text-ink-500">
+            <p className="max-w-xs text-sm leading-relaxed text-slate-300">
               AI-first. Compliance-native. Process-driven.
             </p>
             <div className="flex flex-col gap-2">
               <a
                 href={SALES_MAILTO}
                 onClick={() => trackEvent("contact_click", { location: "footer" })}
-                className="inline-flex w-fit items-center gap-2 text-sm font-medium text-ink-700 transition-colors hover:text-brand-600"
+                className="inline-flex w-fit items-center gap-2 text-sm font-medium text-slate-200 transition-colors hover:text-brand-300"
               >
                 <Mail className="h-4 w-4" />
                 {SALES_EMAIL}
@@ -80,7 +83,7 @@ export function Footer() {
               <a
                 href={SALES_PHONE_HREF}
                 onClick={() => trackEvent("phone_click", { location: "footer" })}
-                className="inline-flex w-fit items-center gap-2 text-sm font-medium text-ink-700 transition-colors hover:text-brand-600"
+                className="inline-flex w-fit items-center gap-2 text-sm font-medium text-slate-200 transition-colors hover:text-brand-300"
               >
                 <Phone className="h-4 w-4" />
                 {SALES_PHONE}
@@ -90,18 +93,16 @@ export function Footer() {
 
           {FOOTER_COLUMNS.map((col) => (
             <div key={col.heading} className="flex flex-col gap-3">
-              <h3 className="text-sm font-semibold text-ink-900">
+              <h3 className="text-sm font-semibold text-white">
                 {col.heading}
               </h3>
               <ul className="flex flex-col gap-2.5">
                 {col.links.map((link) => {
                   const className =
-                    "text-sm text-ink-500 transition-colors hover:text-ink-900";
+                    "text-sm text-slate-300 transition-colors hover:text-white";
                   const onClick = link.href.startsWith("mailto:")
                     ? () => trackEvent("contact_click", { location: "footer" })
-                    : link.href === SIGN_IN_URL
-                      ? () => trackEvent("sign_in_click", { location: "footer" })
-                      : link.href === BOOK_DEMO_HREF
+                    : link.href === BOOK_DEMO_HREF
                         ? () => trackEvent("book_demo_click", { location: "footer" })
                         : undefined;
                   return (
@@ -123,16 +124,21 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-ink-400">
+        <div className="mt-14 flex flex-col gap-4 border-t border-white/15 pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs text-slate-400">
             © {new Date().getFullYear()} Factro, by Wireone Labs. All rights
             reserved.
           </p>
-          <p className="text-xs text-ink-400">
+          <p className="text-xs text-slate-400">
             Built for regulated manufacturing teams.
           </p>
         </div>
+        <p className={styles.complianceNote}>
+          Supported frameworks, not product certifications. Compliance depends on
+          applicable requirements, configuration, validation and operating procedures.
+        </p>
       </Container>
+      </motion.div>
     </footer>
   );
 }

@@ -1,68 +1,53 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/container";
-import { Button } from "@/components/ui/button";
 import { HeroMesh } from "@/components/sections/hero-mesh";
-import { BOOK_DEMO_HREF } from "@/data/nav";
+import { HeroEventFlow } from "@/components/sections/hero-event-flow";
+import styles from "./hero.module.css";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pt-32 pb-24 sm:pt-40 sm:pb-40">
+    <section data-home-hero className={`relative overflow-hidden pt-32 pb-8 sm:pt-40 sm:pb-12 ${styles.section}`}>
       {/* Background decoration */}
       <div className="bg-dot-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black,transparent)]" />
       <HeroMesh />
 
       <Container className="relative z-10">
-        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+        <div className={`mx-auto flex max-w-3xl flex-col items-center text-center ${styles.content}`}>
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="text-balance text-4xl font-semibold tracking-tight text-ink-900 sm:text-5xl lg:text-6xl lg:leading-[1.08]"
+            className="text-ink-900"
           >
-            Experience the future of manufacturing.
+            <span className="block">
+              <strong className="font-semibold">
+                <span className="sr-only">Supercharge</span>
+                <span aria-hidden="true" className={styles.word}>
+                  {Array.from("Supercharge").map((letter, index) => (
+                    <span key={index} className={styles.letter} data-letter={letter}>
+                      <span className={styles.glyph} style={{ animationDelay: `${0.8 + index * 0.045}s` }}>{letter}</span>
+                    </span>
+                  ))}
+                </span>
+              </strong>{" "}your
+            </span>{" "}
+            <span className="block">manufacturing operations</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            className="text-balance mt-6 max-w-2xl text-base leading-relaxed text-ink-500 sm:text-lg"
+            className="text-balance mt-6 max-w-2xl text-ink-500"
           >
-            Plan, execute and optimise end-to-end operations. Deliver On
-            Time In Full with AI-driven production and quality intelligence.
+            Plan, execute and optimise end-to-end operations with AI-driven production and quality intelligence.
           </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-9 flex items-center"
-          >
-            <Button
-              href={BOOK_DEMO_HREF}
-              size="lg"
-              className="group"
-              event="book_demo_click"
-              eventParams={{ location: "hero" }}
-            >
-              Book a demo
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </Button>
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.32 }}
-            className="mt-6 text-xs font-medium text-ink-400"
-          >
-            In pilot with regulated manufacturers in India
-          </motion.p>
         </div>
       </Container>
+      <HeroEventFlow />
     </section>
   );
 }

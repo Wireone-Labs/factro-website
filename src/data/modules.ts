@@ -413,9 +413,11 @@ export const CORE_MODULES: CoreModule[] = [
     narrative: [
       "CAPA fails in the same place everywhere. Actions get assigned, someone marks them done, and nobody checks whether the problem stopped happening. The effectiveness criteria are written at closure to match whatever was achieved.",
       "Here the criteria are set when the action is approved, before anyone knows the outcome. Closure is blocked until the review passes. Complaints, deviations and audit findings all feed the same pipeline, so a recurring issue is visible as a pattern rather than as five unrelated records.",
+      "AI agents are built into the CAPA module. They surface gaps, connect findings to source records and help investigate recurring issues. Your team reviews the evidence and owns the decisions, approvals and closure.",
     ],
     capabilities: [
       "Deviation records routed directly into CAPA",
+      "Built-in AI agents for evidence-backed gap detection and investigation",
       "Actions logged, approved and monitored through to closure",
       "Linked to deviations, audits and non-conformance records",
       "Continuous-improvement tracking with accountable ownership",

@@ -1,0 +1,175 @@
+.illustration { --scene-width: min(calc(100vw - 64px), 1160px); --conveyor-duration: 44s; --event-duration: 4s; position: relative; z-index: 2; height: calc(var(--scene-width) * .5); margin-top: -68px; pointer-events: none; }
+.scene { position: absolute; width: var(--scene-width); max-width: none; left: 50%; bottom: 0; transform: translateX(-50%); height: auto; overflow: visible; }
+.backendSpine { fill: none; stroke: #bdcddd; stroke-width: 1; stroke-dasharray: 3 6; opacity: .5; }
+.stackClock { opacity: 0; animation: cycle-clock 4.5s linear infinite; }
+.backendLayer { --layer-stroke: #738897; transform: translateY(var(--stack-offset)); transition: transform 1s cubic-bezier(.22, 1, .36, 1); }
+.backendLayer[data-active="true"] { --layer-stroke: var(--layer-color); }
+.layerSurface { fill: #fff; stroke: var(--layer-stroke); stroke-opacity: .75; stroke-width: 1; vector-effect: non-scaling-stroke; transition: fill .6s, stroke-opacity .6s; }
+.layerEdge { fill: #dce8ef; stroke: var(--layer-stroke); stroke-opacity: .8; stroke-width: 1; vector-effect: non-scaling-stroke; transition: fill .6s; }
+.backendLayer[data-active="true"] .layerSurface { fill: var(--layer-soft); stroke-opacity: 1; }
+.backendLayer[data-active="true"] .layerEdge { fill: color-mix(in srgb, var(--layer-color) 25%, white); }
+.layerSeams { fill: none; stroke: var(--layer-stroke); stroke-opacity: .8; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.layerFastener { fill: white; stroke: var(--layer-stroke); stroke-opacity: .8; stroke-width: 1; }
+.layerCore, .layerCaption { visibility: hidden; }
+.backendLayer[data-active="true"] .layerCore, .backendLayer[data-active="true"] .layerCaption { visibility: visible; animation: artifact-reveal .5s .65s both; }
+.layerCaption path { fill: none; stroke: var(--layer-color); stroke-width: 1; stroke-opacity: .5; }
+.layerCaption text { fill: var(--layer-color); font-family: inherit; font-size: 30px; font-weight: 500; }
+.coreSurface { fill: var(--layer-color); stroke: color-mix(in srgb, var(--layer-color) 80%, white); stroke-width: 1; }
+.coreEdge { fill: color-mix(in srgb, var(--layer-color) 75%, #17213b); }
+.coreSeams { fill: none; stroke: white; stroke-opacity: .4; stroke-width: 1; }
+.backendSignal { opacity: 0; offset-rotate: 0deg; animation: backend-signal var(--event-duration) linear infinite; }
+@keyframes backend-signal { 0% { offset-distance: 0%; opacity: 0; } 10% { opacity: 1; } 85% { offset-distance: 100%; opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+@keyframes artifact-reveal { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .backendLayer, .layerSurface, .layerEdge { transition: none; } }
+.linearFactory { display: none; }
+.linearBelt { position: absolute; top: 334px; left: 0; right: 0; height: 17px; border-top: 2px solid #a9c2d0; border-bottom: 3px solid #a9c2d0; background: repeating-linear-gradient(90deg, #ecf3f7 0 13px, #cbdce5 13px 15px); box-shadow: 0 5px 0 #e9f1f6; }
+.linearViewport { position: absolute; inset: 186px 0 auto; height: 230px; overflow: hidden; }
+.linearModules { display: block; width: 1800px; max-width: none; overflow: visible; animation: modules-pass 72s linear infinite; }
+.linearModules text { stroke: none; }
+.linearViewport:focus-visible { outline: 2px solid #548aee; outline-offset: -2px; }
+.linearArm { transform-origin: 0 -19px; animation: arm-work 4s ease-in-out infinite alternate; }
+.linearNucleus { position: absolute; top: 85px; left: calc(50% - 4.5px); display: flex; align-items: center; gap: 9px; color: #a877a0; font-size: 9px; }
+.linearNucleus span { width: 9px; height: 9px; border-radius: 50%; background: #d841b5; box-shadow: 0 0 10px 5px #e34abd55, 0 0 27px 11px #e34abd22; animation: nucleus-pulse 5s ease-in-out infinite; }
+.label { font-size: 12px; font-weight: 500; fill: #657b8c; }
+.moduleIndicator { fill: #d5e0e8; }
+.label[data-active="true"] { fill: #315fa8; }
+.label[data-active="true"] .moduleIndicator { fill: #548aee; animation: indicator-glow 1.5s ease-in-out infinite; }
+.cycleClock { position: absolute; width: 1px; height: 1px; opacity: 0; animation: cycle-clock var(--event-duration) linear infinite; }
+.neuralWeb { opacity: .9; }
+.neuralWeb .engineLabel { font-size: 10px; opacity: .55; }
+.meshEdges { fill: none; stroke: #85aec4; stroke-width: .65; opacity: .16; }
+.meshNode { fill: #6daebc; opacity: .3; animation: mesh-shimmer 6s ease-in-out infinite; }
+.nucleusPulse { animation: nucleus-pulse 5s ease-in-out infinite; }
+.belt { animation: belt 8s linear infinite; }
+.parcel { offset-rotate: 0deg; animation: parcel var(--conveyor-duration) linear infinite; animation-delay: var(--parcel-delay); }
+.filePayload { animation: file-state var(--conveyor-duration) steps(1, end) infinite; animation-delay: var(--parcel-delay); }
+.boxPayload { opacity: 0; animation: box-state var(--conveyor-duration) steps(1, end) infinite; animation-delay: var(--parcel-delay); }
+.finishedPayload { opacity: 0; animation: finished-state var(--conveyor-duration) linear infinite; animation-delay: var(--parcel-delay); }
+.grinderRoller { animation: rotate 2.6s linear infinite; }
+.grinderFeed { animation: grinder-feed 1.2s linear infinite; }
+.packagingReel { animation: rotate 3s linear infinite; }
+.packagingPress { animation: packaging-press 2.8s ease-in-out infinite; }
+.weldLaser { opacity: 0; }
+[data-welding="true"] .weldLaser { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .weldLaser { display: none; } }
+.contactLight { opacity: .2; }
+.robot[data-contact="true"] .contactLight { opacity: 1; filter: drop-shadow(0 0 3px #43ba9f); }
+.paintSpray { opacity: 0; }
+.robot[data-contact="true"] .paintSpray { opacity: 1; }
+.paintDroplets { animation: paint-flow .65s linear infinite; }
+@keyframes paint-flow { from { transform: translateY(0); opacity: .9; } to { transform: translateY(4px); opacity: .3; } }
+.order { animation: order 5s ease-in-out infinite; }
+.schedule, .beacon { animation: signal 3s ease-in-out infinite; }
+.scan { animation: scan 3s ease-in-out infinite; }
+.engineLabel { fill: #486278; font-size: 12px; font-weight: 600; }
+.complianceCore .engineLabel { font-size: 16px; }
+.complianceCore .checkingCaption, .complianceCore .passedCaption { font-size: 12px; }
+.complianceLitRoute { fill: none; stroke: #51ad95; stroke-width: 1.3; opacity: .6; }
+.gatePacket { fill: #43a88d; offset-rotate: 0deg; animation: gate-return 4s ease-in-out infinite; }
+.complianceCheck { animation: compliance-check var(--event-duration) ease-in-out infinite; }
+.complianceToast { filter: drop-shadow(0 5px 8px #26334426); animation: compliance-toast 4s ease-in-out infinite; }
+.toastTitle { font-size: 17px; font-weight: 500; fill: #fff; }
+.checkingCaption, .passedCaption { font-size: 12px; fill: #e3e8ec; }
+.checkingCaption { animation: checking-caption 4s linear infinite; }
+.passedCaption { opacity: 0; fill: #d5f2e3; animation: passed-caption 4s linear infinite; }
+.labBubble { animation: lab-bubble 2.8s ease-out infinite; }
+.mailClock { opacity: 0; animation: cycle-clock 10s linear infinite; }
+.handoffRoute { fill: none; stroke: #a5c0ec; stroke-width: 1; stroke-dasharray: 3 6; opacity: 0; animation: mail-route 4s ease-in-out both; }
+.handoffMessage { offset-rotate: auto; opacity: 0; filter: drop-shadow(0 2px 3px #527fc72e); animation: handoff 4s ease-in-out both; }
+.paperPlane { transform: scale(.72); }
+.approvalNotice { opacity: 0; animation: approval-notice 5s ease-in-out infinite; }
+.planBar { animation: plan-build 4s ease-in-out infinite; }
+.planCursor { animation: plan-scan 4s ease-in-out infinite; }
+.stockArrival { animation: stock-arrival 4s ease-in-out infinite; }
+.stockTransfer { animation: stock-transfer 4s ease-in-out infinite; }
+.inventoryLevel { transform-origin: 0 -26px; animation: inventory-level 8s ease-in-out infinite; }
+@keyframes inventory-level { 0%, 100% { transform: scaleY(.75); } 50% { transform: scaleY(1.15); } }
+.qualityPass { animation: quality-pass 4s linear infinite; }
+.qualityFail { opacity: 0; animation: quality-fail 4s linear infinite; }
+[data-machine="incoming-quality"] .qualityPass, [data-machine="incoming-quality"] .qualityFail, [data-machine="incoming-quality"] .scan { animation-delay: -2s; }
+.mixerBlades { animation: rotate 1.8s linear infinite; }
+.wheelSpokes { animation: rotate 1.2s linear infinite; }
+.wiper { transform-origin: 0 0; animation: wiper 1.8s ease-in-out infinite alternate; }
+.exhaust { opacity: 0; animation: exhaust 1.8s ease-out infinite; }
+.creditPosted { animation: credit-posted 4s ease-in-out infinite; }
+.cashCredit { opacity: 0; animation: cash-credit 4s ease-in-out infinite; }
+@keyframes cycle-clock { from { transform: translateX(0); } to { transform: translateX(1px); } }
+@keyframes compliance-toast { 0%, 100% { opacity: 0; transform: translateY(6px); } 14%, 88% { opacity: 1; transform: translateY(0); } }
+@keyframes mesh-shimmer { 0%, 100% { opacity: .18; } 50% { opacity: .38; } }
+@keyframes lab-bubble { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: .85; } 100% { transform: translateY(-15px); opacity: 0; } }
+@keyframes modules-pass { from { transform: translateX(0); } to { transform: translateX(-1800px); } }
+@keyframes arm-work { from { transform: rotate(-8deg); } to { transform: rotate(12deg); } }
+@keyframes nucleus-pulse { 0%, 100% { transform: scale(.9); opacity: .85; } 50% { transform: scale(1.12); opacity: 1; } }
+@keyframes indicator-glow { 0%, 100% { filter: drop-shadow(0 0 2px #548aee55); } 50% { filter: drop-shadow(0 0 7px #548aeebb); } }
+@keyframes approval-notice { 0%, 12% { opacity: 0; transform: translateY(-6px); } 25%, 80% { opacity: 1; transform: translateY(0); } 95%, 100% { opacity: 0; transform: translateY(-6px); } }
+@keyframes grinder-feed { 0% { transform: translateY(-9px); opacity: 0; } 25% { opacity: 1; } 100% { transform: translateY(19px); opacity: 0; } }
+@keyframes packaging-press { 0%, 100% { transform: translateY(0); } 40%, 60% { transform: translateY(14px); } }
+@keyframes file-state { 0%, 21.999% { opacity: 1; } 22%, 100% { opacity: 0; } }
+@keyframes box-state { 0%, 21.999% { opacity: 0; } 22%, 62.999% { opacity: 1; } 63%, 100% { opacity: 0; } }
+@keyframes finished-state { 0%, 62.999% { opacity: 0; transform: scale(.5); } 63% { opacity: 1; transform: scale(.5); } 64.5% { opacity: 1; transform: scale(1.08); } 65.5%, 100% { opacity: 1; transform: scale(1); } }
+@keyframes compliance-check { 0%, 40% { stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0; } 41% { opacity: 1; } 52%, 93% { stroke-dasharray: 1; stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dasharray: 1; stroke-dashoffset: 0; opacity: 0; } }
+@keyframes checking-caption { 0%, 30% { opacity: 1; } 40%, 100% { opacity: 0; } }
+@keyframes passed-caption { 0%, 35% { opacity: 0; } 45%, 95% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes gate-return { 0%, 35% { offset-distance: 100%; opacity: 0; } 40% { opacity: 1; } 60% { offset-distance: 0%; opacity: 1; } 70%, 100% { offset-distance: 0%; opacity: 0; } }
+@keyframes handoff {
+  0% { offset-distance: 0%; opacity: 0; }
+  8% { offset-distance: 0%; opacity: 1; }
+  92% { offset-distance: 100%; opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+@keyframes mail-route { 0%, 100% { opacity: 0; } 8%, 92% { opacity: .45; } }
+@keyframes plan-build { 0%, 10% { transform: scaleX(.1); } 65%, 90% { transform: scaleX(1); } 100% { transform: scaleX(.1); } }
+@keyframes plan-scan { 0%, 10% { transform: translateX(0); opacity: 0; } 20% { opacity: 1; } 85% { transform: translateX(54px); opacity: 1; } 100% { transform: translateX(54px); opacity: 0; } }
+@keyframes stock-arrival { 0% { transform: translate(-35px, -17px); opacity: 0; } 20%, 50% { transform: translate(0, 0); opacity: 1; } 75%, 100% { transform: translate(22px, -30px); opacity: 0; } }
+@keyframes stock-transfer { 0%, 45% { transform: translate(0, 0); opacity: 1; } 85%, 100% { transform: translate(35px, 35px); opacity: 0; } }
+@keyframes quality-pass { 0%, 30% { opacity: 0; } 40%, 100% { opacity: 1; } }
+@keyframes quality-fail { 0%, 30% { opacity: 1; } 40%, 100% { opacity: 0; } }
+@keyframes rotate { to { transform: rotate(360deg); } }
+@keyframes wiper { from { transform: rotate(-32deg); } to { transform: rotate(25deg); } }
+@keyframes exhaust { 0% { transform: translate(0, 0) scale(.4); opacity: .35; } 100% { transform: translate(-42px, -22px) scale(2.2); opacity: 0; } }
+@keyframes credit-posted { 0%, 35% { opacity: .2; } 50%, 90% { opacity: 1; } 100% { opacity: .2; } }
+@keyframes cash-credit { 0% { transform: translateY(-16px); opacity: 0; } 15%, 35% { opacity: 1; } 55%, 100% { transform: translateY(45px); opacity: 0; } }
+@keyframes belt { to { stroke-dashoffset: -100; } }
+@keyframes parcel {
+  0% { offset-distance: 0%; opacity: 0; }
+  3% { opacity: 1; }
+  96% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+@keyframes order { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes signal { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
+@keyframes scan { 0%, 100% { transform: translateY(0); opacity: .1; } 50% { transform: translateY(27px); opacity: .35; } }
+@media (min-width: 1536px) {
+  .illustration { --scene-width: min(calc(100vw - 112px), 1280px); }
+}
+@media (min-width: 1920px) {
+  .illustration { --scene-width: min(calc(100vw - 192px), max(1280px, 118svh), 1600px); margin-top: -96px; }
+}
+.neuralGlow { opacity: .2; filter: blur(8px); animation: neural-glow 3s ease-in-out infinite; }
+.neuralRing { transform-box: fill-box; transform-origin: center; animation: neural-ring 3s ease-out infinite; }
+@keyframes neural-glow { 50% { opacity: .55; } }
+@keyframes neural-ring { 0% { transform: scale(.7); opacity: .65; } 100% { transform: scale(1.8); opacity: 0; } }
+@media (max-width: 1279px) {
+  .illustration { --scene-width: calc(100vw - 32px); }
+  .label { font-size: 14px; }
+}
+@media (max-width: 767px) {
+  .illustration { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .illustration * { animation: none !important; }
+  .filePayload, .boxPayload, .finishedPayload { opacity: 0; }
+  .parcel[data-rest-phase="file"] .filePayload, .parcel[data-rest-phase="box"] .boxPayload, .parcel[data-rest-phase="finished"] .finishedPayload { opacity: 1; }
+  .grinderFeed { opacity: 0; }
+  .approvalNotice { opacity: 1; }
+  .qualityPass, .creditPosted { opacity: 1; }
+  .qualityFail { opacity: 0; }
+  .checkingCaption, .gatePacket { opacity: 0; }
+  .passedCaption { opacity: 1; }
+  .handoffMessage { opacity: 0; }
+  .engineEventIn, .engineEventOut { opacity: 0; }
+}
+@media (max-width: 1279px) and (prefers-reduced-motion: reduce) {
+  .linearViewport { overflow-x: auto; pointer-events: auto; }
+  .linearRepeat { display: none; }
+}

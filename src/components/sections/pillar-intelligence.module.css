@@ -1,0 +1,146 @@
+.demo { position: absolute; inset: 20px 0; min-width: 0; }
+.intro, .promptScene, .thinking { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; }
+.introOrb { display: block; width: 300px; height: 300px; max-width: 75cqw; max-height: 75cqw; }
+.intro h4, .thinking h4 { margin-top: 12px; color: var(--color-ink-800); font-size: clamp(18px, 3cqw, 24px); font-weight: 500; letter-spacing: -.025em; }
+.intro > p, .promptScene > p { margin-top: 10px; color: var(--color-ink-400); font-size: 13px; }
+.promptScene { gap: 16px; padding-inline: 20px; }
+.promptLabel { display: inline-flex; align-items: center; gap: 7px; color: var(--color-brand-600); font-size: 12px; font-weight: 500; }
+.promptScene h4 { margin: 0 0 12px; color: var(--color-ink-900); font-size: clamp(24px, 4.6cqw, 34px); font-weight: 500; line-height: 1.2; letter-spacing: -.035em; text-wrap: balance; }
+.promptBox { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 620px; padding: 24px; border: 1px solid #dce2ef; border-radius: 18px; background: white; box-shadow: 0 16px 48px #23478b0a, 0 2px 8px #23478b05; text-align: left; }
+.promptInput { min-height: 3.2em; color: var(--color-ink-800); font-size: clamp(16px, 2.7cqw, 20px); line-height: 1.6; letter-spacing: -.01em; }
+.promptFooter { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--color-ink-400); font-size: 10px; }
+.caret { display: inline-block; width: 2px; height: 1em; margin-left: 2px; background: var(--color-brand-600); vertical-align: -.1em; animation: blink .6s steps(1) infinite; }
+.promptSend { display: grid; place-items: center; flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--color-brand-600); color: white; }
+.thinkingOrb { display: block; width: 190px; height: 190px; flex-shrink: 0; }
+.thinking h4 { margin-top: 0; font-size: 19px; }
+.dots { animation: blink .8s ease-in-out infinite alternate; }
+.references { display: grid; gap: 4px; width: min(100%, 440px); margin-top: 16px; padding-inline: 12px; text-align: left; }
+.reference { display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 10px 12px; border-radius: 8px; transition: opacity .3s, background .3s; }
+.reference[data-state="waiting"] { opacity: .35; }
+.reference[data-state="active"] { background: #f3f0fb; }
+.referenceIcon { color: #697793; }
+.reference[data-state="done"] .referenceIcon { color: #25886c; }
+.reference[data-state="active"] .referenceIcon { color: #805bc0; }
+.reference[data-state="active"] .referenceIcon svg { animation: spin 1.1s linear infinite; }
+.reference > div { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; }
+.reference strong { color: var(--color-ink-700); font-size: 12px; font-weight: 500; }
+.reference > div > span { color: var(--color-ink-400); font-size: 10px; }
+.referenceStatus { color: var(--color-ink-400); font-size: 9px; }
+.answerScene { height: 100%; min-height: 0; }
+.answerViewport { height: 100%; overflow: hidden; overflow-anchor: none; }
+.report { width: 100%; color: var(--color-ink-600); font-size: 12px; line-height: 1.55; }
+.reportSection { margin-top: 24px; }
+.reportSection h5 { margin-bottom: 10px; color: var(--color-ink-900); font-size: 15px; font-weight: 500; line-height: 1.35; }
+.reportSection p + p { margin-top: 10px; }
+.reportTable { width: 100%; margin-top: 14px; table-layout: fixed; border-collapse: collapse; font-size: 10px; line-height: 1.5; }
+.reportTable th, .reportTable td { padding: 9px 7px; border-bottom: 1px solid #e5e9f1; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.reportTable th { background: #f5f7fb; color: var(--color-ink-800); font-weight: 500; }
+.reportChart { margin-top: 16px; padding: 16px; background: #f7f9fc; border-radius: 10px; }
+.reportChart figcaption { display: grid; gap: 5px; margin-bottom: 14px; }
+.reportChart figcaption strong { color: var(--color-ink-800); font-weight: 500; }
+.reportChart figcaption span { color: var(--color-ink-400); font-size: 10px; }
+.chartRow { display: grid; grid-template-columns: 100px 1fr 24px; gap: 8px; align-items: center; margin-top: 10px; font-size: 10px; }
+.chartRow > div { height: 9px; border-radius: 3px; background: #e6ecef; overflow: hidden; }
+.chartRow i { display: block; height: 100%; background: #268c79; border-radius: inherit; }
+.reportChart[data-tone="risk"] .chartRow i { background: #c38a42; }
+.chartRow strong { text-align: right; font-weight: 500; }
+.reportHeader > span { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; color: var(--color-brand-600); font-size: 11px; }
+.reportHeader small { margin-left: auto; color: var(--color-ink-400); font-size: 10px; }
+.reportHeader h4 { margin-top: 12px; color: var(--color-ink-900); font-size: clamp(19px, 3.8cqw, 25px); font-weight: 500; line-height: 1.25; letter-spacing: -.025em; }
+.reportHeader > p { margin-top: 10px; }
+.readiness { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px; margin-top: 16px; }
+.readiness > span { color: var(--color-ink-500); font-size: 11px; }
+.readiness > strong { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 500; }
+.readiness svg { color: #b58538; }
+.scoreTrack { display: grid; gap: 5px; grid-column: 1 / -1; }
+.scoreTrack span { height: 7px; border-radius: 4px; background: #bddfd2; }
+.scoreTrack span + span { background: #e8c799; }
+.reportEnd { display: flex; align-items: flex-start; gap: 10px; margin-top: 16px; padding: 12px; background: #edf8f3; border-radius: 8px; }
+.reportEnd > svg { flex-shrink: 0; margin-top: 2px; color: #25886c; }
+.reportEnd strong { font-size: 12px; font-weight: 500; color: #28634f; }
+.reportEnd p { margin-top: 4px; font-size: 11px; color: #607d71; }
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@container (max-width: 430px) {
+  .promptScene { padding-inline: 0; }
+  .promptBox { padding: 17px; }
+  .references { padding-inline: 0; }
+  .reference { gap: 8px; padding-inline: 8px; }
+  .chartRow { grid-template-columns: 76px 1fr 24px; }
+}
+@media (min-width: 1920px) {
+  .introOrb { width: 340px; height: 340px; }
+  .thinkingOrb { width: 220px; height: 220px; }
+  .report { font-size: 14px; }
+  .reportTable { font-size: 11px; }
+}
+@container (max-height: 520px) {
+  .introOrb { width: 240px; height: 240px; }
+  .thinkingOrb { width: 120px; height: 120px; }
+  .references { margin-top: 12px; gap: 3px; }
+  .reference { min-height: 44px; padding-block: 6px; }
+}
+@container (max-width: 360px) {
+  .demo { inset-block: 8px; }
+  .thinkingOrb { width: 140px; height: 140px; }
+  .reference { min-height: 44px; padding-block: 6px; }
+  .references { margin-top: 12px; }
+  .report { font-size: 12px; }
+  .reportTable { font-size: 9px; }
+  .reportTable th, .reportTable td { padding: 8px 4px; }
+}
+@container (max-height: 440px) {
+  .thinkingOrb { width: 86px; height: 86px; }
+  .thinking h4 { font-size: 16px; }
+  .references { margin-top: 8px; gap: 2px; }
+  .reference { min-height: 38px; padding: 4px; gap: 6px; }
+  .reference strong { font-size: 10px; }
+  .reference > div > span { font-size: 9px; }
+  .referenceStatus { font-size: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .caret, .dots, .referenceIcon svg { animation: none !important; }
+  .reference { transition: none; }
+}
+@container (max-width: 180px) {
+  .intro h4, .thinking h4 { font-size: 12px; }
+  .intro > p { font-size: 8px; }
+  .promptScene { gap: 8px; }
+  .promptLabel { gap: 4px; font-size: 8px; }
+  .promptScene h4 { margin-bottom: 4px; font-size: 15px; }
+  .promptBox { gap: 10px; padding: 8px; border-radius: 10px; }
+  .promptInput { font-size: 10px; }
+  .promptFooter { gap: 4px; font-size: 6px; }
+  .promptSend { width: 20px; height: 20px; }
+  .thinkingOrb { width: 55px; height: 55px; }
+  .reference { min-height: 25px; gap: 4px; padding: 2px; }
+  .reference strong { font-size: 7px; }
+  .reference > div > span, .referenceStatus { font-size: 6px; }
+  .referenceIcon svg { width: 10px; height: 10px; }
+  .report { font-size: 8px; }
+  .reportHeader h4 { font-size: 13px; }
+  .reportHeader > span, .reportHeader small { font-size: 7px; }
+  .reportSection { margin-top: 14px; }
+  .reportSection h5 { font-size: 10px; }
+  .reportTable { font-size: 6px; }
+  .reportChart { padding: 7px; }
+  .reportChart figcaption span, .chartRow { font-size: 6px; }
+  .chartRow { grid-template-columns: 35px 1fr 14px; gap: 3px; }
+  .reportEnd { padding: 7px; gap: 5px; }
+  .reportEnd strong, .reportEnd p { font-size: 8px; }
+}
+@container (max-height: 300px) {
+  .introOrb { max-width: 90px; max-height: 90px; }
+  .intro h4 { font-size: 16px; }
+  .intro > p { font-size: 10px; }
+  .promptScene { gap: 8px; }
+  .promptScene h4 { margin-bottom: 4px; font-size: 20px; }
+  .promptBox { gap: 12px; padding: 12px; }
+  .promptInput { font-size: 14px; }
+  .thinkingOrb { width: 48px; height: 48px; }
+  .thinking h4 { font-size: 14px; }
+  .references { margin-top: 8px; }
+  .reference { min-height: 26px; padding: 2px 4px; }
+  .reference strong { font-size: 9px; }
+  .reference > div > span, .referenceStatus { font-size: 7px; }
+}

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 
-// Sampled from /brand/hero-ribbon.webp, deep blue to pale mint.
 const RIBBON_STOPS: [number, number, number][] = [
   [26, 77, 214],
   [58, 143, 217],
@@ -62,6 +61,17 @@ export function HeroMesh() {
     let rows = MAX_ROWS;
     let points: MeshPoint[] = [];
     let frameId = 0;
+    let previousTime = 0;
+    let visible = true;
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let signals: { from: number; to: number; previous: number; progress: number; speed: number }[] = [];
+
+    function nextNode(current: number, previous: number) {
+      const column = current % cols;
+      const row = Math.floor(current / cols);
+      const neighbours = [column > 0 ? current - 1 : -1, column < cols - 1 ? current + 1 : -1, row > Math.floor(rows * 0.35) ? current - cols : -1, row < rows - 2 ? current + cols : -1].filter(index => index >= 0 && index !== previous);
+      return neighbours[Math.floor(Math.random() * neighbours.length)] ?? previous;
+    }
 
     const buildPoints = () => {
       const gx = width / (cols - 1);
@@ -85,6 +95,10 @@ export function HeroMesh() {
         }
       }
       points = next;
+      signals = Array.from({ length: width < 600 ? 7 : 14 }, () => {
+        const from = Math.floor(cols * (0.3 + Math.random() * 0.6)) + Math.floor(rows * (0.4 + Math.random() * 0.4)) * cols;
+        return { from, to: nextNode(from, -1), previous: -1, progress: Math.random(), speed: 0.12 + Math.random() * 0.1 };
+      });
     };
 
     const resize = () => {
@@ -103,8 +117,11 @@ export function HeroMesh() {
     const idx = (i: number, j: number) => j * cols + i;
 
     const draw = (t: number) => {
+      frameId = 0;
       ctx.clearRect(0, 0, width, height);
-      const time = t * 0.00065;
+      const time = motion.matches ? 0 : t * 0.00065;
+      const elapsed = previousTime ? Math.min((t - previousTime) / 1000, 0.05) : 0;
+      previousTime = t;
 
       const fx = width * 0.78 + Math.sin(time * 1.1) * width * 0.16;
       const fy = height * 0.22 + Math.cos(time * 0.85) * height * 0.18;
@@ -163,16 +180,56 @@ export function HeroMesh() {
         ctx.fill();
       }
 
-      frameId = requestAnimationFrame(draw);
+      if (!motion.matches) {
+        for (const signal of signals) {
+          signal.progress += elapsed * signal.speed;
+          if (signal.progress >= 1) {
+            signal.progress -= 1;
+            signal.previous = signal.from;
+            signal.from = signal.to;
+            signal.to = nextNode(signal.from, signal.previous);
+          }
+          const start = points[signal.from];
+          const end = points[signal.to];
+          const signalX = start.x + (end.x - start.x) * signal.progress;
+          const signalY = start.y + (end.y - start.y) * signal.progress;
+          ctx.beginPath();
+          ctx.moveTo(start.x, start.y);
+          ctx.lineTo(end.x, end.y);
+          ctx.strokeStyle = "rgba(209, 99, 190, 0.14)";
+          ctx.lineWidth = 0.6;
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(signalX, signalY, 1.65, 0, Math.PI * 2);
+          ctx.shadowColor = "#e864cc";
+          ctx.shadowBlur = 7;
+          ctx.fillStyle = "rgba(213, 66, 178, 0.8)";
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+      }
+      if (visible && !document.hidden && !motion.matches) frameId = requestAnimationFrame(draw);
     };
 
+    function sync() {
+      cancelAnimationFrame(frameId);
+      previousTime = 0;
+      if (visible && !document.hidden) frameId = requestAnimationFrame(draw);
+    }
+    const resizeObserver = new ResizeObserver(() => { resize(); sync(); });
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync(); });
     resize();
-    frameId = requestAnimationFrame(draw);
-    window.addEventListener("resize", resize);
+    resizeObserver.observe(canvas);
+    observer.observe(canvas);
+    document.addEventListener("visibilitychange", sync);
+    motion.addEventListener("change", sync);
 
     return () => {
       cancelAnimationFrame(frameId);
-      window.removeEventListener("resize", resize);
+      resizeObserver.disconnect();
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", sync);
+      motion.removeEventListener("change", sync);
     };
   }, []);
 

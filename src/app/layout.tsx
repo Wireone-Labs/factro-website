@@ -8,6 +8,7 @@ import { Footer } from "@/components/layout/footer";
 import { ScrollProgress } from "@/components/layout/scroll-progress";
 import { CookieConsent } from "@/components/layout/cookie-consent";
 import { AnalyticsTracker } from "@/components/analytics/analytics-tracker";
+import { PageReveals } from "@/components/ui/page-reveals";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, SITE_TAGLINE } from "@/lib/site";
 import { SALES_EMAIL, SALES_PHONE } from "@/data/nav";
 
@@ -161,7 +162,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </Suspense>
         <ScrollProgress />
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <PageReveals>{children}</PageReveals>
         <Footer />
         <CookieConsent />
         <Analytics />

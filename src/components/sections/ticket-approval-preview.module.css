@@ -1,0 +1,74 @@
+.header { display: flex; justify-content: space-between; gap: 12px; padding: 1.2em 1.5em; border-bottom: 1px solid #e2e5ed; color: #677186; font-size: .85em; }
+.header span, .identity, .identity > *, .fields dd, .review header, .sectionLabel, .workflow, .workflow > span, .approval header, .approval header > *, .decision, .approval footer > * { display: flex; align-items: center; gap: .65em; }
+.header b { color: #a5adbb; font-weight: 400; }
+.header i { height: 1.4em; border-left: 1px solid #e2e5ed; }
+.header svg, .layout svg { width: 1.15em; height: 1.15em; flex-shrink: 0; }
+.layout { display: grid; grid-template-columns: minmax(0, 3.1fr) minmax(0, 1fr); color: #282d37; }
+.main { min-width: 0; padding: 1.3em 1.7em; }
+.identity { gap: 1em; flex-wrap: wrap; font-size: .75em; color: #8490a4; }
+.identity > span { border: 1px solid #d9deea; border-radius: 4px; padding: .5em; color: #343b49; }
+.identity > strong { margin-left: auto; padding: .7em .8em; border-radius: 5px; color: #523600; background: linear-gradient(#ffdb82, #e5a016); box-shadow: 0 2px 6px #c9942030; font-size: 1.05em; font-weight: 600; }
+.identity small { font-size: inherit; }
+.main h4 { margin: .8em 0; font-size: 1.85em; font-weight: 600; line-height: 1.2; letter-spacing: -.025em; }
+.fields { display: grid; grid-template-columns: auto minmax(0, 1.25fr) auto minmax(0, 1.5fr); gap: .8em; font-size: .83em; line-height: 1.45; }
+.fields dt { color: #8992a4; }
+.fields dd { flex-wrap: wrap; min-width: 0; }
+.status { display: inline-flex; align-items: center; gap: .7em; padding: .45em .7em; color: white; background: #292c32; border-radius: 3px; font-size: .85em; text-transform: uppercase; }
+.avatar { display: inline-grid; place-items: center; flex-shrink: 0; width: 1.9em; height: 1.9em; border-radius: 50%; background: #e9efff; color: #2457cb; font-size: .85em; }
+.review { margin-top: 1.4em; border: 1px solid #e1e5ee; border-radius: 7px; overflow: hidden; }
+.review header { padding: 1em; background: #f7f8fb; border-bottom: 1px solid #e1e5ee; font-size: .9em; }
+.review header > span { margin-left: auto; font-size: .8em; color: #8791a6; }
+.review table, .related { width: 100%; border-collapse: collapse; font-size: .78em; line-height: 1.5; }
+.review th, .related th { color: #8993a6; font-weight: 400; text-align: left; background: #fafbfc; }
+.review td, .review th { padding: .7em; border-bottom: 1px solid #e1e5ee; }
+.review td:nth-child(3) { font-weight: 600; }
+.review td:last-child { color: #9b6614; }
+.context { display: flex; justify-content: space-between; gap: 1em; padding: 1.1em; margin: 1em; border-radius: 5px; background: #f7f8fb; font-size: .75em; color: #8b94a6; }
+.context strong { display: block; color: #3f4755; font-weight: 500; margin-top: .3em; }
+.sectionLabel { margin-top: 1.2em; font-size: .9em; }
+.sectionLabel > span { color: #929aad; font-size: .8em; }
+.sectionLabel > i { width: 30px; height: 3px; background: linear-gradient(90deg, #0f806a 50%, #e4e7ee 50%); }
+.workflow { margin-top: 1em; gap: .6em; font-size: .75em; }
+.workflow > span { padding: .7em; border: 1px solid #e2e6ee; border-radius: 4px; }
+.workflow svg { color: #0f806a; }
+.workflow [data-current] { background: #f0f1f4; border-color: #333740; }
+.related { margin-top: 1em; }
+.related td, .related th { padding: .85em .6em; border-bottom: 1px solid #e1e5ee; }
+.related td:first-child svg { display: inline-block; margin-right: .5em; color: #168477; }
+.related td:nth-child(3) > span { display: inline-block; padding: .35em .6em; background: #e1f5ee; color: #0f806a; border-radius: 3px; white-space: nowrap; }
+.related td:nth-child(3) > span[data-pending] { color: #74746d; background: #f0efea; }
+.approval { display: flex; flex-direction: column; border-left: 1px solid #e5e8ef; background: #f8f9fc; min-width: 0; }
+.approval > header { padding: 1em; border-bottom: 1px solid #e3e6ee; font-size: .75em; }
+.approval > header strong { padding: .5em; background: white; border-radius: 4px; box-shadow: 0 1px 3px #1a244b15; }
+.approval > header > span { color: #8791a6; font-size: .8em; }
+.approvalBody { padding: .8em; font-size: .8em; }
+.waiting { display: flex; gap: .6em; color: #a36a12; font-size: .9em; }
+.waiting > span { margin-left: auto; }
+.reviewers { margin-top: 1.2em; padding: 0; list-style: none; border: 1px solid #dfe3ec; background: white; border-radius: 6px; overflow: hidden; }
+.reviewers li { display: flex; align-items: center; gap: .65em; padding: .65em; }
+.reviewers li + li { border-top: 1px solid #e2e6ed; }
+.reviewers li[data-current] { background: #f4f6fb; }
+.reviewers li:first-child > svg { color: #14816b; }
+.reviewers strong, .decision strong { display: block; font-weight: 600; }
+.reviewers small, .decision small { display: block; margin-top: .3em; font-size: .85em; line-height: 1.4; color: #8993a6; }
+.rule { margin-top: .8em; padding: .7em; border-radius: 6px; background: #fcf0db; color: #795623; font-size: .85em; line-height: 1.4; }
+.decisionLabel { display: block; margin-top: 1.4em; font-weight: 600; }
+.decision { margin-top: .65em; padding: .7em; border: 1px solid #e0e5ed; border-radius: 6px; background: white; }
+.decision > svg { width: 2em; height: 2em; padding: .4em; border-radius: 4px; box-sizing: content-box; }
+.decision[data-tone="green"] { color: #0f806a; }
+.decision[data-tone="green"] > svg { background: #e1f5ee; }
+.decision[data-tone="amber"] { color: #986211; }
+.decision[data-tone="amber"] > svg { background: #fcf0db; }
+.decision[data-tone="red"] { color: #a32d2d; }
+.decision[data-tone="red"] > svg { background: #fbecec; }
+.note { margin-top: 1.3em; padding: 1em; min-height: 4.5em; border: 1px solid #dce2ed; border-radius: 5px; background: white; color: #909aad; font-size: .85em; line-height: 1.4; }
+.approval footer { display: grid; gap: .8em; margin-top: auto; padding: 1em; border-top: 1px solid #e2e6ee; font-size: .75em; }
+.approval footer > span { justify-content: center; padding: .9em; border-radius: 5px; background: #d9dde6; color: white; }
+.approval footer small { font-size: .85em; color: #8b94a6; }
+@container (max-width: 430px) {
+  .identity small:last-of-type, .header > span:last-child, .review header > span, .sectionLabel > span, .approval header > span { display: none; }
+  .main { padding: 1.3em; }
+  .fields { column-gap: .5em; }
+  .workflow { gap: .25em; }
+  .workflow > span { padding: .4em; }
+}

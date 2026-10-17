@@ -1,0 +1,14 @@
+.reel { --portrait-size: clamp(56px,5.5svh,76px); --portrait-gap: 12px; position: relative; width: 100%; height: calc(var(--portrait-size) * 7 + var(--portrait-gap) * 6 + 12px); min-width: 0; overflow: hidden; mask-image: linear-gradient(to bottom, transparent, black 4%, black 96%, transparent); }
+.track { position: absolute; top: calc(50% - var(--portrait-size) / 2); display: flex; flex-direction: column; gap: var(--portrait-gap); width: 100%; }
+.person { display: grid; grid-template-columns: var(--portrait-size) minmax(0,1fr); align-items: center; gap: 16px; height: var(--portrait-size); padding-inline: 6px; color: #748093; opacity: .65; text-align: left; cursor: pointer; border-radius: 12px; transition: opacity 500ms, color 500ms, background 250ms; }
+.person:hover { opacity: 1; background: #e9edf3; }.person:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; opacity: 1; }
+.portrait { display: block; width: var(--portrait-size); height: var(--portrait-size); border: 3px solid white; border-radius: 24%; background-image: url("/people/product-portraits.webp"); background-size: 300% 200%; background-origin: border-box; background-repeat: no-repeat; transform: scale(.84); transition: transform 500ms cubic-bezier(.22,1,.36,1), box-shadow 500ms; }
+.portrait[data-sheet="indian"] { background-image: url("/people/indian-portraits.webp"); background-size: 200% 200%; }
+.designation { font-size: clamp(13px,1vw,16px); line-height: 1.3; text-wrap: pretty; transition: font-weight 500ms; }
+.person[data-current="true"] { color: #171b24; opacity: 1; }
+.person[data-current="true"] .portrait { transform: scale(1); box-shadow: 0 0 0 2px var(--accent), 0 6px 14px #1b284318; }
+.person[data-last="true"] .portrait { border-color: #cf5f8e; }
+.person[data-last="true"][data-current="true"] .portrait { box-shadow: 0 0 0 2px #cf5f8e, 0 6px 14px #1b284318; }
+.person[data-current="true"] .designation { font-size: clamp(18px,1.5vw,24px); font-weight: 600; letter-spacing: -.025em; }
+@media (max-width:767px) { .reel { --portrait-size: 48px; --portrait-gap: 10px; max-width: 340px; }.designation { font-size: 14px; }.person[data-current="true"] .designation { font-size: 22px; } }
+@media (prefers-reduced-motion:reduce) { .track, .person, .portrait, .designation { transition: none; } }

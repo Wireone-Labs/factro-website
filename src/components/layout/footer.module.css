@@ -1,0 +1,52 @@
+.footer {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #080d1d;
+  color: white;
+  border-top: 1px solid #ffffff14;
+}
+
+.glow {
+  position: absolute;
+  inset: -120px 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 14% 25%, #044afe24, transparent 55%),
+    radial-gradient(ellipse at 88% 90%, #175c6e1a, transparent 50%);
+}
+
+.content {
+  position: relative;
+}
+
+.footer .complianceNote { max-width: 100ch; margin-top: 24px; color: #8b97ad; font-size: 11px; line-height: 1.7; }
+
+@media (min-width: 1920px) {
+  .footer { --page-container-width: var(--desktop-page-width); }
+  .content > div { padding-block: 80px; }
+  .footer :is(p, a, h3) { font-size: 16px; }
+  .footer .logo { height: 36px; }
+  .footer .complianceNote { font-size: 13px; }
+}
+
+.logo {
+  filter: brightness(0) invert(1);
+}
+
+.footer a:focus-visible {
+  outline: 2px solid var(--color-brand-300);
+  outline-offset: 5px;
+  border-radius: 2px;
+}
+
+.footer:focus-within .content {
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content,
+  .glow {
+    transform: none !important;
+  }
+}

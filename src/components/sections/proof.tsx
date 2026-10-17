@@ -1,58 +1,22 @@
-import {
-  FileCheck2,
-  FlaskConical,
-  Globe,
-  HeartPulse,
-  Network,
-  ShieldCheck,
-  type LucideIcon,
-} from "lucide-react";
-import { MAPPED_STANDARDS } from "@/data/compliance";
-
-const STANDARD_ICONS: Record<string, LucideIcon> = {
-  "FDA 21 CFR Part 11": ShieldCheck,
-  "EU Annex 11 / EU GMP": Globe,
-  "Revised Schedule M": FileCheck2,
-  "PIC/S GMP": Network,
-  WHO: HeartPulse,
-  "ICH Q10 / GAMP 5": FlaskConical,
-};
-
-const LOOP_STANDARDS = [...MAPPED_STANDARDS, ...MAPPED_STANDARDS];
+import { ComplianceMarquee } from "@/components/sections/compliance-marquee";
+import { Container } from "@/components/ui/container";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { INDUSTRIES } from "@/data/industries";
 
 export function Proof() {
   return (
-    <section className="py-16 sm:py-20">
-      <p className="text-center text-xs font-semibold uppercase tracking-wide text-ink-400">
-        Compliances supported
-      </p>
-      <div className="mask-fade-x mt-6 overflow-hidden pb-2">
-        <div className="animate-marquee flex w-max items-stretch gap-5 [animation-play-state:running] hover:[animation-play-state:paused]">
-          {LOOP_STANDARDS.map((standard, i) => {
-            const Icon = STANDARD_ICONS[standard.name] ?? ShieldCheck;
-            return (
-              <div
-                key={`${standard.name}-${i}`}
-                className="flex shrink-0 items-center gap-3 rounded-2xl border border-line bg-white px-6 py-4"
-              >
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
-                  <Icon className="h-5 w-5" />
-                </span>
-                <div className="text-left">
-                  <p className="text-sm font-semibold whitespace-nowrap tracking-tight text-ink-900">
-                    {standard.name}
-                  </p>
-                  {standard.region && (
-                    <p className="text-xs whitespace-nowrap text-ink-400">
-                      {standard.region}
-                    </p>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+    <section id="compliance-decoded" aria-label="Compliance decoded" className="py-16 sm:py-20">
+      <Container>
+        <SectionHeading eyebrow="Built-in controls" title="Compliance decoded." description="The standards you work to. The controls that keep them in the workflow." />
+      </Container>
+      <ComplianceMarquee industries={INDUSTRIES.map((industry) => ({
+        id: industry.id,
+        name: industry.name,
+        standards: industry.mappedStandards.map(({ name, region }) => ({
+          name: name === "WHO" ? "WHO GMP" : name,
+          region,
+        })),
+      }))} />
     </section>
   );
 }

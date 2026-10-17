@@ -9,6 +9,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { FAQS, type FaqItem } from "@/data/faq";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
+import desktopStyles from "./home-desktop.module.css";
 
 export function Faq({
   id = "faq",
@@ -50,7 +51,7 @@ export function Faq({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <Container className="max-w-3xl">
+      <Container className={`max-w-3xl ${desktopStyles.faqContainer}`}>
         <SectionHeading eyebrow={eyebrow} title={title} description={description} />
 
         <div className="mt-14 flex flex-col divide-y divide-line border-t border-b border-line">

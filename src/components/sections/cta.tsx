@@ -1,8 +1,8 @@
-import { ArrowRight, Mail } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
-import { BOOK_DEMO_HREF, SALES_MAILTO } from "@/data/nav";
+import { BOOK_DEMO_HREF } from "@/data/nav";
 
 export function Cta({
   id = "cta",
@@ -10,8 +10,6 @@ export function Cta({
   description = "Book a walkthrough with our team and see how production, quality, and compliance come together in one plant record.",
   primaryLabel = "Book a demo",
   primaryHref = BOOK_DEMO_HREF,
-  secondaryLabel = "Email our team",
-  secondaryHref = SALES_MAILTO,
   children,
 }: {
   id?: string;
@@ -19,8 +17,6 @@ export function Cta({
   description?: string;
   primaryLabel?: string;
   primaryHref?: string;
-  secondaryLabel?: string;
-  secondaryHref?: string;
   children?: React.ReactNode;
 }) {
   return (
@@ -53,21 +49,6 @@ export function Cta({
                 >
                   {primaryLabel}
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </Button>
-                <Button
-                  href={secondaryHref}
-                  variant="ghost"
-                  size="lg"
-                  className="text-white hover:bg-white/10 hover:text-white"
-                  event={
-                    secondaryHref.startsWith("mailto:")
-                      ? "contact_click"
-                      : "cta_secondary_click"
-                  }
-                  eventParams={{ location: id }}
-                >
-                  <Mail className="h-4 w-4" />
-                  {secondaryLabel}
                 </Button>
               </div>
               {children}

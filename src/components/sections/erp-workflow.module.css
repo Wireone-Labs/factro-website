@@ -1,0 +1,90 @@
+.workflow { padding-block: clamp(56px, 6vw, 100px); scroll-margin-top: 90px; }
+.eyebrow { color: var(--product-accent); font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; }
+.intro { display: grid; grid-template-columns: 1.2fr .8fr; gap: 64px; align-items: end; }
+.intro h2, .questions h2, .closing h2 { margin-top: 18px; font-size: clamp(34px, 3.8vw, 58px); font-weight: 600; line-height: 1.12; letter-spacing: -.045em; text-wrap: balance; }
+.intro h2 span { color: var(--color-ink-400); }
+.intro > p { max-width: 40ch; padding-bottom: 4px; color: var(--color-ink-500); font-size: 16px; line-height: 1.8; }
+.questionList article { padding-block: 24px; border-bottom: 1px solid var(--color-line); }
+.questionList article:first-child { padding-top: 0; }
+.questionList h3 { font-size: 17px; font-weight: 500; line-height: 1.5; }
+.questionList article p { margin-top: 12px; color: var(--color-ink-500); font-size: 15px; line-height: 1.8; }
+.tabs { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: 56px; }
+.tabs::before { content: ""; position: absolute; left: 24px; right: calc(25% - 6px); top: 24px; height: 1px; background: #e8dfcb; }
+.tabs button { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 18px; padding-bottom: 24px; color: var(--color-ink-400); border-bottom: 2px solid var(--color-line); text-align: left; cursor: pointer; transition: color .25s, border-color .25s; }
+.tabs button[aria-selected="true"] { color: var(--color-ink-900); border-color: var(--product-accent); }
+.tabs button:hover { color: var(--product-accent); }
+.station { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid #e7e1d5; border-radius: 50%; background: white; transition: background .25s, color .25s, box-shadow .25s; }
+[aria-selected="true"] .station { color: var(--product-accent); background: #fff8e5; box-shadow: 0 0 0 6px #fcfaf4; }
+.tabLabel { display: flex; align-items: baseline; gap: 10px; font-size: 16px; font-weight: 500; }
+.tabLabel small { font-size: 10px; font-weight: 400; color: var(--product-accent); }
+.panel { padding-top: 52px; }
+.panelGrid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(48px, 8vw, 120px); min-height: 335px; }
+.statement { position: relative; isolation: isolate; padding-top: 12px; animation: arrive .4s ease both; }
+.watermark { position: absolute; z-index: -1; right: 0; top: -24px; color: #f5f2e9; font-size: clamp(130px, 15vw, 210px); line-height: 1; font-weight: 600; letter-spacing: -.08em; pointer-events: none; }
+.statement h3 { max-width: 23ch; margin-top: 18px; font-size: clamp(28px, 2.6vw, 40px); line-height: 1.18; letter-spacing: -.04em; font-weight: 500; text-wrap: balance; }
+.description { max-width: 48ch; margin-top: 20px; color: var(--color-ink-500); font-size: 15px; line-height: 1.8; }
+.textLink { display: inline-flex; align-items: center; gap: 10px; margin-top: 24px; color: var(--product-accent); font-size: 13px; font-weight: 500; }
+.textLink svg { transition: transform .2s; }
+.textLink:hover svg { transform: translateX(4px); }
+.steps { display: grid; align-content: start; gap: 26px; list-style: none; }
+.steps li { position: relative; display: flex; align-items: flex-start; gap: 18px; animation: arrive .4s ease both; }
+.steps li:not(:last-child)::after { content: ""; position: absolute; top: 36px; bottom: -20px; left: 16px; width: 1px; background: #e8dfcb; }
+.stepNumber { display: grid; place-items: center; flex-shrink: 0; width: 33px; height: 33px; border: 1px solid #e8dfcb; border-radius: 50%; color: var(--product-accent); font-size: 10px; }
+.steps h4 { margin-top: 4px; font-size: 18px; font-weight: 500; letter-spacing: -.02em; }
+.steps p { max-width: 47ch; margin-top: 8px; color: var(--color-ink-500); font-size: 14px; line-height: 1.75; }
+.handoff { display: flex; align-items: center; gap: 14px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--color-line); color: var(--color-ink-500); font-size: 14px; line-height: 1.7; }
+.handoff svg { flex-shrink: 0; color: var(--product-accent); }
+.questions { padding-block: clamp(64px, 7vw, 112px); scroll-margin-top: 90px; }
+.questionGrid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(40px, 7vw, 100px); }
+.questions h2 { max-width: 13ch; font-size: clamp(32px, 3vw, 46px); }
+.questionIntro { margin-top: 20px; color: var(--color-ink-500); font-size: 15px; line-height: 1.8; max-width: 35ch; }
+.questionList details { padding-block: 24px; border-bottom: 1px solid var(--color-line); }
+.questionList details:first-child { padding-top: 0; }
+.questionList summary { display: flex; justify-content: space-between; align-items: center; gap: 24px; cursor: pointer; list-style: none; font-size: 17px; font-weight: 500; line-height: 1.5; }
+.questionList summary::-webkit-details-marker { display: none; }
+.questionList summary svg { flex-shrink: 0; color: var(--product-accent); transition: rotate .2s; }
+.questionList details[open] svg { rotate: 45deg; }
+.questionList details p { margin-top: 16px; color: var(--color-ink-500); font-size: 14px; line-height: 1.8; }
+.closing { padding-block: 64px 72px; background: linear-gradient(120deg, #fcfaf4, #fffdf8 65%, #fff); }
+.closingInner { display: flex; align-items: center; justify-content: space-between; gap: 48px; }
+.closing h2 { max-width: 22ch; font-size: clamp(34px, 3.2vw, 50px); }
+.closing p:not(.eyebrow) { max-width: 52ch; margin-top: 20px; color: var(--color-ink-500); font-size: 15px; line-height: 1.8; }
+.closingActions { display: flex; flex-direction: column; align-items: flex-start; flex-shrink: 0; }
+.closingActions .textLink { margin-top: 18px; }
+@keyframes arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@media (min-width: 1920px) {
+  .questionList article p { font-size: 17px; }
+  .intro h2 { font-size: 68px; }
+  .intro > p, .description, .questionIntro { font-size: 19px; }
+  .steps p, .handoff { font-size: 17px; }
+  .steps h4, .tabLabel { font-size: 21px; }
+  .panelGrid { min-height: 390px; }
+}
+@media (max-width: 1023px) {
+  .intro { gap: 32px; }
+  .panelGrid { gap: 36px; min-height: 380px; }
+  .tabLabel { font-size: 14px; }
+  .closingInner { align-items: flex-start; flex-direction: column; gap: 28px; }
+}
+@media (max-width: 699px) {
+  .intro, .panelGrid, .questionGrid { grid-template-columns: minmax(0, 1fr); }
+  .intro { gap: 20px; }
+  .tabs { gap: 12px 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 32px; }
+  .tabs::before { display: none; }
+  .tabs button { flex-direction: row; align-items: center; gap: 10px; padding-block: 12px; }
+  .station { width: 36px; height: 36px; flex-shrink: 0; }
+  .station svg { width: 18px; height: 18px; }
+  .tabLabel { font-size: 12px; line-height: 1.5; }
+  .tabLabel small { display: none; }
+  .panel { padding-top: 32px; }
+  .panelGrid { min-height: 0; gap: 32px; }
+  .statement h3 { font-size: 30px; }
+  .steps { gap: 24px; }
+  .handoff { align-items: flex-start; }
+  .questions h2 { max-width: none; }
+  .closing { padding-block: 48px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .statement, .steps li { animation: none; }
+  .tabs button, .station, .textLink svg, .questionList summary svg { transition: none; }
+}

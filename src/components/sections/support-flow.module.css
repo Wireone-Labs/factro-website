@@ -1,0 +1,37 @@
+.scene { min-width: 0; padding: 12px 16px 0; }
+.tickets { position: relative; padding-top: 24px; }
+.supportTicket { position: absolute; inset-inline: 0; min-height: calc(100% - 24px); border: 1px solid #d5e1f2; border-top: 3px solid #4e7ef3; border-radius: 14px; background: #fff; box-shadow: 0 18px 45px -24px #24487955; }
+.supportTicket[data-expanded="true"] { position: relative; min-height: 356px; }
+.supportTicket[data-status="Assigned"] { border-top-color: #9b7ace; background: #f6f3fc; }
+.supportTicket[data-status="Resolved"] { border-top-color: #48a78b; }
+.supportTicket[data-status="Resolved"] .status { background: #e8f6ef; color: #268163; }
+.ticketHeading { display: block; width: 100%; padding: 14px 22px 10px; text-align: left; border-radius: 12px; }
+.ticketHeader { display: flex; justify-content: space-between; align-items: center; color: #7385a3; font-size: 10px; font-weight: 400; }
+.status { padding: 3px 7px; border-radius: 4px; color: #486695; background: #eaf0fc; }
+.ticketTitle { display: block; margin-top: 8px; color: #171c2b; font-size: 15px; font-weight: 600; line-height: 1.4; }
+.ticketBody { padding: 0 22px 20px; }
+.module { color: #7385a3; font-size: 10px; }
+.requestText { margin-top: 14px; color: #4d6281; font-size: 12px; line-height: 1.7; }
+.reply { display: flex; gap: 10px; margin-top: 14px; padding: 14px; border-radius: 9px; background: #edf3ff; color: #4d6281; font-size: 11px; line-height: 1.65; }
+.avatar { display: grid; place-items: center; flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #dce8ff; color: #3e64ab; font-size: 9px; }
+.reply > div { flex: 1; }
+.reply p:first-child { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 5px; font-size: 10px; color: #637eaa; }
+.ticketMetadata { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 16px; margin-top: 14px; padding: 12px 0; border-block: 1px solid #e3eaf4; }
+.ticketMetadata dt { color: #8190a8; font-size: 9px; }
+.ticketMetadata dt span { font-size: 8px; }
+.ticketMetadata dd { margin-top: 3px; color: #4d6281; font-size: 10px; }
+@media (min-width: 1920px) {
+  .supportTicket[data-expanded="true"] { min-height: 480px; }
+  .ticketHeading { padding: 24px 32px 14px; }
+  .ticketHeader, .module { font-size: 14px; }
+  .ticketTitle { font-size: 22px; }
+  .ticketBody { padding: 0 32px 28px; }
+  .ticketMetadata { gap: 16px 24px; margin-top: 20px; padding-block: 20px; }
+  .ticketMetadata dt { font-size: 13px; }
+  .ticketMetadata dt span { font-size: 12px; }
+  .ticketMetadata dd { font-size: 15px; }
+  .requestText { font-size: 17px; }
+  .reply { margin-top: 20px; padding: 20px; font-size: 16px; }
+  .reply p:first-child { font-size: 14px; }
+}
+@media (max-width: 599px) { .scene { padding-inline: 5px; } .ticketHeading { padding-inline: 16px; } .ticketBody { padding-inline: 16px; } .ticketTitle { font-size: 13px; } }

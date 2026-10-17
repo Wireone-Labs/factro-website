@@ -22,6 +22,7 @@ export function Reveal({
 
   return (
     <Component
+      data-reveal
       className={className}
       initial="hidden"
       whileInView="visible"
@@ -45,6 +46,7 @@ export function RevealGroup({
 }) {
   return (
     <motion.div
+      data-reveal
       className={className}
       initial="hidden"
       whileInView="visible"

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import { PRODUCT_PAGES } from "@/data/product-pages";
 
 export const SITE_URL = "https://factro.io";
 export const SITE_NAME = "Factro";
 export const SITE_DESCRIPTION =
-  "Factro is a compliance-native ERP for regulated manufacturers — pharmaceuticals, medical devices, food & beverage, nutraceuticals, cosmetics, veterinary and API/CDMO — running supply chain, batch execution and quality on one record, with compliance built into the architecture rather than configured on top.";
-export const SITE_TAGLINE = "AI-First ERP for Regulated Manufacturing";
+  "Factro is a Digital Manufacturing Platform (DMP) for regulated manufacturers, connecting ERP, MES and QMS on one foundation. Run business, production and quality with compliance controls, coordinated work and evidence-backed intelligence built in.";
+export const SITE_TAGLINE = "Digital Manufacturing Platform for Regulated Manufacturing";
 
 export interface SiteRoute {
   path: string;
@@ -31,7 +32,14 @@ const INDUSTRY_SLUGS = [
 
 export const SITE_ROUTES: SiteRoute[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
-  { path: "/modules", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/products", changeFrequency: "monthly", priority: 0.8 },
+  ...PRODUCT_PAGES.map((product): SiteRoute => ({ path: `/${product.slug}`, changeFrequency: "monthly", priority: 0.8 })),
+  { path: "/solutions", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/solutions/erp", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/solutions/mes", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/solutions/qms", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/solutions/platform", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/how-it-works", changeFrequency: "monthly", priority: 0.8 },
   { path: "/industries", changeFrequency: "monthly", priority: 0.8 },
   ...INDUSTRY_SLUGS.map(
     (slug): SiteRoute => ({
@@ -40,9 +48,8 @@ export const SITE_ROUTES: SiteRoute[] = [
       priority: 0.8,
     }),
   ),
-  { path: "/infrastructure-security", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/security-trust", changeFrequency: "monthly", priority: 0.7 },
   { path: "/demo", changeFrequency: "monthly", priority: 0.9 },
-  { path: "/contact-us", changeFrequency: "monthly", priority: 0.9 },
   { path: "/about", changeFrequency: "monthly", priority: 0.5 },
   { path: "/privacy", changeFrequency: "yearly", priority: 0.2 },
   { path: "/terms", changeFrequency: "yearly", priority: 0.2 },

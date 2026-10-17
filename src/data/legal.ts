@@ -67,7 +67,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     id: "your-rights",
     title: "Your Rights & Choices",
     paragraphs: [
-      "Depending on where you're located, you may have the right to access, correct, export, or delete personal information we hold about you, or to object to certain processing. To exercise any of these rights, contact us using the details below.",
+      "Depending on where you're located, you may have the right to access, correct, export, or delete personal information we hold about you, or to object to certain processing. To exercise any of these rights, use the email address in the Privacy questions section.",
     ],
   },
   {
@@ -86,7 +86,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
   },
   {
     id: "contact",
-    title: "Contact Us",
+    title: "Privacy questions",
     paragraphs: [
       "Questions about this policy or how your data is handled? Reach us at the email address below.",
     ],
@@ -191,7 +191,7 @@ export const TERMS_SECTIONS: LegalSection[] = [
   },
   {
     id: "contact",
-    title: "Contact Us",
+    title: "Terms questions",
     paragraphs: [
       "Questions about these Terms? Reach us at the email address below.",
     ],

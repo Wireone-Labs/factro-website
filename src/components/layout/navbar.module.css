@@ -1,0 +1,25 @@
+.header { pointer-events: none; }
+.nav { min-height: 72px; padding: 10px clamp(20px, 3vw, 64px); pointer-events: auto; }
+.nav::before { content: ""; position: absolute; inset: 0; z-index: -1; border-bottom: 1px solid var(--color-line); background: rgb(255 255 255 / .94); box-shadow: 0 8px 28px -22px rgb(15 14 23 / .2); backdrop-filter: blur(18px); transition: opacity .28s ease, transform .28s ease; }
+.logo { position: relative; display: flex; align-items: center; padding: 8px 10px; margin-left: -10px; border-radius: 10px; background: rgb(255 255 255 / .94); pointer-events: auto; }
+.links, .actions { transition: opacity .24s ease, translate .28s ease; }
+.header > div { pointer-events: auto; }
+.menuTrigger { position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 8px 16px; border-radius: 11px; font-size: 15px; line-height: 1.3; color: #515969; white-space: nowrap; cursor: pointer; transition: color .18s,background .18s; }
+.menuTrigger:hover, .menuTrigger[aria-current="page"] { color: #101217; }
+.menuTrigger[data-open="true"] { color: #273cff; background: #edf0ff; }
+.menuTrigger svg { transition: transform .18s; }
+.menuTrigger[data-open="true"] svg { transform: rotate(180deg); }
+.menuTrigger:focus-visible { outline: 2px solid #273cff; outline-offset: 2px; }
+.demoButton { background: #2635f5; box-shadow: none; }
+.demoButton:hover { background: #1827db; }
+.popover { position: absolute; top: 100%; right: calc(max(24px,(100vw - 1200px) / 2) + 20px); z-index: 3; padding-top: 8px; }
+.popover[data-layout="industries"] { right: max(24px,(100vw - 1200px) / 2); }
+.scrim { position: absolute; inset: 100% 0 auto; height: 100svh; z-index: -1; background: rgb(231 234 241 / .8); }
+@media (max-width:1279px) { .popover, .scrim { display: none; } }
+@media (min-width:1280px) and (max-height:520px) { .popover { max-height: calc(100svh - 72px); overflow-y: auto; overscroll-behavior: contain; } }
+@media (max-width: 699px) {
+  .nav { min-height: 64px; padding-block: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav::before, .links, .actions, .menuTrigger, .menuTrigger svg { transition: none; }
+}

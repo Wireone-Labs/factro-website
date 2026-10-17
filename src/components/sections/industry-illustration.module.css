@@ -1,0 +1,42 @@
+.illustration { margin: 0 -8px 24px; background: radial-gradient(ellipse at 50% 70%, #ffffffb3, transparent 70%); }
+.illustration svg { display: block; width: 100%; height: auto; }
+.connection { animation: evidence-flow 3s linear infinite; }
+.product { color: var(--accent); }
+.product[data-running="false"] * { animation-play-state: paused !important; }
+.monitorTrace { stroke-dasharray: 1; animation: monitor-trace 3.2s ease-in-out infinite; }
+.deviceScan { animation: device-scan 3.2s ease-in-out infinite; }
+.statusLight { animation: status-light 3.2s ease-in-out infinite; }
+.impeller { transform-box: fill-box; transform-origin: center; animation: stir 1.5s linear infinite; }
+.liquidSurface { animation: liquid-surface 2s ease-in-out infinite; }
+.reactorBubble { animation: reactor-bubble 2.6s ease-out infinite; }
+.pipeFlow, .sampleFlow, .traceRoute { animation: evidence-flow 2s linear infinite; }
+.sampleCapsule { animation: sample-capsule 4s cubic-bezier(.4,0,.2,1) infinite; }
+.identityCheck { stroke-dasharray: 1; animation: identity-check 4s ease-in-out infinite; }
+.roller { transform-origin: 0 0; animation: roller-turn 2s linear infinite; }
+.carton { animation: carton-convey 4s ease-in-out infinite; }
+.clearanceScan { animation: clearance-scan 4s ease-in-out infinite; }
+.pump { animation: pump-press 3.6s ease-in-out infinite; }
+.serumDrop { animation: serum-drop 3.6s ease-in infinite; }
+.formulaLevel { animation: formula-level 3.6s ease-in-out infinite; }
+.vial { animation: vial-inspect 3.9s cubic-bezier(.4,0,.2,1) infinite; }
+.labelScan { animation: label-scan 3.9s ease-in-out infinite; }
+.traceNode, .vetBottle { animation: trace-node 3.6s ease-in-out infinite; }
+@keyframes evidence-flow { to { stroke-dashoffset: -28; } }
+@keyframes monitor-trace { 0% { stroke-dashoffset: 1; opacity: .3; } 55%,80% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .25; } }
+@keyframes device-scan { 0%,100% { transform: translateY(0); opacity: .3; } 50% { transform: translateY(20px); opacity: 1; } }
+@keyframes status-light { 0%,100% { opacity: .35; } 45%,65% { opacity: 1; } }
+@keyframes stir { 0%,100% { transform: scaleX(1); } 25%,75% { transform: scaleX(.2); } 50% { transform: scaleX(-1); } }
+@keyframes liquid-surface { 0%,100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+@keyframes reactor-bubble { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: .7; } 100% { transform: translateY(-27px); opacity: 0; } }
+@keyframes sample-capsule { 0%,15%,100% { transform: translateY(0); } 55%,75% { transform: translateY(16px); } }
+@keyframes identity-check { 0%,35% { stroke-dashoffset: 1; opacity: .2; } 60%,85% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: .2; } }
+@keyframes roller-turn { to { transform: rotate(360deg); } }
+@keyframes carton-convey { 0%,10%,100% { transform: translateX(-6px); } 35%,70% { transform: translateX(6px); } }
+@keyframes clearance-scan { 0%,25%,90%,100% { transform: translateY(-20px); opacity: 0; } 35% { opacity: .8; } 70% { transform: translateY(42px); opacity: .8; } }
+@keyframes pump-press { 0%,15%,65%,100% { transform: translateY(0); } 25%,40% { transform: translateY(5px); } }
+@keyframes serum-drop { 0%,22%,80%,100% { transform: translateY(0); opacity: 0; } 30% { opacity: .8; } 65% { transform: translateY(37px); opacity: 0; } }
+@keyframes formula-level { 0%,20%,100% { opacity: .3; } 45%,75% { opacity: 1; } }
+@keyframes vial-inspect { 0%,15%,100% { transform: translateY(0); } 35%,65% { transform: translateY(-8px); } }
+@keyframes label-scan { 0%,20%,90%,100% { transform: translateY(0); opacity: 0; } 35% { opacity: .8; } 70% { transform: translateY(15px); opacity: .8; } }
+@keyframes trace-node { 0%,100% { opacity: .4; } 35%,60% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .connection, .product * { animation: none !important; } }

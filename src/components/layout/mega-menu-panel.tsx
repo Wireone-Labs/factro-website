@@ -1,82 +1,37 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { IconTile } from "@/components/ui/icon-tile";
 import type { MegaMenu } from "@/data/nav";
-import { cn } from "@/lib/utils";
+import { industryTheme } from "@/data/industry-themes";
+import styles from "./mega-menu-panel.module.css";
 
-export function MegaMenuPanel({ menu }: { menu: MegaMenu }) {
-  const colCount = menu.columns.length;
-  const panelWidth =
-    colCount >= 5
-      ? "w-[min(96vw,1180px)]"
-      : colCount === 4
-        ? "w-[min(94vw,960px)]"
-        : "w-[min(90vw,680px)]";
-  const gridCols =
-    colCount >= 5
-      ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5"
-      : colCount === 4
-        ? "grid-cols-2 sm:grid-cols-4"
-        : "grid-cols-1 sm:grid-cols-3";
-
-  return (
-    <div
-      className={cn(
-        "overflow-hidden rounded-2xl border border-line bg-white/95 shadow-[0_24px_60px_-20px_rgba(15,14,23,0.25)] backdrop-blur-xl",
-        panelWidth,
-      )}
-    >
-      <div className="border-b border-line px-6 py-4">
-        <p className="text-sm text-ink-500">{menu.description}</p>
-      </div>
-
-      <div className={cn("grid gap-x-6 gap-y-8 p-6", gridCols)}>
-        {menu.columns.map((col, i) => (
-          <div key={col.heading || i}>
-            {col.heading && (
-              <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-ink-400">
-                {col.heading}
-              </p>
-            )}
-            <ul className="flex flex-col gap-0.5">
-              {col.items.map((item) => (
-                <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    className="group -mx-2 flex items-start gap-3 rounded-xl p-2 transition-colors hover:bg-mist"
-                  >
-                    <IconTile
-                      icon={item.icon}
-                      size="sm"
-                      className="mt-0.5 transition-colors duration-200 group-hover:border-brand-200 group-hover:bg-brand-100"
-                    />
-                    <span className="min-w-0">
-                      <span className="block text-sm font-medium text-ink-900">
-                        {item.label}
-                      </span>
-                      <span className="block text-xs text-ink-400">
-                        {item.description}
-                      </span>
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-
-      {menu.footerLabel && menu.footerHref && (
-        <div className="border-t border-line bg-mist/50 px-6 py-3">
-          <Link
-            href={menu.footerHref}
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-600 hover:text-brand-700"
-          >
-            {menu.footerLabel}
-            <ArrowRight className="h-3.5 w-3.5" />
+export function MegaMenuPanel({ menu, onNavigate }: { menu: MegaMenu; onNavigate?: () => void }) {
+  return <div className={styles.panel} data-layout={menu.layout}>
+    <div className={styles.main}>
+      <p className={styles.label}>{menu.heading}</p>
+      <ul className={styles.items}>
+        {menu.items.map(({ icon: Icon, ...item }) => <li key={item.href} data-divided={item.divided}>
+          <Link href={item.href} onClick={onNavigate} className={styles.item} data-industry={item.industry} style={item.industry ? industryTheme(item.industry) : undefined}>
+            <span className={styles.icon} data-tone={item.tone}><Icon size={18} strokeWidth={1.75} aria-hidden="true" /></span>
+            <span className={styles.copy}>
+              <span className={styles.title}>{item.label}{item.badge && <span className={styles.badge}>{item.badge}</span>}<ArrowRight className={styles.itemArrow} size={13} aria-hidden="true" /></span>
+              <span className={styles.description}>{item.description}</span>
+            </span>
           </Link>
-        </div>
-      )}
+        </li>)}
+      </ul>
     </div>
-  );
+    <aside className={styles.aside}>
+      <div>
+        <p className={styles.label}>{menu.feature.eyebrow}</p>
+        <h2>{menu.feature.title}</h2>
+        <p className={styles.description}>{menu.feature.description}</p>
+        <Link href={menu.feature.href} onClick={onNavigate} className={styles.action}>{menu.feature.label}<ArrowRight size={14} aria-hidden="true" /></Link>
+      </div>
+      <div className={styles.contact}>
+        <h3>{menu.contact.title}</h3>
+        <p className={styles.description}>{menu.contact.description}</p>
+        <Link href={menu.contact.href} onClick={onNavigate} className={styles.action}>{menu.contact.label}<ArrowRight size={14} aria-hidden="true" /></Link>
+      </div>
+    </aside>
+  </div>;
 }
