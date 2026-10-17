@@ -22,7 +22,7 @@ export function SupportFlow() {
         return <motion.article key={ticket.id} className={styles.supportTicket} data-status={ticket.status} data-expanded={expanded}
           aria-hidden={!expanded} style={{ top: expanded ? undefined : index * 12, zIndex: index + 1 }}
           initial={reducedMotion ? false : { opacity: 0, x: 0, y: 90, rotate: 0 }}
-          animate={reducedMotion ? { opacity: 1, x: 0, y: 0, rotate: 0 } : inView ? { opacity: [0, 1, 1, 1], x: [0, index % 2 ? 75 : -75, index % 2 ? -22 : 22, 0], y: [90, -20 - index * 10, 8, 0], rotate: [0, index % 2 ? 9 : -9, index % 2 ? -3 : 3, expanded ? 0 : index === 0 ? -1 : 0.5] } : { opacity: 0, x: 0, y: 90, rotate: 0 }}
+          animate={reducedMotion ? { opacity: 1, x: 0, y: 0, rotate: 0 } : inView ? { opacity: [0, 1, 1, 1], x: [0, index % 2 ? 32 : -32, index % 2 ? -10 : 10, 0], y: [90, -20 - index * 10, 8, 0], rotate: [0, index % 2 ? 5 : -5, index % 2 ? -3 : 3, expanded ? 0 : index === 0 ? -1 : 0.5] } : { opacity: 0, x: 0, y: 90, rotate: 0 }}
           transition={{ duration: reducedMotion ? 0 : 1.5, delay: reducedMotion ? 0 : index * 0.16, times: [0, 0.4, 0.75, 1], ease: "easeInOut" }}>
           {expanded && <><h3 className={styles.ticketHeading}>
             <span className={styles.ticketHeader}><span>{ticket.id}</span><span className={styles.status}>{ticket.status}</span></span>

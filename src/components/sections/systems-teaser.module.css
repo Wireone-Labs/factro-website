@@ -49,6 +49,7 @@
 :global(#modules):has(.products[data-pinned="true"]) { padding-block: 0; scroll-margin-top: 72px; }
 .productProgress { position: sticky; top: 96px; z-index: 2; display: flex; align-items: center; justify-content: center; gap: 32px; height: 50px; background: white; color: #8491a4; font-size: 12px; }
 .products[data-pinned="true"] .productProgress { position: static; }
+@media (max-width: 1023px) { .productProgress { top: 0; } }
 .productProgress button { display: flex; align-items: center; gap: 8px; min-height: 40px; cursor: pointer; transition: color .2s; }
 .productProgress button:hover, .productProgress button[aria-current="step"] { color: var(--product-accent); }
 .productProgress button:focus-visible { outline: 2px solid var(--product-accent); outline-offset: 4px; border-radius: 3px; }

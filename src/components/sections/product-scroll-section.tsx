@@ -55,10 +55,11 @@ export function ProductScrollSection({ id, heading, slides, aliases = [], tone =
     const viewport = viewportRef.current;
     if (!viewport) return;
     const contents = Array.from(viewport.querySelectorAll<HTMLElement>("[data-viewport-content]"));
-    const update = () => contents.forEach(content => {
-      const scale = scroll.enabled && content.offsetHeight ? Math.min(1, viewport.clientHeight / content.offsetHeight) : 1;
-      content.style.setProperty("--panel-scale", String(scale));
-    });
+    const update = () => {
+      // One scale for every panel, so switching slides never changes the type size.
+      const scale = scroll.enabled ? Math.min(1, ...contents.map(content => content.offsetHeight ? viewport.clientHeight / content.offsetHeight : 1)) : 1;
+      contents.forEach(content => content.style.setProperty("--panel-scale", String(scale)));
+    };
     const observer = new ResizeObserver(update);
     observer.observe(viewport);
     contents.forEach(content => observer.observe(content));

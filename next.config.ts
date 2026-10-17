@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
       { source: "/neural-engine", destination: "/how-it-works#neural-engine", permanent: true },
       { source: "/infrastructure-security", destination: "/security-trust#security", permanent: true },
       { source: "/solutions/platform/trust-center", destination: "/security-trust", permanent: true },
+      { source: "/solutions/platform", destination: "/how-it-works", permanent: true },
+      { source: "/solutions/:product(erp|mes|qms)", destination: "/:product", permanent: true },
+      { source: "/solutions", destination: "/products", permanent: true },
+      { source: "/platform", destination: "/how-it-works", permanent: true },
+      { source: "/modules", destination: "/products", permanent: true },
       {
         source: "/compliances",
         destination: "/industries/pharmaceuticals",

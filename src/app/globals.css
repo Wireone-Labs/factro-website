@@ -98,6 +98,14 @@
     }
   }
 
+  :where(h1, h2, h3, h4) {
+    text-wrap: balance;
+  }
+
+  :where(p, li, dd) {
+    text-wrap: pretty;
+  }
+
   body {
     background: var(--background);
     color: var(--foreground);
@@ -158,6 +166,12 @@
       transparent
     );
   }
+}
+
+main [data-offscreen="true"] *,
+main [data-offscreen="true"] *::before,
+main [data-offscreen="true"] *::after {
+  animation-play-state: paused !important;
 }
 
 [data-bullet-list][data-bullets-visible="false"] > li {
