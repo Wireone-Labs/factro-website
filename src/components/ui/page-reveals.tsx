@@ -53,7 +53,7 @@ export function PageReveals({ children }: { children: React.ReactNode }) {
         const animation = item.animate([
           { opacity: 0, transform: "translateY(10px)" },
           { opacity: 1, transform: "translateY(0)" },
-        ], { duration: 500, delay: 250 + Math.min(index, 7) * 220, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
+        ], { duration: 450, delay: 120 + Math.min(index, 6) * 90, easing: "cubic-bezier(.22,1,.36,1)", fill: "backwards" });
         animations.add(animation);
         animation.onfinish = animation.oncancel = () => animations.delete(animation);
       });

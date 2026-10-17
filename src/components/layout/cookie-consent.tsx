@@ -44,20 +44,20 @@ export function CookieConsent() {
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           role="dialog"
           aria-label="Cookie consent"
-          className="fixed inset-x-4 bottom-4 z-[70] sm:inset-x-auto sm:right-6 sm:bottom-6 sm:w-[26rem]"
+          className="fixed inset-x-3 bottom-3 z-[70] sm:inset-x-auto sm:right-6 sm:bottom-6 sm:w-[26rem]"
         >
-          <div className="relative overflow-hidden rounded-2xl border border-line bg-white/95 p-5 shadow-[0_30px_70px_-24px_rgba(15,14,23,0.28)] backdrop-blur-xl">
+          <div className="relative overflow-hidden rounded-2xl border border-line bg-white/95 p-4 sm:p-5 shadow-[0_30px_70px_-24px_rgba(15,14,23,0.28)] backdrop-blur-xl">
             <div className="pointer-events-none absolute -top-10 -right-10 h-32 w-32 rounded-full bg-brand-200/40 blur-2xl" />
 
             <div className="relative flex items-start gap-3.5">
-              <IconTile icon={Cookie} className="shrink-0" />
+              <IconTile icon={Cookie} className="hidden sm:inline-flex" />
               <div className="min-w-0">
                 <h2 className="text-sm font-semibold text-ink-900">
                   We use cookies
                 </h2>
-                <p className="mt-1.5 text-sm leading-relaxed text-ink-500">
+                <p className="mt-1 text-xs leading-relaxed text-ink-500 sm:mt-1.5 sm:text-sm">
                   Just enough to remember your preferences and understand how
-                  the site is used — nothing sold, nothing shared. See our{" "}
+                  the site is used. Nothing sold, nothing shared. See our{" "}
                   <Link
                     href="/privacy"
                     className="font-medium text-brand-600 underline underline-offset-2 hover:text-brand-700"
@@ -69,7 +69,7 @@ export function CookieConsent() {
               </div>
             </div>
 
-            <div className="relative mt-4 flex justify-end gap-2">
+            <div className="relative mt-3 flex justify-end gap-2 sm:mt-4">
               <Button
                 variant="ghost"
                 size="md"

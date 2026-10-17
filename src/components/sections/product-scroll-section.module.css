@@ -44,6 +44,6 @@
 @media (max-width:1023px) { .navigation a { font-size: 11px; gap: 5px; } }
 @media (max-width:767px) {
   .section { padding-top: 48px; }.heading { padding-bottom: 20px; }.heading > div { text-align: left; }.heading h2 { font-size: 32px; }.heading > div > p { font-size: 14px; margin-top: 16px; }
-  .navigation ol { gap: 4px 20px; justify-content: flex-start; }.navigation a { min-height: 32px; }.content { padding-block: 32px; }
+  .navigation ol { gap: 4px 20px; justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; mask-image: linear-gradient(90deg, #000 85%, transparent); }.navigation li { flex-shrink: 0; }.navigation a { min-height: 32px; }.content { padding-block: 32px; }
 }
 @media (prefers-reduced-motion:reduce) { .section *, .section *::before, .section *::after { animation: none !important; transition: none !important; } }

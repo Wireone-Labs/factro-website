@@ -1,5 +1,6 @@
 .landscape { container-type: inline-size; min-width: 0; width: 100%; max-width: var(--hero-artwork-width,100%); margin-inline: auto; }
 .tabs { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); align-items: center; gap: 18px; border-top: 1px solid #dfe4ed; margin: 12px 0 0; padding-top: 8px; }
+.tabs span { white-space: nowrap; }
 .tabs button { display: flex; align-items: center; gap: 10px; min-width: 0; min-height: 64px; padding: 6px 0; background: transparent; border: 0; color: #8b95a6; text-align: left; cursor: pointer; }
 .tabs button:nth-child(2) { justify-content: center; }.tabs button:last-child { justify-content: flex-end; }
 .tabs i { flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; background: #b0b8c5; transition: transform .4s, background .4s, box-shadow .4s; }

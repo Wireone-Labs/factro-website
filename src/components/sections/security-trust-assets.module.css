@@ -135,6 +135,9 @@
   .backupVisual { padding-inline: 10px; }.calendar { gap: 3px; }.calendar i { width: 22px; height: 25px; }.backupStatus > strong, .asset .backupStatus { font-size: 7px; }.backupFlow small, .regions small { font-size: 7px; }.replicaLabels { gap: 5px; }.replicaLabels > span { font-size: 7px; }
 }
 @media (min-width: 768px) and (max-height: 800px) { .layer { min-height: 66px; padding-block: 9px; }.layerStack { gap: 8px; }.layerFrame { padding: 20px; } }
+@media (min-width: 768px) and (max-width: 1023px) {
+  .requestPath { grid-template-columns: 1fr; gap: 14px; }.requestPath article { display: grid; grid-template-columns: 1fr 1.2fr; gap: 0 22px; padding: 20px; }.requestPath article header { grid-column: 1; }.requestPath header > svg { display: none; }.requestPath h3 { grid-column: 1; margin-top: 16px; font-size: 18px; }.requestPath article > p { grid-column: 1; min-height: 0; font-size: 11px; margin-top: 9px; }.asset .controlRows { grid-column: 2; grid-row: 1 / 5; margin: 0; align-self: center; }.controlRows strong { font-size: 10px; }.controlRows li { min-height: 42px; }.requestPath article > footer { grid-column: 1; margin-top: 17px; }
+}
 @media (max-width: 767px) {
   .layerFrame { padding: 20px; }.layer { grid-template-columns: 38px 84px 1fr; min-height: 76px; }.layerName strong { font-size: 14px; }
   .miniLog, .miniAccess, .miniVault { max-width: 430px; min-height: 247px; }.miniLog th, .miniLog td { padding-inline: 15px; }.miniPermission { padding-inline: 16px; gap: 12px; }.miniPermission strong { font-size: 11px; }.miniPermission .avatar { width: 34px; height: 34px; }.miniVault { padding-inline: 20px; }
@@ -145,6 +148,7 @@
   .backupVisual { padding: 20px 20px 13px; min-height: 220px; }.calendar { gap: 6px; }.calendar i { width: 29px; height: 29px; }.asset .backupStatus, .backupStatus > strong { font-size: 9px; }.backupFlow small, .regions small { font-size: 9px; }.replicaLabels > span { font-size: 9px; }.replicaLabels { gap: 12px; }.restorePoints > span { font-size: 9px; }.snapshotTitle { padding-top: 5px; }.snapshotTitle strong { font-size: 12px; }.snapshotTitle small { font-size: 9px; }
 }
 @media (max-width: 420px) {
+  .requestPath article { grid-template-columns: 1fr; }.asset .controlRows { grid-column: 1; grid-row: auto; margin-top: 14px; }
   .layerFrame { padding: 15px; }.layerFrame .eyebrow > small { max-width: 75px; text-align: right; font-size: 7px; }.layer { grid-template-columns: 33px 1fr; gap: 5px 11px; padding: 12px; }.layerIcon { grid-row: 1 / 3; width: 33px; height: 33px; border-radius: 9px; }.layerName { display: flex; align-items: center; gap: 7px; }.layerName small { margin-bottom: 0; }.layerName strong { font-size: 13px; }.layerTags { grid-column: 2; }.layerTags > span { font-size: 8px; }
   .databaseFrame { padding: 16px; }.databaseBoundary { padding: 11px; }.encryptedLayer { padding: 12px; }.databaseCore { gap: 14px; padding: 28px 0 12px; flex-direction: column; text-align: center; }.cylinder { height: 104px; }.tenantKey { padding: 12px; gap: 9px; }.tenantKey > span { width: 33px; height: 36px; }.tenantKey > svg { width: 23px; }.tenantKey strong { font-size: 10px; line-height: 1.5; }.tenantKey small { font-size: 7px; }.encryptionTargets { gap: 14px; }
   .requestPath article { padding: 17px; gap: 0 16px; }.controlRows strong { font-size: 9px; }.requestPath article > p { font-size: 10px; }.requestPath h3 { font-size: 16px; }

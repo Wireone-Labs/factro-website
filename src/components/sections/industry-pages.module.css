@@ -45,6 +45,8 @@
 .disclaimer { color: #98a0ac; font-size: 11px; line-height: 1.7; margin-top: 24px; }
 .detailGrid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 28px; }
 .detailGrid > :only-child { grid-column: 1 / -1; }
+@media (min-width: 768px) { .detailGrid { align-items: start; } .detailGrid > :last-child:nth-child(odd) { grid-column: 1 / -1; } }
+@media (max-width: 480px) { .tableWrap table { min-width: 0; } .tableWrap th, .tableWrap td { padding: 10px; } }
 .detailBlock { min-width: 0; }
 .detailBlock h3 { font-size: 16px; font-weight: 600; margin-bottom: 16px; }
 .detailBlock > p { color: #747e8e; font-size: 13px; line-height: 1.8; margin-bottom: 18px; }

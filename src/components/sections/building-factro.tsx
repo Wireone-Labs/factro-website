@@ -41,7 +41,7 @@ export function BuildingFactro() {
     <section className="py-10 sm:py-12" aria-labelledby="building-factro-title">
       <Container>
         <div className="relative isolate overflow-hidden">
-          <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 -z-10 w-full max-w-lg select-none opacity-15 [&>svg]:h-full">
+          <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 -z-10 hidden w-full max-w-lg select-none opacity-15 lg:block [&>svg]:h-full">
             <SouthIndiaMap />
           </div>
           <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
