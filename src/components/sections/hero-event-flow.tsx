@@ -148,7 +148,7 @@ function RobotArm({ secondary = false }: { secondary?: boolean }) {
     let lastUpdate = 0;
     const update = (now: number) => {
       frame = requestAnimationFrame(update);
-      if (now - lastUpdate < 32) return;
+      if (now - lastUpdate < 32 || scene.closest('[data-offscreen="true"]') || !scene.getClientRects().length) return;
       lastUpdate = now;
       const screenMatrix = arm.closest<SVGGElement>("[data-factory-world]")?.getScreenCTM() ?? scene.getScreenCTM();
       if (!screenMatrix) return;
@@ -604,7 +604,7 @@ function WeldingStation() {
     let lastUpdate = 0;
     const update = (now: number) => {
       frame = requestAnimationFrame(update);
-      if (now - lastUpdate < 32) return;
+      if (now - lastUpdate < 32 || world.closest('[data-offscreen="true"]')) return;
       lastUpdate = now;
       station.dataset.welding = "false";
       if (motion.matches || !station.getClientRects().length) return;

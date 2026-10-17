@@ -61,8 +61,17 @@ export function PageReveals({ children }: { children: React.ReactNode }) {
     const bullets = new IntersectionObserver(entries => {
       entries.forEach(entry => updateList(entry.target as HTMLElement, entry.isIntersecting));
     }, { rootMargin: "0px 0px -16px 0px", threshold: 0.05 });
+    // Infinite CSS animations and frame loops keep running off-screen; pause them per section.
+    const sections = new IntersectionObserver(entries => {
+      entries.forEach(entry => { (entry.target as HTMLElement).dataset.offscreen = String(!entry.isIntersecting); });
+    }, { rootMargin: "200px 0px" });
 
     function observe() {
+      region?.querySelectorAll("section").forEach(section => {
+        if (seen.has(section)) return;
+        seen.add(section);
+        sections.observe(section);
+      });
       if (pathname !== "/") region?.querySelectorAll("h1, h2, h3").forEach(element => {
         if (seen.has(element) || element.closest("nav, li, [data-native-asset], [data-no-reveal], [data-reveal], [data-viewport-panel], [role=tablist]")) return;
         seen.add(element);
@@ -101,6 +110,7 @@ export function PageReveals({ children }: { children: React.ReactNode }) {
     return () => {
       headings.disconnect();
       bullets.disconnect();
+      sections.disconnect();
       mutations.disconnect();
       preference.removeEventListener("change", cancelMotion);
       animations.forEach(animation => animation.cancel());

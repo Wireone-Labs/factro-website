@@ -160,6 +160,12 @@
   }
 }
 
+main [data-offscreen="true"] *,
+main [data-offscreen="true"] *::before,
+main [data-offscreen="true"] *::after {
+  animation-play-state: paused !important;
+}
+
 [data-bullet-list][data-bullets-visible="false"] > li {
   opacity: 0;
   transform: translateY(10px);

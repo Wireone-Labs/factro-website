@@ -25,8 +25,6 @@ A single site can carry more than one regulatory pack at once — see [all indus
 - [Connected System](https://factro.io/one): ERP + MES + QMS on one record, with Work Management, Genealogy, CAPA, Unified Testing and Realtime Insights. Capability details live within each product page; there are no separate module pages.
 - [Security & Trust](https://factro.io/security-trust): AWS-hosted in India (Mumbai/Hyderabad), per-tenant encryption, independently penetration tested, 99% uptime target.
 
-- [DMP — Digital Manufacturing Platform](https://factro.io/solutions/platform): The three solutions on one foundation: Compliance Engine, Task Manager and Intelligence Layer, with immutable audit trails, signatures and infrastructure controls built in.
-
 ## Company
 
 - [About](https://factro.io/about): Factro is built by Wireone Labs in Bengaluru. Thirty days to go-live, committed — two months free if late. Demos run on-site, at Factro's expense.

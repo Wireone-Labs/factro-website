@@ -34,11 +34,6 @@ export const SITE_ROUTES: SiteRoute[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/products", changeFrequency: "monthly", priority: 0.8 },
   ...PRODUCT_PAGES.map((product): SiteRoute => ({ path: `/${product.slug}`, changeFrequency: "monthly", priority: 0.8 })),
-  { path: "/solutions", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/solutions/erp", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/solutions/mes", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/solutions/qms", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/solutions/platform", changeFrequency: "monthly", priority: 0.8 },
   { path: "/how-it-works", changeFrequency: "monthly", priority: 0.8 },
   { path: "/industries", changeFrequency: "monthly", priority: 0.8 },
   ...INDUSTRY_SLUGS.map(

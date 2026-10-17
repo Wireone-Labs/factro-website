@@ -143,7 +143,7 @@ export const viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-white text-ink-900 font-sans">
         <script
           type="application/ld+json"
